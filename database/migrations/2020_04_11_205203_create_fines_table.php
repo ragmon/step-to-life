@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePunishmentsTable extends Migration
+class CreateFinesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreatePunishmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('punishments', function (Blueprint $table) {
+        Schema::create('fines', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('to_resident_id')->index();
-            $table->unsignedBigInteger('user_id ')->index();
-            $table->text('description');
-            $table->date('start_at');
-            $table->date('end_at');
-            $table->date('finished_at')->nullable();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->string('description');
+            $table->bigInteger('sum');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +30,6 @@ class CreatePunishmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('punishments');
+        Schema::dropIfExists('fines');
     }
 }
