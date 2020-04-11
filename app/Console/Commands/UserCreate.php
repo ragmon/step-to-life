@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class UserCreate extends Command
@@ -51,6 +52,9 @@ class UserCreate extends Command
             } else {
                 $user->$fillable = $this->ask(($key+1) . "/" . count($fillables) . " User $fillable");
             }
+        }
+        if ($this->confirm('Do you want to verify user email?', true)) {
+            $user->email_verified_at = Carbon::now();
         }
         if ($this->confirm("Do you want to create the user?", true)) {
             $user->save();
