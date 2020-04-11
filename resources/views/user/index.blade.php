@@ -3,7 +3,6 @@
 @section('title', 'Команда')
 
 @section('content_header')
-{{--    <h1 class="m-0 text-dark">Команда</h1>--}}
     <div class="row mb-2">
         <div class="col-6">
             <h1>Команда</h1>

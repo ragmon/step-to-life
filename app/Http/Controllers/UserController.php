@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserController extends Controller
 {
@@ -14,6 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        /** @var LengthAwarePaginator $users */
         $users = User::paginate(15);
 
         return response()->view('user.index', compact('users'));
@@ -48,7 +50,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response()->view('user.show', compact('user'));
     }
 
     /**
