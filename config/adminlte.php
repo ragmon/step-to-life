@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Шаг к жизни',
+    'title' => 'ШАГ К ЖИЗНИ',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>ШАГ</b> к жизни',
+    'logo' => '<b>ШАГ</b> К ЖИЗНИ',
     'logo_img' => 'favicon.ico',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
