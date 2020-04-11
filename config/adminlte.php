@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Шаг к жизни',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>ШАГ</b> к жизни',
+    'logo_img' => 'favicon.ico',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'ШАГ к жизни',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,8 +84,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
 
     /*
@@ -209,21 +209,54 @@ return [
 
     'menu' => [
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
+            'text'        => 'Резиденты',
+            'url'         => 'residents',
+            'icon'        => 'fas fa-fw fa-users',
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text'        => 'Обязанности',
+            'url'         => 'responsibilities',
+            'icon'        => 'fas fa-fw fa-list',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'        => 'Взыскания',
+            'url'         => 'punishments',
+            'icon'        => 'fas fa-fw fa-burn',
+        ],
+        [
+            'text'        => 'Архив',
+            'url'         => 'archive',
+            'icon'        => 'fas fa-fw fa-archive',
+        ],
+        [
+            'text'        => 'История',
+            'url'         => 'history',
+            'icon'        => 'fas fa-fw fa-history',
+        ],
+        [
+            'text'        => 'Команда',
+            'url'         => 'users',
+            'icon'        => 'fas fa-fw fa-people-carry',
+        ],
+        [
+            'text'        => 'Задания',
+            'url'         => 'tasks',
+            'icon'        => 'fas fa-fw fa-tasks',
+        ],
+        [
+            'text'        => 'Заметки',
+            'url'         => 'notes',
+            'icon'        => 'fas fa-fw fa-sticky-note',
+        ],
+        [
+            'text'        => 'Правила РЦ',
+            'url'         => 'rules',
+            'icon'        => 'fas fa-fw fa-file',
+        ],
+        [
+            'text'        => 'Отчёты',
+            'url'         => 'reports',
+            'icon'        => 'fas fa-fw fa-file-alt',
         ],
         ['header' => 'account_settings'],
         [
@@ -235,57 +268,6 @@ return [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'aqua',
         ],
     ],
 
