@@ -261,13 +261,18 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => 'settings',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'url'  => 'password/reset',
             'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Выйти',
+            'url'  => 'logout',
+            'icon' => 'fas fa-fw fa-sign-out-alt',
         ],
     ],
 
