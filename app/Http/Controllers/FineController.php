@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Fine;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class FineController extends Controller
 {
@@ -31,11 +33,23 @@ class FineController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'description' => 'required',
+            'sum' => 'required|integer',
+        ], $request->all());
+
+        /** @var Fine $fine */
+        $fine = Fine::create(array_merge($request->all(), [
+            'user_id' => Auth::id(),
+        ]));
+//        $fine->user_id = Auth::id();
+//        $fine->save();
+
+        return response()->json($fine->toArray(), Response::HTTP_CREATED);
     }
 
     /**

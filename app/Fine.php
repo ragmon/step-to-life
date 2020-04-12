@@ -29,7 +29,7 @@ class Fine extends Model
      *
      * @var array
      */
-    protected $fillable = ['description', 'sum'];
+    protected $fillable = ['user_id', 'description', 'sum'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -66,7 +66,7 @@
                     <h2 class="lead">Штрафы</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" onclick="createFine()"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
             <table id="fines" class="table table-bordered table-striped">
@@ -314,6 +314,41 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+
+    <!-- Create Fine modal -->
+    <div class="modal fade" id="modal-fine-create">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Выдача штрафа</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="user-edit-description">За что</label>
+                                <input name="description" type="email" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                            </div>
+                            <div class="form-group">
+                                <label for="user-edit-sum">Сумма (грн)</label>
+                                <input name="sum" type="text" class="form-control" id="user-edit-sum" placeholder="500">
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-success btn-create">Выдать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @stop
 
 @section('js')
@@ -426,8 +461,17 @@
             $modalFineDelete.modal('show');
         }
 
+        function createFine() {
+            let $modalFineCreate = $('#modal-fine-create');
+
+            $modalFineCreate.find('form')[0].reset();
+
+            $modalFineCreate.modal('show');
+        }
+
         $(function () {
             let $modalFineDelete = $('#modal-fine-delete');
+            let $modalFineCreate = $('#modal-fine-create');
 
             $modalFineDelete.find('.btn-delete').click(function () {
                 let fineId = $modalFineDelete.find('[name=id]').val();
@@ -435,6 +479,17 @@
                 $.ajax({
                     url : `/fines/${fineId}`,
                     method : 'DELETE',
+                    success : function () {
+                        location.reload();
+                    }
+                });
+            });
+
+            $modalFineCreate.find('.btn-create').click(function () {
+                $.ajax({
+                    url : `/fines`,
+                    method : 'POST',
+                    data : $modalFineCreate.find('form').serialize(),
                     success : function () {
                         location.reload();
                     }
