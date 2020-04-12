@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int id
  * @property User user
+ * @property string description
+ * @property int sum
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property Carbon deleted_at

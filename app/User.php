@@ -60,4 +60,22 @@ class User extends Authenticatable
     {
         return $this->morphToMany('App\Task', 'taskable');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reports()
+    {
+        return $this->hasMany('App\Report');
+    }
+
+    /**
+     * Get full name attribute value.
+     *
+     * @return string
+     */
+    public function getFullnameAttribute()
+    {
+        return "$this->firstname $this->lastname $this->patronymic";
+    }
 }

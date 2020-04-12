@@ -31,6 +31,7 @@
             </div>
             <hr>
 
+            <!-- Взыскания -->
             <h2 class="lead">Взыскания</h2>
             <table id="punishments" class="table table-bordered table-striped">
                 <thead>
@@ -41,26 +42,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Иванову Ивану Ивановичу</td>
-                    <td>очень жестко ругался лютым матом</td>
-                    <td>04/03/2019</td>
-                </tr>
-                <tr>
-                    <td>Иванову Ивану Ивановичу</td>
-                    <td>ругался матом</td>
-                    <td>04/03/2019</td>
-                </tr>
-                <tr>
-                    <td>Иванову Ивану Ивановичу</td>
-                    <td>ругался матом</td>
-                    <td>04/03/2019</td>
-                </tr>
-                <tr>
-                    <td>Иванову Ивану Ивановичу</td>
-                    <td>ругался матом</td>
-                    <td>04/03/2019</td>
-                </tr>
+                @foreach($user->punishments as $punishment)
+                    <tr>
+                        <td>{{ $punishment->user->fullname }}</td>
+                        <td>{{ $punishment->description }}</td>
+                        <td></td>
+                    </tr>
+                @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
@@ -72,15 +60,16 @@
             </table>
             <hr>
 
+            <!-- Штрафы -->
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Штрафы</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></a>
+                    <button class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
-            <table id="punishments" class="table table-bordered table-striped">
+            <table id="fines" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>За что</th>
@@ -89,30 +78,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>ругался матом</td>
-                    <td>250грн</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ругался матом</td>
-                    <td>250грн</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ругался матом</td>
-                    <td>250грн</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
+                @foreach ($user->fines as $fine)
+                    <tr data-id="{{ $fine->id }}">
+                        <td>{{ $fine->description }}</td>
+                        <td>{{ $fine->sum }}</td>
+                        <td class="text-right">
+                            <button href="#" class="btn btn-primary btn-sm btn-fine-edit"><i class="fas fa-lg fa-edit"></i></button>
+                            <button href="#" class="btn btn-danger btn-sm btn-fine-delete"><i class="fas fa-lg fa-trash"></i></button>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
@@ -124,6 +99,7 @@
             </table>
             <hr>
 
+            <!-- Задания -->
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Задания</h2>
@@ -132,7 +108,7 @@
                     <a href="#" class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></a>
                 </div>
             </div>
-            <table id="punishments" class="table table-bordered table-striped">
+            <table id="tasks" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>Заголовок</th>
@@ -140,27 +116,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>письменное задание</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>письменное задание</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>письменное задание</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
+                @foreach($user->tasks as $task)
+                    <tr>
+                        <td>{{ $task->title }}</td>
+                        <td class="text-right">
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
@@ -171,6 +135,7 @@
             </table>
             <hr>
 
+            <!-- Отчёты -->
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Отчёты</h2>
@@ -179,7 +144,7 @@
                     <a href="#" class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></a>
                 </div>
             </div>
-            <table id="punishments" class="table table-bordered table-striped">
+            <table id="reports" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>Заголовок</th>
@@ -187,27 +152,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>письменное задание</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>письменное задание</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>письменное задание</td>
-                    <td class="text-right">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
-                    </td>
-                </tr>
+                @foreach($user->reports as $report)
+                    <tr>
+                        <td>письменное задание</td>
+                        <td class="text-right">
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
@@ -302,11 +255,11 @@
     <!-- /.modal -->
 @stop
 
-{{--@include('user.modal.edit')--}}
-{{--@include('user.modal.delete')--}}
-
 @section('js')
     <script>
+
+        // Edit user
+
         function editUser(userId) {
             let $modalUserEdit = $('#modal-user-edit');
             let $editForm = $modalUserEdit.find('form');
@@ -340,6 +293,8 @@
             });
         });
 
+        // Delete user
+
         function deleteUser(userId) {
             let $modalUserDelete = $('#modal-user-delete');
 
@@ -364,14 +319,46 @@
             });
         });
 
-        // $('#punishments').DataTable({
-        //     "paging": true,
-        //     "lengthChange": false,
-        //     "searching": false,
-        //     "ordering": true,
-        //     "info": true,
-        //     "autoWidth": false,
-        //     "responsive": true,
-        // });
+        // Datatables initializations
+
+        $('#punishments').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+
+        $('#fines').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+
+        $('#tasks').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+
+        $('#reports').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     </script>
 @stop
