@@ -16,8 +16,8 @@ $factory->define(Punishment::class, function (Faker $faker) {
             return factory(User::class)->create()->id;
         },
         'description' => $faker->text,
-        'start_at' => $faker->boolean ? $faker->date() : null,
-        'end_at' => $faker->boolean ? $faker->date() : null,
+        'start_at' => $faker->date(),
+        'end_at' => $faker->date(),
         'finished_at' => $faker->boolean ? $faker->date() : null,
     ];
 });

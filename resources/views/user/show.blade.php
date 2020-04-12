@@ -44,9 +44,9 @@
                 <tbody>
                 @foreach($user->punishments as $punishment)
                     <tr>
-                        <td>{{ $punishment->user->fullname }}</td>
+                        <td>{{ $punishment->resident->fullname }}</td>
                         <td>{{ $punishment->description }}</td>
-                        <td></td>
+                        <td>{{ $punishment->start_at }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -83,8 +83,8 @@
                         <td>{{ $fine->description }}</td>
                         <td>{{ $fine->sum }}</td>
                         <td class="text-right">
-                            <button href="#" class="btn btn-primary btn-sm btn-fine-edit"><i class="fas fa-lg fa-edit"></i></button>
-                            <button href="#" class="btn btn-danger btn-sm btn-fine-delete"><i class="fas fa-lg fa-trash"></i></button>
+                            <button class="btn btn-primary btn-sm btn-fine-edit"><i class="fas fa-lg fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm btn-fine-delete"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -245,7 +245,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-success btn-delete">Подтверждаю</button>
+                    <button type="button" class="btn btn-danger btn-delete">Подтверждаю</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -265,7 +265,7 @@
             let $editForm = $modalUserEdit.find('form');
 
             $.ajax({
-                url : '/users/' + userId,
+                url : `/users/${userId}`,
                 method : 'GET',
                 success : function (data) {
                     populateForm($editForm[0], data);
@@ -283,7 +283,7 @@
                 let userId = $form.find('[name=id]').val();
 
                 $.ajax({
-                    url : '/users/' + userId,
+                    url : `/users/${userId}`,
                     method : 'PUT',
                     data : $modalUserEdit.find('form').serialize(),
                     success : function (data) {
@@ -310,7 +310,7 @@
                 let userId = $modalUserDelete.find('[name=user_id]').val();
 
                 $.ajax({
-                    url : '/users/' + userId,
+                    url : `/users/${userId}`,
                     method : 'DELETE',
                     success : function () {
                         window.location.replace('/users');
@@ -329,6 +329,9 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "language": {
+                "url": "/datatable/Russian.json"
+            }
         });
 
         $('#fines').DataTable({
@@ -339,6 +342,9 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "language": {
+                "url": "/datatable/Russian.json"
+            }
         });
 
         $('#tasks').DataTable({
@@ -349,6 +355,9 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "language": {
+                "url": "/datatable/Russian.json"
+            }
         });
 
         $('#reports').DataTable({
@@ -359,6 +368,9 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "language": {
+                "url": "/datatable/Russian.json"
+            }
         });
     </script>
 @stop

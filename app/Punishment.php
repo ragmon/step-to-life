@@ -38,6 +38,6 @@ class Punishment extends Model
      */
     public function resident()
     {
-        return $this->belongsTo('App\Resident');
+        return $this->belongsTo('App\Resident', 'to_resident_id');
     }
 }

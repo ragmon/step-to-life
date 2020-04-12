@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  *
  * @property int id
+ * @property int user_id
  * @property User user
  * @property string description
  * @property int sum

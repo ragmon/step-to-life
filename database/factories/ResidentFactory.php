@@ -17,5 +17,6 @@ $factory->define(Resident::class, function (Faker $faker) {
         'about' => $faker->text,
         'source' => $faker->text(32),
         'balance' => $faker->numberBetween(0, 10000),
+        'status' => $faker->boolean,
     ];
 });

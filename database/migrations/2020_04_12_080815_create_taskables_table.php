@@ -16,7 +16,7 @@ class CreateTaskablesTable extends Migration
         Schema::create('taskables', function (Blueprint $table) {
             $table->unsignedBigInteger('task_id')->index();
             $table->unsignedBigInteger('taskable_id');
-            $table->unsignedBigInteger('taskable_type');
+            $table->string('taskable_type');
             $table->date('finished_at')->nullable();
         });
     }
