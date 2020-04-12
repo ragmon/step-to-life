@@ -35,7 +35,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -61,11 +61,15 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function show(User $user)
     {
-        return response()->view('user.show', compact('user'));
+        if (request()->expectsJson()) {
+            return response()->json($user->toArray());
+        } else {
+            return response()->view('user.show', compact('user'));
+        }
     }
 
     /**
@@ -84,21 +88,36 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'email' => 'required|email',
+            'phone' => 'required|max:32',
+            'firstname' => 'required|max:32',
+            'lastname' => 'required|max:32',
+            'patronymic' => 'required|max:32',
+            'role' => 'required|max:32',
+        ], $request->all());
+
+        $user->fill($request->all());
+        $user->save();
+
+        return response()->json($user->toArray());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \App\User $user
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response()->json();
     }
 }

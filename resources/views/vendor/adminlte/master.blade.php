@@ -63,8 +63,28 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        dataType : 'json'
+        dataType : 'json',
+        error : function (jqXHR, textStatus) {
+            console.log(jqXHR);
+            alert(`Ошибка #${jqXHR.status}`);
+        }
     });
+</script>
+<script>
+    function populateForm(frm, data) {
+        $.each(data, function(key, value) {
+            var ctrl = $('[name='+key+']', frm);
+            switch(ctrl.prop("type")) {
+                case "radio": case "checkbox":
+                    ctrl.each(function() {
+                        if($(this).attr('value') == value) $(this).attr("checked",value);
+                    });
+                    break;
+                default:
+                    ctrl.val(value);
+            }
+        });
+    }
 </script>
 
 @include('adminlte::plugins', ['type' => 'js'])

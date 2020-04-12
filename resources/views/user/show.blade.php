@@ -22,12 +22,12 @@
                         href="tel:{{ $user->phone }}">{{ $user->phone }}</a></li>
             </ul>
             <div class="text-right">
-                <a href="#" class="btn btn-sm btn-default">
+                <button class="btn btn-sm btn-default" onclick="editUser({{ $user->id }})">
                     <i class="fas fa-edit"></i> Редактировать
-                </a>
-                <a href="#" class="btn btn-sm btn-danger">
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="deleteUser({{ $user->id }})">
                     <i class="fas fa-trash"></i> Удалить
-                </a>
+                </button>
             </div>
             <hr>
 
@@ -222,6 +222,8 @@
 
 {{--        </div>--}}
     </div>
+
+    @include('user.modal.edit')
 @stop
 
 @section('js')
