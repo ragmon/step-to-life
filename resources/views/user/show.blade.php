@@ -2,9 +2,11 @@
 
 @section('title', "$user->firstname $user->lastname $user->patronymic - $user->role")
 
-{{--@section('content_header')--}}
+@section('content_header')
 {{--    <h1>{{ "$user->firstname $user->lastname $user->patronymic - $user->role" }}</h1>--}}
-{{--@stop--}}
+
+    {{ Breadcrumbs::render('user.show', $user) }}
+@stop
 
 @section('content')
     <div class="card bg-light w-100">

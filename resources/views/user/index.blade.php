@@ -9,10 +9,12 @@
         </div>
         <div class="col-6">
             <div class="text-right">
-                <a href="#" class="btn btn-success">Создать</a>
+                <button href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-user-create">Создать</button>
             </div>
         </div>
     </div>
+
+    {{ Breadcrumbs::render('user.index') }}
 @stop
 
 @section('content')
@@ -28,4 +30,6 @@
         </div>
         <!-- /.card-footer -->
     </div>
+
+    @include('user.modal.create')
 @stop

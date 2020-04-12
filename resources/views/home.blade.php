@@ -4,6 +4,8 @@
 
 @section('content_header')
     <h1 class="m-0 text-dark">Главная</h1>
+
+    {{ Breadcrumbs::render('home') }}
 @stop
 
 @section('content')
