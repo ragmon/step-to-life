@@ -61,9 +61,6 @@
                     data : $modalUserCreate.find('form').serialize(),
                     success : function (data) {
                         location.reload();
-                    },
-                    error : function (jqXHR, textStatus) {
-                        alert(`Ошибка #${jqXHR.status}`);
                     }
                 })
             });
