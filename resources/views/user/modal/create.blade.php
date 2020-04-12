@@ -12,23 +12,27 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="user-create-email">E-mail</label>
-                            <input type="email" class="form-control" id="user-create-email" placeholder="example@example.com">
+                            <input name="email" type="email" class="form-control" id="user-create-email" placeholder="example@example.com">
                         </div>
                         <div class="form-group">
                             <label for="user-create-firstname">Имя</label>
-                            <input type="password" class="form-control" id="user-create-firstname" placeholder="Имя">
+                            <input name="firstname" type="text" class="form-control" id="user-create-firstname" placeholder="Имя">
                         </div>
                         <div class="form-group">
                             <label for="user-create-lastname">Фамилия</label>
-                            <input type="text" class="form-control" id="user-create-lastname" placeholder="Фамилия">
+                            <input name="lastname" type="text" class="form-control" id="user-create-lastname" placeholder="Фамилия">
                         </div>
                         <div class="form-group">
                             <label for="user-create-patronymic">Отчество</label>
-                            <input type="text" class="form-control" id="user-create-patronymic" placeholder="Отчество">
+                            <input name="patronymic" type="text" class="form-control" id="user-create-patronymic" placeholder="Отчество">
                         </div>
                         <div class="form-group">
                             <label for="user-create-role">Роль</label>
-                            <input type="text" class="form-control" id="user-create-role" placeholder="консультант">
+                            <input name="role" type="text" class="form-control" id="user-create-role" placeholder="консультант">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-create-phone">Телефон</label>
+                            <input name="phone" type="text" class="form-control" id="user-create-phone" placeholder="+3546734454">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -36,7 +40,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-success">Создать</button>
+                <button type="button" class="btn btn-success btn-create">Создать</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -44,3 +48,25 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+@section('js')
+    <script>
+        $(function () {
+            let $modalUserCreate = $('#modal-user-create');
+
+            $modalUserCreate.find('.btn-create').click(function () {
+                $.ajax({
+                    url : '{{ route('users.store') }}',
+                    method : 'POST',
+                    data : $modalUserCreate.find('form').serialize(),
+                    success : function (data) {
+                        location.reload();
+                    },
+                    error : function (jqXHR, textStatus) {
+                        alert(`Ошибка #${jqXHR.status}`);
+                    }
+                })
+            });
+        });
+    </script>
+@stop

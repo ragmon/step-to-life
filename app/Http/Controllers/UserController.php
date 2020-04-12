@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         /** @var LengthAwarePaginator $users */
-        $users = User::paginate(15);
+        $users = User::orderBy('created_at', 'desc')->paginate(15);
 
         return response()->view('user.index', compact('users'));
     }
@@ -39,7 +39,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|email',
+            'phone' => 'required|max:32',
+            'firstname' => 'required|max:32',
+            'lastname' => 'required|max:32',
+            'patronymic' => 'required|max:32',
+            'role' => 'required|max:32',
+        ]);
+
+        /** @var User $user */
+        $user = User::create(array_merge($request->all(),
+        [
+            'password' => bcrypt('secret'),
+        ]));
+
+        return response()->json($user->toArray());
     }
 
     /**
