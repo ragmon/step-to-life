@@ -16,7 +16,7 @@ class CreatePunishmentsTable extends Migration
         Schema::create('punishments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('to_resident_id')->index();
-            $table->unsignedBigInteger('user_id ')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->text('description');
             $table->date('start_at');
             $table->date('end_at');
