@@ -81,7 +81,7 @@
                 @foreach ($user->fines as $fine)
                     <tr data-id="{{ $fine->id }}">
                         <td>{{ $fine->description }}</td>
-                        <td>{{ $fine->sum }}</td>
+                        <td>{{ $fine->sum }} грн</td>
                         <td class="text-right">
                             <button class="btn btn-primary btn-sm btn-fine-edit"><i class="fas fa-lg fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm btn-fine-delete"><i class="fas fa-lg fa-trash"></i></button>
@@ -120,8 +120,8 @@
                     <tr>
                         <td>{{ $task->title }}</td>
                         <td class="text-right">
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
+                            <button class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -156,8 +156,8 @@
                     <tr>
                         <td>письменное задание</td>
                         <td class="text-right">
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></a>
+                            <button class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach

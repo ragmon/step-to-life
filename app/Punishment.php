@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Punishment
@@ -25,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Punishment extends Model
 {
+    use SoftDeletes;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
