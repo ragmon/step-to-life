@@ -43,11 +43,7 @@ class FineController extends Controller
         ], $request->all());
 
         /** @var Fine $fine */
-        $fine = Fine::create(array_merge($request->all(), [
-            'user_id' => Auth::id(),
-        ]));
-//        $fine->user_id = Auth::id();
-//        $fine->save();
+        $fine = Fine::create($request->all());
 
         return response()->json($fine->toArray(), Response::HTTP_CREATED);
     }

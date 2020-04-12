@@ -66,7 +66,7 @@
                     <h2 class="lead">Штрафы</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" onclick="createFine()"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" onclick="createFine({{ $user->id }})"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
             <table id="fines" class="table table-bordered table-striped">
@@ -338,6 +338,7 @@
                             </div>
                         </div>
                         <!-- /.card-body -->
+                        <input type="hidden" name="user_id" value="">
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -461,10 +462,11 @@
             $modalFineDelete.modal('show');
         }
 
-        function createFine() {
+        function createFine(userId) {
             let $modalFineCreate = $('#modal-fine-create');
 
             $modalFineCreate.find('form')[0].reset();
+            $modalFineCreate.find('[name=user_id]').val(userId);
 
             $modalFineCreate.modal('show');
         }
