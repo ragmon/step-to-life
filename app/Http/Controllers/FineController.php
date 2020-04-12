@@ -42,11 +42,11 @@ class FineController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Fine  $fine
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Fine $fine)
     {
-        //
+        return response()->json($fine->toArray());
     }
 
     /**
@@ -65,21 +65,32 @@ class FineController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Fine  $fine
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Fine $fine)
     {
-        //
+        $request->validate([
+            'description' => 'required',
+            'sum' => 'required|integer',
+        ], $request->all());
+
+        $fine->fill($request->all());
+        $fine->save();
+
+        return response()->json($fine->toArray());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Fine  $fine
-     * @return \Illuminate\Http\Response
+     * @param \App\Fine $fine
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Fine $fine)
     {
-        //
+        $fine->delete();
+
+        return response()->json();
     }
 }

@@ -79,12 +79,12 @@
                 </thead>
                 <tbody>
                 @foreach ($user->fines as $fine)
-                    <tr data-id="{{ $fine->id }}">
+                    <tr>
                         <td>{{ $fine->description }}</td>
                         <td>{{ $fine->sum }} грн</td>
                         <td class="text-right">
-                            <button class="btn btn-primary btn-sm btn-fine-edit"><i class="fas fa-lg fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm btn-fine-delete"><i class="fas fa-lg fa-trash"></i></button>
+                            <button class="btn btn-primary btn-sm btn-fine-edit" onclick="editFine({{ $fine->id }})"><i class="fas fa-lg fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm btn-fine-delete" onclick="deleteFine({{ $fine->id }})"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -253,6 +253,67 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+
+    <!-- Edit Fine modal -->
+    <div class="modal fade" id="modal-fine-edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Редактирование штрафа</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="user-edit-description">За что</label>
+                                <input name="description" type="email" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                            </div>
+                            <div class="form-group">
+                                <label for="user-edit-sum">Сумма (грн)</label>
+                                <input name="sum" type="text" class="form-control" id="user-edit-sum" placeholder="500">
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <input name="id" type="hidden" value="">
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-success btn-edit">Сохранить</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Delete Fine modal -->
+    <div class="modal fade" id="modal-fine-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Подтвердите действие</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите удаление</p>
+                    <input type="hidden" name="id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger btn-delete">Подтверждаю</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @stop
 
 @section('js')
@@ -318,6 +379,69 @@
                 });
             });
         });
+
+        /* Fines */
+
+        // Edit fine
+
+        function editFine(fineId) {
+            let $modalFineEdit = $('#modal-fine-edit');
+            let $editForm = $modalFineEdit.find('form');
+
+            $.ajax({
+                url : `/fines/${fineId}`,
+                method : 'GET',
+                success : function (data) {
+                    populateForm($editForm[0], data);
+
+                    $modalFineEdit.modal('show');
+                }
+            });
+        }
+
+        $(function () {
+            let $modalFineEdit = $('#modal-fine-edit');
+            let $form = $modalFineEdit.find('form');
+
+            $modalFineEdit.find('.btn-edit').click(function () {
+                let fineId = $form.find('[name=id]').val();
+
+                $.ajax({
+                    url : `/fines/${fineId}`,
+                    method : 'PUT',
+                    data : $modalFineEdit.find('form').serialize(),
+                    success : function (data) {
+                        location.reload();
+                    }
+                })
+            });
+        });
+
+        // Delete fine
+        function deleteFine(fineId) {
+            let $modalFineDelete = $('#modal-fine-delete');
+
+            $modalFineDelete.find('[name=id]').val(fineId);
+
+            $modalFineDelete.modal('show');
+        }
+
+        $(function () {
+            let $modalFineDelete = $('#modal-fine-delete');
+
+            $modalFineDelete.find('.btn-delete').click(function () {
+                let fineId = $modalFineDelete.find('[name=id]').val();
+
+                $.ajax({
+                    url : `/fines/${fineId}`,
+                    method : 'DELETE',
+                    success : function () {
+                        location.reload();
+                    }
+                });
+            });
+        });
+
 
         // Datatables initializations
 

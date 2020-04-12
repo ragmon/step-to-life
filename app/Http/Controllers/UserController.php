@@ -68,6 +68,8 @@ class UserController extends Controller
         if (request()->expectsJson()) {
             return response()->json($user->toArray());
         } else {
+
+
             return response()->view('user.show', compact('user'));
         }
     }
