@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Punishment;
+use App\Resident;
 use App\User;
 use Faker\Generator as Faker;
 

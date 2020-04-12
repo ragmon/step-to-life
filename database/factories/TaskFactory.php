@@ -14,6 +14,5 @@ $factory->define(Task::class, function (Faker $faker) {
         'description' => $faker->text,
         'start_at' => $faker->date(),
         'end_at' => $faker->date(),
-        'finished_at' => $faker->boolean ? $faker->date() : null,
     ];
 });
