@@ -112,6 +112,7 @@
                 <thead>
                 <tr>
                     <th>Заголовок</th>
+                    <th>Дата сдачи</th>
                     <th>Функция</th>
                 </tr>
                 </thead>
@@ -119,6 +120,7 @@
                 @foreach($user->tasks as $task)
                     <tr>
                         <td>{{ $task->title }}</td>
+                        <td>{{ $task->pivot->finished_at }}</td>
                         <td class="text-right">
                             <button class="btn btn-primary btn-sm btn-task-edit" onclick="editTask({{ $task->id }})"><i class="fas fa-lg fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteTask({{ $task->id }}, {{ $user->id }})"><i class="fas fa-lg fa-trash"></i></button>
@@ -129,6 +131,7 @@
                 <tfoot>
                 <tr>
                     <th>Заголовок</th>
+                    <th>Дата сдачи</th>
                     <th>Функция</th>
                 </tr>
                 </tfoot>

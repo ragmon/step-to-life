@@ -85,7 +85,8 @@ class User extends Authenticatable
      */
     public function tasks()
     {
-        return $this->morphToMany('App\Task', 'taskable');
+        return $this->morphToMany('App\Task', 'taskable')
+            ->withPivot('finished_at');
     }
 
     /**
