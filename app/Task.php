@@ -48,7 +48,8 @@ class Task extends Model
      */
     public function users()
     {
-        return $this->morphedByMany('App\User', 'taskable');
+        return $this->morphedByMany('App\User', 'taskable')
+            ->withPivot('finished_at');
     }
 
     /**
@@ -56,6 +57,7 @@ class Task extends Model
      */
     public function residents()
     {
-        return $this->morphedByMany('App\Resident', 'taskable');
+        return $this->morphedByMany('App\Resident', 'taskable')
+            ->withPivot('finished_at');
     }
 }

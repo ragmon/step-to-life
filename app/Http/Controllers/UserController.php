@@ -108,8 +108,7 @@ class UserController extends Controller
             'role' => 'required|max:32',
         ], $request->all());
 
-        $user->fill($request->all());
-        $user->save();
+        $user->update($request->all());
 
         return response()->json($user->toArray());
     }

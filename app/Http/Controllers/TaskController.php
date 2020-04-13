@@ -91,11 +91,15 @@ class TaskController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function show(Task $task)
     {
-        //
+        if (request()->expectsJson()) {
+            $task->load('users', 'residents');
+
+            return response()->json($task->toArray());
+        }
     }
 
     /**
@@ -114,11 +118,39 @@ class TaskController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'start_at' => 'required|date',
+            'end_at' => 'required|date',
+            'finished_at' => 'nullable|date',
+            // relations
+            'resident' => 'array',
+            'user' => 'array',
+        ], $request->all());
+
+        $task->update($request->all());
+
+        $task->users()->sync(
+            $this->prepareSyncData(
+                $request->input('user', []),
+                'finished_at',
+                $request->input('finished_at')
+            )
+        );
+        $task->residents()->sync(
+            $this->prepareSyncData(
+                $request->input('resident', []),
+                'finished_at',
+                $request->input('finished_at')
+            )
+        );
+
+        return response()->json($task->toArray());
     }
 
     /**
