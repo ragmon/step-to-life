@@ -20,12 +20,15 @@ Route::get('/', function () {
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Redirect to the user page
-Route::get('/profile', function () {
-    return response()->redirectToRoute('users.show', [Auth::id()]);
-})->name('profile');
 
-Route::resource('users', 'UserController');
-Route::resource('fines', 'FineController');
-Route::resource('residents', 'ResidentController');
-Route::resource('tasks', 'TaskController');
+Route::group(['middleware' => ['auth']], function () {
+    // Redirect to the user page
+    Route::get('/profile', function () {
+        return response()->redirectToRoute('users.show', [Auth::id()]);
+    })->name('profile');
+
+    Route::resource('users', 'UserController');
+    Route::resource('fines', 'FineController');
+    Route::resource('residents', 'ResidentController');
+    Route::resource('tasks', 'TaskController');
+});

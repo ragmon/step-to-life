@@ -120,8 +120,8 @@
                     <tr>
                         <td>{{ $task->title }}</td>
                         <td class="text-right">
-                            <button class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></button>
+                            <button class="btn btn-primary btn-sm btn-task-edit" onclick="editTask({{ $task->id }})"><i class="fas fa-lg fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteTask({{ $task->id }})"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -364,8 +364,9 @@
                 <div class="modal-body">
                     <form role="form">
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group residents">
                                 <label>Резиденты</label>
+                                <button type="button" class="btn btn-default btn-xs btn-residents-select-all">Выбрать всех</button>
                                 @foreach($residents as $resident)
                                     <div class="form-check">
                                         <input name="resident[]" id="task-create-resident-{{ $resident->id }}" type="checkbox" class="form-check-input" value="{{ $resident->id }}">
@@ -373,8 +374,9 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="form-group">
+                            <div class="form-group users">
                                 <label>Команда</label>
+                                <button type="button" class="btn btn-default btn-xs btn-users-select-all">Выбрать всех</button>
                                 @foreach($users as $_user)
                                     <div class="form-check">
                                         <input name="user[]" id="task-create-user-{{ $_user->id }}" type="checkbox" class="form-check-input" value="{{ $_user->id }}">
@@ -612,6 +614,15 @@
                         location.reload();
                     }
                 });
+            });
+
+            $modalCreateTask.find('.btn-residents-select-all').click(function () {
+                let $checkboxes = $modalCreateTask.find('.residents input[name=resident\\[\\]]');
+                $checkboxes.prop('checked', !$checkboxes.prop("checked"));
+            });
+            $modalCreateTask.find('.btn-users-select-all').click(function () {
+                let $checkboxes = $modalCreateTask.find('.users input[name=user\\[\\]]');
+                $checkboxes.prop('checked', !$checkboxes.prop("checked"));
             });
         });
 
