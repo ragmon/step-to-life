@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserTaskController extends Controller
@@ -63,13 +65,15 @@ class UserTaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(User $user, $id)
     {
-        //
+        $user->tasks()->updateExistingPivot($id, ['finished_at' => Carbon::now()]);
+
+        return response()->json(['status' => 'success']);
     }
 
     /**

@@ -119,9 +119,10 @@
                 <tbody>
                 @foreach($user->tasks as $task)
                     <tr>
-                        <td>{{ $task->title }}</td>
+                        <td><a href="{{ route('tasks.show', [$task->id]) }}">{{ $task->title }}</a></td>
                         <td>{{ $task->pivot->finished_at }}</td>
                         <td class="text-right">
+                            <button class="btn btn-success btn-sm btn-task-finish" onclick="finishTask({{ $task->id }}, {{ $user->id }})"><i class="fas fa-lg fa-check-circle"></i></button>
                             <button class="btn btn-primary btn-sm btn-task-edit" onclick="editTask({{ $task->id }})"><i class="fas fa-lg fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteTask({{ $task->id }}, {{ $user->id }})"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
@@ -157,10 +158,10 @@
                 <tbody>
                 @foreach($user->reports as $report)
                     <tr>
-                        <td>письменное задание</td>
+                        <td><a href="{{ route('reports.show', [$report->id]) }}">{{ $report->title }}</a></td>
                         <td class="text-right">
-                            <button class="btn btn-primary btn-sm"><i class="fas fa-lg fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-lg fa-trash"></i></button>
+                            <button class="btn btn-primary btn-sm btn-report-edit"><i class="fas fa-lg fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm btn-report-delete"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -715,7 +716,6 @@
 
         /* Tasks */
 
-        // Create Task
         function createTask() {
             let $modalTaskCreate = $('#modal-task-create');
 
@@ -724,7 +724,6 @@
             $modalTaskCreate.modal('show');
         }
 
-        // Edit task
         function editTask(taskId) {
             let $modalTaskEdit = $('#modal-task-edit');
 
@@ -756,6 +755,16 @@
             $modalTaskDelete.find('[name=user_id]').val(userId);
 
             $modalTaskDelete.modal('show');
+        }
+
+        function finishTask(taskId, userId) {
+            $.ajax({
+                url : `/users/${userId}/tasks/${taskId}`,
+                method : 'PUT',
+                success : function () {
+                    location.reload();
+                }
+            });
         }
 
         $(function () {
