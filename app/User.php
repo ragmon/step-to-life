@@ -2,11 +2,36 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Class User
+ *
+ * @package App
+ *
+ * @property int id
+ * @property string email
+ * @property string phone
+ * @property string firstname
+ * @property string lastname
+ * @property string patronymic
+ * @property string role
+ * @property Carbon email_verified_at
+ * @property string password
+ * @property Carbon created_at
+ * @property Carbon updated_at
+ * @property Carbon deleted_at
+ * @property Collection punishments
+ * @property Collection fines
+ * @property Collection tasks
+ * @property Collection reports
+ * @property string fullname
+ */
 class User extends Authenticatable
 {
     use Notifiable;

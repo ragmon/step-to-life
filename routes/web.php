@@ -27,3 +27,5 @@ Route::get('/profile', function () {
 
 Route::resource('users', 'UserController');
 Route::resource('fines', 'FineController');
+Route::resource('residents', 'ResidentController');
+Route::resource('tasks', 'TaskController');

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Resident;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class UserController extends Controller
 {
@@ -68,9 +70,12 @@ class UserController extends Controller
         if (request()->expectsJson()) {
             return response()->json($user->toArray());
         } else {
+            /** @var Collection $residents */
+            $residents = Resident::all();
+            /** @var Collection $users */
+            $users = User::all();
 
-
-            return response()->view('user.show', compact('user'));
+            return response()->view('user.show', compact('user', 'users', 'residents'));
         }
     }
 

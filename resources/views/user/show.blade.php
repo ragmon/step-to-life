@@ -105,7 +105,7 @@
                     <h2 class="lead">Задания</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></a>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createTask()"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
             <table id="tasks" class="table table-bordered table-striped">
@@ -350,6 +350,96 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <!-- Create Task modal -->
+    <div class="modal fade" id="modal-task-create">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Создание задания</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Резиденты</label>
+                                @foreach($residents as $resident)
+                                    <div class="form-check">
+                                        <input name="resident[]" id="task-create-resident-{{ $resident->id }}" type="checkbox" class="form-check-input" value="{{ $resident->id }}">
+                                        <label class="form-check-label" for="task-create-resident-{{ $resident->id }}">{{ $resident->fullname }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="form-group">
+                                <label>Команда</label>
+                                @foreach($users as $_user)
+                                    <div class="form-check">
+                                        <input name="user[]" id="task-create-user-{{ $_user->id }}" type="checkbox" class="form-check-input" value="{{ $_user->id }}">
+                                        <label class="form-check-label" for="task-create-user-{{ $_user->id }}">{{ $_user->fullname }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label for="user-edit-description">Заголовок</label>
+                                <input name="title" type="email" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                            </div>
+                            <div class="form-group">
+                                <label for="user-edit-sum">Описание</label>
+                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Убрать дом"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Дата начала:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input name="start_at" type="date" class="form-control float-right">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <div class="form-group">
+                                <label>Дата завершения:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input name="end_at" type="date" class="form-control float-right">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <div class="form-group">
+                                <label>Дата сдачи:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input name="finished_at" type="date" class="form-control float-right">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-success btn-create">Создать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @stop
 
 @section('js')
@@ -492,6 +582,32 @@
                     url : `/fines`,
                     method : 'POST',
                     data : $modalFineCreate.find('form').serialize(),
+                    success : function () {
+                        location.reload();
+                    }
+                });
+            });
+        });
+
+        /* Tasks */
+
+        // Create Task
+        function createTask() {
+            let $modalTaskCreate = $('#modal-task-create');
+
+            $modalTaskCreate.find('form')[0].reset();
+
+            $modalTaskCreate.modal('show');
+        }
+
+        $(function () {
+            let $modalCreateTask = $('#modal-task-create');
+
+            $modalCreateTask.find('.btn-create').click(function () {
+                $.ajax({
+                    url : `/tasks`,
+                    method : 'POST',
+                    data : $modalCreateTask.find('form').serialize(),
                     success : function () {
                         location.reload();
                     }
