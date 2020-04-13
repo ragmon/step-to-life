@@ -381,5 +381,21 @@ return [
                 ],
             ],
         ],
+        [
+            'name' => 'summernote',
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js',
+                ],
+            ],
+        ],
     ],
 ];

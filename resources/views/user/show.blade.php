@@ -121,7 +121,7 @@
                         <td>{{ $task->title }}</td>
                         <td class="text-right">
                             <button class="btn btn-primary btn-sm btn-task-edit" onclick="editTask({{ $task->id }})"><i class="fas fa-lg fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteTask({{ $task->id }})"><i class="fas fa-lg fa-trash"></i></button>
+                            <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteTask({{ $task->id }}, {{ $user->id }})"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -535,6 +535,32 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <!-- Delete Task modal -->
+    <div class="modal fade" id="modal-task-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Подтвердите действие</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите удаление</p>
+                    <input type="hidden" name="task_id" value="">
+                    <input type="hidden" name="user_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger btn-delete">Подтверждаю</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @stop
 
 @section('js')
@@ -706,9 +732,6 @@
                 url : `/tasks/${taskId}`,
                 method : 'GET',
                 success : function (data) {
-                    // TODO: set checked status for checkboxes
-                    console.log(data);
-
                     for (resident of data.residents) {
                         $modalTaskEdit.find(`.residents input[type=checkbox][value=${resident.id}]`).prop('checked', true);
                     }
@@ -723,9 +746,19 @@
             });
         }
 
+        function deleteTask(taskId, userId) {
+            let $modalTaskDelete = $('#modal-task-delete');
+
+            $modalTaskDelete.find('[name=task_id]').val(taskId);
+            $modalTaskDelete.find('[name=user_id]').val(userId);
+
+            $modalTaskDelete.modal('show');
+        }
+
         $(function () {
             let $modalCreateTask = $('#modal-task-create');
             let $modalEditTask = $('#modal-task-edit');
+            let $modalTaskDelete = $('#modal-task-delete');
 
             // Create
 
@@ -748,6 +781,7 @@
                 let $checkboxes = $modalCreateTask.find('.users input[name=user\\[\\]]');
                 $checkboxes.prop('checked', !$checkboxes.prop("checked"));
             });
+            // $modalCreateTask.find('[name=description]').summernote();
 
             // Edit
 
@@ -758,6 +792,29 @@
                     url : `/tasks/${taskId}`,
                     method : 'PUT',
                     data : $modalEditTask.find('form').serialize(),
+                    success : function () {
+                        location.reload();
+                    }
+                });
+            });
+
+            $modalEditTask.find('.btn-residents-select-all').click(function () {
+                let $checkboxes = $modalEditTask.find('.residents input[name=resident\\[\\]]');
+                $checkboxes.prop('checked', !$checkboxes.prop("checked"));
+            });
+            $modalEditTask.find('.btn-users-select-all').click(function () {
+                let $checkboxes = $modalEditTask.find('.users input[name=user\\[\\]]');
+                $checkboxes.prop('checked', !$checkboxes.prop("checked"));
+            });
+            // $modalEditTask.find('[name=description]').summernote();
+
+            $modalTaskDelete.find('.btn-delete').click(function () {
+                let taskId = $modalTaskDelete.find('[name=task_id]').val();
+                let userId = $modalTaskDelete.find('[name=user_id]').val();
+
+                $.ajax({
+                    url : `/users/${userId}/tasks/${taskId}`,
+                    method : 'DELETE',
                     success : function () {
                         location.reload();
                     }

@@ -127,7 +127,6 @@ class TaskController extends Controller
             'description' => 'required',
             'start_at' => 'required|date',
             'end_at' => 'required|date',
-            'finished_at' => 'nullable|date',
             // relations
             'resident' => 'array',
             'user' => 'array',
@@ -135,20 +134,8 @@ class TaskController extends Controller
 
         $task->update($request->all());
 
-        $task->users()->sync(
-            $this->prepareSyncData(
-                $request->input('user', []),
-                'finished_at',
-                $request->input('finished_at')
-            )
-        );
-        $task->residents()->sync(
-            $this->prepareSyncData(
-                $request->input('resident', []),
-                'finished_at',
-                $request->input('finished_at')
-            )
-        );
+        $task->users()->sync($request->input('user', []));
+        $task->residents()->sync($request->input('resident', []));
 
         return response()->json($task->toArray());
     }
