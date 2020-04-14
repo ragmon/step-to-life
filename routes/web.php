@@ -33,4 +33,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('residents', 'ResidentController');
     Route::resource('tasks', 'TaskController');
     Route::resource('reports', 'ReportController');
+    Route::resource('rules', 'RuleController');
 });

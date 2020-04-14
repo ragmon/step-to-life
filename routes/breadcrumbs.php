@@ -40,3 +40,27 @@ Breadcrumbs::for('report.edit', function ($trail, $report) {
     $trail->parent('report.index');
     $trail->push($report->title, route('reports.show', [$report->id]));
 });
+
+// Home > Rules
+Breadcrumbs::for('rule.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Отчёты', route('rules.index'));
+});
+
+// Home > Rules > [rule]
+Breadcrumbs::for('rule.show', function ($trail, $rule) {
+    $trail->parent('rule.index');
+    $trail->push($rule->title, route('rules.show', [$rule->id]));
+});
+
+// Home > Rules > Create
+Breadcrumbs::for('rule.create', function ($trail) {
+    $trail->parent('rule.index');
+    $trail->push('Создание отчёта', route('rules.create'));
+});
+
+// Home > Rules > Edit > [rule]
+Breadcrumbs::for('rule.edit', function ($trail, $rule) {
+    $trail->parent('rule.index');
+    $trail->push($rule->title, route('rules.show', [$rule->id]));
+});
