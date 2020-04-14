@@ -120,7 +120,7 @@
                 @foreach($user->tasks as $task)
                     <tr>
                         <td><a href="{{ route('tasks.show', [$task->id]) }}">{{ $task->title }}</a></td>
-                        <td>{{ $task->pivot->finished_at }}</td>
+                        <td>{{ $task->pivot->finished_at ?? '-' }}</td>
                         <td class="text-right">
                             <button class="btn btn-success btn-sm btn-task-finish" onclick="finishTask({{ $task->id }}, {{ $user->id }})"><i class="fas fa-lg fa-check-circle"></i></button>
                             <button class="btn btn-primary btn-sm btn-task-edit" onclick="editTask({{ $task->id }})"><i class="fas fa-lg fa-edit"></i></button>
@@ -145,7 +145,9 @@
                     <h2 class="lead">Отчёты</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></a>
+                    @if (Auth::id() == $user->id)
+                        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></a>
+                    @endif
                 </div>
             </div>
             <table id="reports" class="table table-bordered table-striped">
@@ -160,8 +162,7 @@
                     <tr>
                         <td><a href="{{ route('reports.show', [$report->id]) }}">{{ $report->title }}</a></td>
                         <td class="text-right">
-                            <button class="btn btn-primary btn-sm btn-report-edit"><i class="fas fa-lg fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm btn-report-delete"><i class="fas fa-lg fa-trash"></i></button>
+                            <a href="{{ route('reports.edit', [$report->id]) }}" class="btn btn-primary btn-sm btn-report-edit"><i class="fas fa-lg fa-edit"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -176,7 +177,7 @@
         </div>
 {{--        <hr>--}}
 {{--        <div class="card-footer">--}}
-
+{{--            adwda--}}
 {{--        </div>--}}
     </div>
 
@@ -391,7 +392,7 @@
                             <hr>
                             <div class="form-group">
                                 <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="email" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-sum">Описание</label>
@@ -483,7 +484,7 @@
                             <hr>
                             <div class="form-group">
                                 <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="email" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-sum">Описание</label>
@@ -539,6 +540,32 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <!-- Delete Task modal -->
+    <div class="modal fade" id="modal-task-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Подтвердите действие</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите удаление</p>
+                    <input type="hidden" name="task_id" value="">
+                    <input type="hidden" name="user_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger btn-delete">Подтверждаю</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
     <!-- Delete Task modal -->
     <div class="modal fade" id="modal-task-delete">

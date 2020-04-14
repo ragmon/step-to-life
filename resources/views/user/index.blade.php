@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
             <div class="text-right">
-                <button href="#" class="btn btn-success" data-toggle="modal" data-target="#modal-user-create">Создать</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-user-create">Создать</button>
             </div>
         </div>
     </div>

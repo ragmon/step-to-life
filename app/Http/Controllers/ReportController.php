@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Report;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ReportController extends Controller
 {
@@ -14,7 +15,10 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        /** @var LengthAwarePaginator $reports */
+        $reports = Report::orderBy('created_at', 'desc')->paginate(15);
+
+        return response()->view('report.index', compact('reports'));
     }
 
     /**
@@ -24,7 +28,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        return response()->view('report.create');
     }
 
     /**
@@ -46,7 +50,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        //
+        return response()->view('report.show', compact('report'));
     }
 
     /**

@@ -11,6 +11,6 @@ $factory->define(Report::class, function (Faker $faker) {
             return factory(\App\User::class)->create()->id;
         },
         'title' => $faker->text(32),
-        'content' => $faker->randomHtml(),
+        'content' => $faker->realText(1000),
     ];
 });
