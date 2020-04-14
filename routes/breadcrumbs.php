@@ -28,3 +28,15 @@ Breadcrumbs::for('report.show', function ($trail, $report) {
     $trail->parent('report.index');
     $trail->push($report->title, route('reports.show', [$report->id]));
 });
+
+// Home > Reports > Create
+Breadcrumbs::for('report.create', function ($trail) {
+    $trail->parent('report.index');
+    $trail->push('Создание отчёта', route('reports.create'));
+});
+
+// Home > Reports > Edit > [report]
+Breadcrumbs::for('report.edit', function ($trail, $report) {
+    $trail->parent('report.index');
+    $trail->push($report->title, route('reports.show', [$report->id]));
+});

@@ -383,7 +383,7 @@ return [
         ],
         [
             'name' => 'summernote',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'css',

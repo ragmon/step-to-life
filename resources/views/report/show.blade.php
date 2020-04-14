@@ -21,8 +21,57 @@
             <button class="btn btn-danger" type="button" onclick="deleteReport({{ $report->id }})">Удалить</button>
         </div>
     </div>
+
+    <!-- Delete User modal -->
+    <div class="modal fade" id="modal-report-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Подтвердите действие</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите удаление</p>
+                    <input type="hidden" name="report_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger btn-delete">Подтверждаю</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @stop
 
 @section('js')
+    <script>
+        function deleteReport(reportId) {
+            let $modalReportDelete = $('#modal-report-delete');
 
+            $modalReportDelete.find('[name=report_id]').val(reportId);
+
+            $modalReportDelete.modal('show');
+        }
+
+        $(function () {
+            let $modalReportDelete = $('#modal-report-delete');
+
+            $modalReportDelete.find('.btn-delete').click(function () {
+                let reportId = $modalReportDelete.find('[name=report_id]').val();
+
+                $.ajax({
+                    url : `/reports/${reportId}`,
+                    method : 'DELETE',
+                    success : function () {
+                        window.location = '{{ route('reports.index') }}';
+                    }
+                });
+            });
+        });
+    </script>
 @stop
