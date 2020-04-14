@@ -50,7 +50,3 @@
         <!-- /.card-footer -->
     </div>
 @stop
-
-@section('js')
-
-@stop

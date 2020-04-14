@@ -64,3 +64,9 @@ Breadcrumbs::for('rule.edit', function ($trail, $rule) {
     $trail->parent('rule.index');
     $trail->push($rule->title, route('rules.show', [$rule->id]));
 });
+
+// Home > Residents
+Breadcrumbs::for('resident.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Резиденты', route('residents.index'));
+});

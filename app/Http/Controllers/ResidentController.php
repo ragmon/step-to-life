@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Resident;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ResidentController extends Controller
 {
@@ -15,7 +15,10 @@ class ResidentController extends Controller
      */
     public function index()
     {
-        //
+        /** @var LengthAwarePaginator $residents */
+        $residents = Resident::orderBy('registered_at', 'desc')->paginate(20);
+
+        return response()->view('resident.index', compact('residents'));
     }
 
     /**
