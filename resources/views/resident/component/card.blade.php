@@ -8,7 +8,7 @@
                 <div class="col-12">
                     <h2 class="lead"><b>{{ $resident->fullname }}</b></h2>
                     <ul class="ml-0 mb-0 fa-ul text-muted">
-                        <li class="small"> Пол: {{ $resident->gender }}</li>
+                        <li class="small"> Пол: {{ $resident->gender_title }}</li>
                         <li class="small"> День рождения: {{ $resident->birthday }}</li>
                     </ul>
                 </div>

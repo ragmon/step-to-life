@@ -739,7 +739,7 @@
 
     _proto.nextWhenVisible = function nextWhenVisible() {
       // Don't call next when the page isn't visible
-      // or the carousel or its parent isn't visible
+      // or the carousel or its resident_parent isn't visible
       if (!document.hidden && $(this._element).is(':visible') && $(this._element).css('visibility') !== 'hidden') {
         this.next();
       }
@@ -1324,7 +1324,7 @@
       if (this._parent) {
         actives = [].slice.call(this._parent.querySelectorAll(Selector$3.ACTIVES)).filter(function (elem) {
           if (typeof _this._config.parent === 'string') {
-            return elem.getAttribute('data-parent') === _this._config.parent;
+            return elem.getAttribute('data-resident_parent') === _this._config.parent;
           }
 
           return elem.classList.contains(ClassName$3.COLLAPSE);
@@ -1476,7 +1476,7 @@
         parent = document.querySelector(this._config.parent);
       }
 
-      var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
+      var selector = "[data-toggle=\"collapse\"][data-resident_parent=\"" + this._config.parent + "\"]";
       var children = [].slice.call(parent.querySelectorAll(selector));
       $(children).each(function (i, element) {
         _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
@@ -1686,7 +1686,7 @@
    * @method
    * @memberof Popper.Utils
    * @argument {Element} element
-   * @returns {Element} parent
+   * @returns {Element} resident_parent
    */
   function getParentNode(element) {
     if (element.nodeName === 'HTML') {
@@ -1696,11 +1696,11 @@
   }
 
   /**
-   * Returns the scrolling parent of the given element
+   * Returns the scrolling resident_parent of the given element
    * @method
    * @memberof Popper.Utils
    * @argument {Element} element
-   * @returns {Element} scroll parent
+   * @returns {Element} scroll resident_parent
    */
   function getScrollParent(element) {
     // Return body, `getScroll` will take care to get the correct `scrollTop` from it
@@ -1735,7 +1735,7 @@
    * @method
    * @memberof Popper.Utils
    * @param {Element|Object} reference - the reference element (the popper will be relative to this)
-   * @returns {Element} parent
+   * @returns {Element} resident_parent
    */
   function getReferenceNode(reference) {
     return reference && reference.referenceNode ? reference.referenceNode : reference;
@@ -1762,11 +1762,11 @@
   }
 
   /**
-   * Returns the offset parent of the given element
+   * Returns the offset resident_parent of the given element
    * @method
    * @memberof Popper.Utils
    * @argument {Element} element
-   * @returns {Element} offset parent
+   * @returns {Element} offset resident_parent
    */
   function getOffsetParent(element) {
     if (!element) {
@@ -1822,12 +1822,12 @@
   }
 
   /**
-   * Finds the offset parent common to the two provided nodes
+   * Finds the offset resident_parent common to the two provided nodes
    * @method
    * @memberof Popper.Utils
    * @argument {Element} element1
    * @argument {Element} element2
-   * @returns {Element} common offset parent
+   * @returns {Element} common offset resident_parent
    */
   function findCommonOffsetParent(element1, element2) {
     // This check is needed to avoid errors in case one of the elements isn't defined for any reason
@@ -2082,7 +2082,7 @@
     var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
     var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
 
-    // In cases where the parent is fixed, we must ignore negative scroll in offset calc
+    // In cases where the resident_parent is fixed, we must ignore negative scroll in offset calc
     if (fixedPosition && isHTML) {
       parentRect.top = Math.max(parentRect.top, 0);
       parentRect.left = Math.max(parentRect.left, 0);
@@ -2096,7 +2096,7 @@
     offsets.marginTop = 0;
     offsets.marginLeft = 0;
 
-    // Subtract margins of documentElement in case it's being used as parent
+    // Subtract margins of documentElement in case it's being used as resident_parent
     // we do this only on HTML because it's the only element that behaves
     // differently when margins are applied to it. The margins are included in
     // the box of the documentElement, in the other cases not.
@@ -2143,7 +2143,7 @@
   }
 
   /**
-   * Check if the given element is fixed or is inside a fixed parent
+   * Check if the given element is fixed or is inside a fixed resident_parent
    * @method
    * @memberof Popper.Utils
    * @argument {Element} element
@@ -2166,11 +2166,11 @@
   }
 
   /**
-   * Finds the first parent of an element that has a transformed property defined
+   * Finds the first resident_parent of an element that has a transformed property defined
    * @method
    * @memberof Popper.Utils
    * @argument {Element} element
-   * @returns {Element} first transformed parent or documentElement
+   * @returns {Element} first transformed resident_parent or documentElement
    */
 
   function getFixedPositionOffsetParent(element) {
@@ -4350,7 +4350,7 @@
             referenceElement = this._config.reference[0];
           }
         } // If boundary is not `scrollParent`, then set position to `static`
-        // to allow the menu to "escape" the scroll parent's boundaries
+        // to allow the menu to "escape" the scroll resident_parent's boundaries
         // https://github.com/twbs/bootstrap/issues/24251
 
 
@@ -6574,7 +6574,7 @@
       } else {
         // Set triggered link as active
         $link.addClass(ClassName$8.ACTIVE); // Set triggered links parents as active
-        // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
+        // With both <ul> and <nav> markup a resident_parent is the previous sibling of any nav ancestor
 
         $link.parents(Selector$8.NAV_LIST_GROUP).prev(Selector$8.NAV_LINKS + ", " + Selector$8.LIST_ITEMS).addClass(ClassName$8.ACTIVE); // Handle special case when .nav-link is inside .nav-item
 

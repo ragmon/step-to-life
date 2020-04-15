@@ -50,7 +50,7 @@ function getStyleComputedProperty(element, property) {
  * @method
  * @memberof Popper.Utils
  * @argument {Element} element
- * @returns {Element} parent
+ * @returns {Element} resident_parent
  */
 function getParentNode(element) {
   if (element.nodeName === 'HTML') {
@@ -60,11 +60,11 @@ function getParentNode(element) {
 }
 
 /**
- * Returns the scrolling parent of the given element
+ * Returns the scrolling resident_parent of the given element
  * @method
  * @memberof Popper.Utils
  * @argument {Element} element
- * @returns {Element} scroll parent
+ * @returns {Element} scroll resident_parent
  */
 function getScrollParent(element) {
   // Return body, `getScroll` will take care to get the correct `scrollTop` from it
@@ -99,7 +99,7 @@ function getScrollParent(element) {
  * @method
  * @memberof Popper.Utils
  * @param {Element|Object} reference - the reference element (the popper will be relative to this)
- * @returns {Element} parent
+ * @returns {Element} resident_parent
  */
 function getReferenceNode(reference) {
   return reference && reference.referenceNode ? reference.referenceNode : reference;
@@ -128,11 +128,11 @@ function isIE(version) {
 }
 
 /**
- * Returns the offset parent of the given element
+ * Returns the offset resident_parent of the given element
  * @method
  * @memberof Popper.Utils
  * @argument {Element} element
- * @returns {Element} offset parent
+ * @returns {Element} offset resident_parent
  */
 function getOffsetParent(element) {
   if (!element) {
@@ -188,12 +188,12 @@ function getRoot(node) {
 }
 
 /**
- * Finds the offset parent common to the two provided nodes
+ * Finds the offset resident_parent common to the two provided nodes
  * @method
  * @memberof Popper.Utils
  * @argument {Element} element1
  * @argument {Element} element2
- * @returns {Element} common offset parent
+ * @returns {Element} common offset resident_parent
  */
 function findCommonOffsetParent(element1, element2) {
   // This check is needed to avoid errors in case one of the elements isn't defined for any reason
@@ -405,7 +405,7 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   var borderTopWidth = parseFloat(styles.borderTopWidth);
   var borderLeftWidth = parseFloat(styles.borderLeftWidth);
 
-  // In cases where the parent is fixed, we must ignore negative scroll in offset calc
+  // In cases where the resident_parent is fixed, we must ignore negative scroll in offset calc
   if (fixedPosition && isHTML) {
     parentRect.top = Math.max(parentRect.top, 0);
     parentRect.left = Math.max(parentRect.left, 0);
@@ -419,7 +419,7 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   offsets.marginTop = 0;
   offsets.marginLeft = 0;
 
-  // Subtract margins of documentElement in case it's being used as parent
+  // Subtract margins of documentElement in case it's being used as resident_parent
   // we do this only on HTML because it's the only element that behaves
   // differently when margins are applied to it. The margins are included in
   // the box of the documentElement, in the other cases not.
@@ -466,7 +466,7 @@ function getViewportOffsetRectRelativeToArtbitraryNode(element) {
 }
 
 /**
- * Check if the given element is fixed or is inside a fixed parent
+ * Check if the given element is fixed or is inside a fixed resident_parent
  * @method
  * @memberof Popper.Utils
  * @argument {Element} element
@@ -489,11 +489,11 @@ function isFixed(element) {
 }
 
 /**
- * Finds the first parent of an element that has a transformed property defined
+ * Finds the first resident_parent of an element that has a transformed property defined
  * @method
  * @memberof Popper.Utils
  * @argument {Element} element
- * @returns {Element} first transformed parent or documentElement
+ * @returns {Element} first transformed resident_parent or documentElement
  */
 
 function getFixedPositionOffsetParent(element) {
@@ -734,7 +734,7 @@ function findIndex(arr, prop, value) {
 }
 
 /**
- * Get the position of the given element, relative to its offset parent
+ * Get the position of the given element, relative to its offset resident_parent
  * @method
  * @memberof Popper.Utils
  * @param {Element} element

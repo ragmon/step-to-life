@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users.tasks', 'UserTaskController');
     Route::resource('fines', 'FineController');
     Route::resource('residents', 'ResidentController');
+    Route::resource('parents', 'ResidentParentController');
     Route::resource('tasks', 'TaskController');
     Route::resource('reports', 'ReportController');
     Route::resource('rules', 'RuleController');

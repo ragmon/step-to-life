@@ -740,7 +740,7 @@
 
     _proto.nextWhenVisible = function nextWhenVisible() {
       // Don't call next when the page isn't visible
-      // or the carousel or its parent isn't visible
+      // or the carousel or its resident_parent isn't visible
       if (!document.hidden && $(this._element).is(':visible') && $(this._element).css('visibility') !== 'hidden') {
         this.next();
       }
@@ -1325,7 +1325,7 @@
       if (this._parent) {
         actives = [].slice.call(this._parent.querySelectorAll(Selector$3.ACTIVES)).filter(function (elem) {
           if (typeof _this._config.parent === 'string') {
-            return elem.getAttribute('data-parent') === _this._config.parent;
+            return elem.getAttribute('data-resident_parent') === _this._config.parent;
           }
 
           return elem.classList.contains(ClassName$3.COLLAPSE);
@@ -1477,7 +1477,7 @@
         parent = document.querySelector(this._config.parent);
       }
 
-      var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
+      var selector = "[data-toggle=\"collapse\"][data-resident_parent=\"" + this._config.parent + "\"]";
       var children = [].slice.call(parent.querySelectorAll(selector));
       $(children).each(function (i, element) {
         _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
@@ -1737,7 +1737,7 @@
             referenceElement = this._config.reference[0];
           }
         } // If boundary is not `scrollParent`, then set position to `static`
-        // to allow the menu to "escape" the scroll parent's boundaries
+        // to allow the menu to "escape" the scroll resident_parent's boundaries
         // https://github.com/twbs/bootstrap/issues/24251
 
 
@@ -3961,7 +3961,7 @@
       } else {
         // Set triggered link as active
         $link.addClass(ClassName$8.ACTIVE); // Set triggered links parents as active
-        // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
+        // With both <ul> and <nav> markup a resident_parent is the previous sibling of any nav ancestor
 
         $link.parents(Selector$8.NAV_LIST_GROUP).prev(Selector$8.NAV_LINKS + ", " + Selector$8.LIST_ITEMS).addClass(ClassName$8.ACTIVE); // Handle special case when .nav-link is inside .nav-item
 

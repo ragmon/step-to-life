@@ -15,16 +15,19 @@
             <h2 class="lead"><b>{{ "$resident->fullname" }}</b></h2>
             <ul class="ml-0 mb-0 fa-ul text-muted mb-2">
                 <li>Статус: {{ $resident->status }}</li>
-                <li>Пол: {{ $resident->gender }}</li>
+                <li>Пол: {{ $resident->gender_title }}</li>
                 <li>Телефон: <a href="tel:{{ $resident->phone }}">{{ $resident->phone }}</a></li>
                 <li>День рождения: {{ $resident->birthday }}</li>
                 <li>Дата регистрации: {{ $resident->registered_at }}</li>
                 <li>Источник поступления: {{ $resident->source }}</li>
                 <li>О резиденте: {{ $resident->about }}</li>
             </ul>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Назначения врачей -->
+    <!-- Назначения врачей -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Назначения врачей</h2>
@@ -64,9 +67,12 @@
                 </tr>
                 </tfoot>
             </table>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Взыскания -->
+    <!-- Взыскания -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Взыскания</h2>
@@ -97,9 +103,12 @@
                 </tr>
                 </tfoot>
             </table>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Ответственности -->
+    <!-- Ответственности -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Обязанности</h2>
@@ -112,29 +121,27 @@
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Функция</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($resident->responsibilities as $responsibility)
                     <tr>
                         <td>{{ $responsibility->name }}</td>
-                        <td class="text-right">
-                            <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteResponsibility({{ $responsibility->id }})"><i class="fas fa-lg fa-trash"></i></button>
-                        </td>
                     </tr>
                 @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
                     <th>Название</th>
-                    <th>Функция</th>
                 </tr>
                 </tfoot>
             </table>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Задания -->
+    <!-- Задания -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Задания</h2>
@@ -172,9 +179,11 @@
                 </tr>
                 </tfoot>
             </table>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Родственики -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Родственики</h2>
@@ -183,10 +192,41 @@
                     <button class="btn btn-success btn-sm" type="button" onclick="createParent()"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
-            <div>
+            <div class="row d-flex align-items-stretch">
+                @each('resident_parent.component.card', $resident->parents, 'parent')
+            </div>
+        </div>
+    </div>
 
+    <div class="card bg-light w-100">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h2 class="lead">Заметки</h2>
+                </div>
+                <div class="col-6 text-right">
+                    <button class="btn btn-success btn-sm" type="button" onclick="createNote()"><i class="fas fa-lg fa-plus"></i></button>
+                </div>
             </div>
 
+            @foreach($resident->notes->take(5) as $note)
+                <div class="post">
+                    <div class="user-block">
+                        <span class="username ml-0">
+                              <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                              <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                            </span>
+                        <span class="description ml-0">{{ $note->created_at }}</span>
+                    </div>
+                    <!-- /.user-block -->
+                    <p>
+                        {{ $note->content }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+        <div class="card-footer text-center">
+            <a href="#">Показать все</a>
         </div>
     </div>
 @stop

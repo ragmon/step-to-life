@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string lastname
  * @property string patronymic
  * @property bool gender
+ * @property string gender_title
  * @property string phone
  * @property Carbon birthday
  * @property Carbon registered_at
@@ -30,6 +31,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string fullname
  * @property Collection tasks
  * @property Collection responsibilities
+ * @property Collection punishments
+ * @property Collection parents
  */
 class Resident extends Model
 {
@@ -69,6 +72,22 @@ class Resident extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function parents()
+    {
+        return $this->hasMany('App\ResidentParent');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function notes()
+    {
+        return $this->morphMany('App\Note', 'notable');
+    }
+
+    /**
      * Get full name attribute value.
      *
      * @return string
@@ -83,7 +102,7 @@ class Resident extends Model
      *
      * @return string
      */
-    public function getGenderAttribute()
+    public function getGenderTitleAttribute()
     {
         return $this->attributes['gender'] ? 'мужской' : 'женский';
     }

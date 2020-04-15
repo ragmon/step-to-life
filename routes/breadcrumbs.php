@@ -44,7 +44,7 @@ Breadcrumbs::for('report.edit', function ($trail, $report) {
 // Home > Rules
 Breadcrumbs::for('rule.index', function ($trail) {
     $trail->parent('home');
-    $trail->push('Отчёты', route('rules.index'));
+    $trail->push('Правила', route('rules.index'));
 });
 
 // Home > Rules > [rule]
@@ -56,7 +56,7 @@ Breadcrumbs::for('rule.show', function ($trail, $rule) {
 // Home > Rules > Create
 Breadcrumbs::for('rule.create', function ($trail) {
     $trail->parent('rule.index');
-    $trail->push('Создание отчёта', route('rules.create'));
+    $trail->push('Создание правила', route('rules.create'));
 });
 
 // Home > Rules > Edit > [rule]

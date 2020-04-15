@@ -903,7 +903,7 @@ function assert( fn ) {
 	} catch (e) {
 		return false;
 	} finally {
-		// Remove from its parent by default
+		// Remove from its resident_parent by default
 		if ( el.parentNode ) {
 			el.parentNode.removeChild( el );
 		}
@@ -999,7 +999,7 @@ function createDisabledPseudo( disabled ) {
 			// All such elements have a "form" property.
 			if ( elem.parentNode && elem.disabled === false ) {
 
-				// Option elements defer to a parent optgroup if present
+				// Option elements defer to a resident_parent optgroup if present
 				if ( "label" in elem ) {
 					if ( "label" in elem.parentNode ) {
 						return elem.parentNode.disabled === disabled;
@@ -1810,7 +1810,7 @@ Expr = Sizzle.selectors = {
 
 						start = [ forward ? parent.firstChild : parent.lastChild ];
 
-						// non-xml :nth-child(...) stores cache data on `parent`
+						// non-xml :nth-child(...) stores cache data on `resident_parent`
 						if ( forward && useCache ) {
 
 							// Seek `elem` from a previously-cached index
@@ -1834,7 +1834,7 @@ Expr = Sizzle.selectors = {
 								// Fallback to seeking `elem` from the start
 								(diff = nodeIndex = 0) || start.pop()) ) {
 
-								// When found, cache indexes on `parent` and break
+								// When found, cache indexes on `resident_parent` and break
 								if ( node.nodeType === 1 && ++diff && node === elem ) {
 									uniqueCache[ type ] = [ dirruns, nodeIndex, diff ];
 									break;
@@ -3095,7 +3095,7 @@ jQuery.fn.extend( {
 	// Determine the position of an element within the set
 	index: function( elem ) {
 
-		// No argument, return index in parent
+		// No argument, return index in resident_parent
 		if ( !elem ) {
 			return ( this[ 0 ] && this[ 0 ].parentNode ) ? this.first().prevAll().length : -1;
 		}
@@ -5787,7 +5787,7 @@ var
 	rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
 	rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 
-// Prefer a tbody over its parent table for containing new rows
+// Prefer a tbody over its resident_parent table for containing new rows
 function manipulationTarget( elem, content ) {
 	if ( nodeName( elem, "table" ) &&
 		nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
@@ -10264,7 +10264,7 @@ jQuery.fn.extend( {
 		};
 	},
 
-	// position() relates an element's margin box to its offset parent's padding box
+	// position() relates an element's margin box to its offset resident_parent's padding box
 	// This corresponds to the behavior of CSS absolute positioning
 	position: function() {
 		if ( !this[ 0 ] ) {
@@ -10284,7 +10284,7 @@ jQuery.fn.extend( {
 		} else {
 			offset = this.offset();
 
-			// Account for the *real* offset parent, which can be the document or its root element
+			// Account for the *real* offset resident_parent, which can be the document or its root element
 			// when a statically positioned element is identified
 			doc = elem.ownerDocument;
 			offsetParent = elem.offsetParent || doc.documentElement;
@@ -10303,7 +10303,7 @@ jQuery.fn.extend( {
 			}
 		}
 
-		// Subtract parent offsets and element margins
+		// Subtract resident_parent offsets and element margins
 		return {
 			top: offset.top - parentOffset.top - jQuery.css( elem, "marginTop", true ),
 			left: offset.left - parentOffset.left - jQuery.css( elem, "marginLeft", true )
@@ -10312,7 +10312,7 @@ jQuery.fn.extend( {
 
 	// This method will return documentElement in the following cases:
 	// 1) For the element inside the iframe without offsetParent, this method will return
-	//    documentElement of the parent window
+	//    documentElement of the resident_parent window
 	// 2) For the hidden or detached element
 	// 3) For body or html element, i.e. in case of the html node - it will return itself
 	//

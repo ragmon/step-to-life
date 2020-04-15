@@ -18,9 +18,14 @@ class ResidentSeeder extends Seeder
         foreach ($residents as $resident) {
             /** @var \App\Resident $resident */
             $resident->responsibilities()->saveMany($responsibilities);
-            $resident->doctorAppointments()->saveMany(
-                factory(\App\DoctorAppointment::class, 5)->create()
-            );
+            $resident->notes()->saveMany(factory(\App\Note::class, 50)->create());
+
+            factory(\App\DoctorAppointment::class, 5)->create([
+                'resident_id' => $resident->id,
+            ]);
+            factory(\App\ResidentParent::class, 2)->create([
+                'resident_id' => $resident->id,
+            ]);
         }
     }
 }
