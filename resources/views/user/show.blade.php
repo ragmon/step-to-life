@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', "$user->firstname $user->lastname $user->patronymic - $user->role")
+@section('title', "$user->fullname - $user->role")
 
 @section('content_header')
 {{--    <h1>{{ "$user->firstname $user->lastname $user->patronymic - $user->role" }}</h1>--}}
@@ -14,11 +14,11 @@
             {{ $user->role }}
         </div>
         <div class="card-body pt-0">
-            <h2 class="lead"><b>{{ "$user->firstname $user->lastname $user->patronymic" }}</b></h2>
+            <h2 class="lead"><b>{{ "$user->fullname" }}</b></h2>
             <ul class="ml-4 mb-0 fa-ul text-muted mb-2">
-                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-at"></i></span> E-mail: <a
+                <li><span class="fa-li"><i class="fas fa-lg fa-at"></i></span> E-mail: <a
                         href="mailto:{{ $user->email }}">{{ $user->email }}</a></li>
-                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Телефон: <a
+                <li><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Телефон: <a
                         href="tel:{{ $user->phone }}">{{ $user->phone }}</a></li>
             </ul>
             <div class="text-right">
@@ -872,6 +872,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "scrollX" : true,
             "language": {
                 "url": "/datatable/Russian.json"
             }
@@ -885,6 +886,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "scrollX" : true,
             "language": {
                 "url": "/datatable/Russian.json"
             }
@@ -898,6 +900,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "scrollX" : true,
             "language": {
                 "url": "/datatable/Russian.json"
             }
@@ -911,6 +914,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "scrollX" : true,
             "language": {
                 "url": "/datatable/Russian.json"
             }

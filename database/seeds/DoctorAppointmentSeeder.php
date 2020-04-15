@@ -1,9 +1,8 @@
 <?php
 
-use App\Report;
 use Illuminate\Database\Seeder;
 
-class ReportSeeder extends Seeder
+class DoctorAppointmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class ReportSeeder extends Seeder
      */
     public function run()
     {
-        factory(Report::class, 100)->create();
+        //
     }
 }

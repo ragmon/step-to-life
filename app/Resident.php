@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -27,6 +28,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon updated_at
  * @property Carbon deleted_at
  * @property string fullname
+ * @property Collection tasks
+ * @property Collection responsibilities
  */
 class Resident extends Model
 {
@@ -38,6 +41,31 @@ class Resident extends Model
     public function punishments()
     {
         return $this->hasMany('App\Punishment', 'to_resident_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function tasks()
+    {
+        return $this->morphToMany('App\Task', 'taskable')
+            ->withPivot('finished_at');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function responsibilities()
+    {
+        return $this->belongsToMany('App\Responsibility');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function doctorAppointments()
+    {
+        return $this->hasMany('App\DoctorAppointment');
     }
 
     /**
@@ -58,5 +86,25 @@ class Resident extends Model
     public function getGenderAttribute()
     {
         return $this->attributes['gender'] ? 'мужской' : 'женский';
+    }
+
+    /**
+     * Get balance attribute value.
+     *
+     * @return string
+     */
+    public function getBalanceAttribute()
+    {
+        return "{$this->attributes['balance']} грн";
+    }
+
+    /**
+     * Get status attribute value.
+     *
+     * @return string
+     */
+    public function getStatusAttribute()
+    {
+        return $this->attributes['status'] ? 'закончил реабилитацию' : 'в реабилитации';
     }
 }

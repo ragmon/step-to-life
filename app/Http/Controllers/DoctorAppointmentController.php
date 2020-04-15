@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Resident;
+use App\DoctorAppointment;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
-class ResidentController extends Controller
+class DoctorAppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,7 @@ class ResidentController extends Controller
      */
     public function index()
     {
-        /** @var LengthAwarePaginator $residents */
-        $residents = Resident::orderBy('registered_at', 'desc')->paginate(20);
-
-        return response()->view('resident.index', compact('residents'));
+        //
     }
 
     /**
@@ -45,21 +41,21 @@ class ResidentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Resident  $resident
+     * @param  \App\DoctorAppointment  $doctorAppointment
      * @return \Illuminate\Http\Response
      */
-    public function show(Resident $resident)
+    public function show(DoctorAppointment $doctorAppointment)
     {
-        return response()->view('resident.show', compact('resident'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Resident  $resident
+     * @param  \App\DoctorAppointment  $doctorAppointment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Resident $resident)
+    public function edit(DoctorAppointment $doctorAppointment)
     {
         //
     }
@@ -68,10 +64,10 @@ class ResidentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Resident  $resident
+     * @param  \App\DoctorAppointment  $doctorAppointment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Resident $resident)
+    public function update(Request $request, DoctorAppointment $doctorAppointment)
     {
         //
     }
@@ -79,10 +75,10 @@ class ResidentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Resident  $resident
+     * @param  \App\DoctorAppointment  $doctorAppointment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Resident $resident)
+    public function destroy(DoctorAppointment $doctorAppointment)
     {
         //
     }

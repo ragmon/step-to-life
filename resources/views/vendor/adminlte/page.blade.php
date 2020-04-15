@@ -219,12 +219,16 @@
             @endif
         </div>
 
-        @hasSection('footer')
         <footer class="main-footer">
-
-            @yield('footer')
+            @hasSection('footer')
+                @yield('footer')
+            @else
+                <div class="float-right d-none d-sm-block">
+                    <b>Версия</b> 1.0.0
+                </div>
+                <strong>Разработчик: <a href="http://ragmon.github.io" target="_blank">Arthur Ragimov</a>.</strong>
+            @endif
         </footer>
-        @endif
 
         @if(config('adminlte.right_sidebar'))
             <aside class="control-sidebar control-sidebar-{{config('adminlte.right_sidebar_theme')}}">

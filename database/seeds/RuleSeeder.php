@@ -1,5 +1,6 @@
 <?php
 
+use App\Rule;
 use Illuminate\Database\Seeder;
 
 class RuleSeeder extends Seeder
@@ -11,6 +12,6 @@ class RuleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Rule::class, 10)->create();
     }
 }

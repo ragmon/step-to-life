@@ -70,3 +70,9 @@ Breadcrumbs::for('resident.index', function ($trail) {
     $trail->parent('home');
     $trail->push('Резиденты', route('residents.index'));
 });
+
+// Home > Residents > [resident]
+Breadcrumbs::for('resident.show', function ($trail, $resident) {
+    $trail->parent('resident.index');
+    $trail->push($resident->fullname, route('residents.show', [$resident->id]));
+});

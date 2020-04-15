@@ -11,6 +11,16 @@ class ResidentSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Resident::class, 100)->create();
+        $residents = factory(\App\Resident::class, 20)->create();
+
+        $responsibilities = factory(\App\Responsibility::class, 10)->create();
+
+        foreach ($residents as $resident) {
+            /** @var \App\Resident $resident */
+            $resident->responsibilities()->saveMany($responsibilities);
+            $resident->doctorAppointments()->saveMany(
+                factory(\App\DoctorAppointment::class, 5)->create()
+            );
+        }
     }
 }
