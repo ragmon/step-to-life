@@ -44,7 +44,7 @@
                 <tbody>
                 @foreach($user->punishments as $punishment)
                     <tr>
-                        <td>{{ $punishment->resident->fullname }}</td>
+                        <td><a href="{{ route('residents.show', [$punishment->resident->id]) }}">{{ $punishment->resident->fullname }}</a></td>
                         <td>{{ $punishment->description }}</td>
                         <td>{{ $punishment->start_at }}</td>
                     </tr>
