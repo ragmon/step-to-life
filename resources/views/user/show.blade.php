@@ -29,10 +29,18 @@
                     <i class="fas fa-trash"></i> Удалить
                 </button>
             </div>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Взыскания -->
-            <h2 class="lead">Взыскания</h2>
+    <!-- Взыскания -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <h2 class="lead">Взыскания</h2>
+                </div>
+            </div>
+
             <table id="punishments" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -58,9 +66,12 @@
                 </tr>
                 </tfoot>
             </table>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Штрафы -->
+    <!-- Штрафы -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Штрафы</h2>
@@ -69,6 +80,7 @@
                     <button class="btn btn-success btn-sm" onclick="createFine({{ $user->id }})"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
+
             <table id="fines" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -97,9 +109,12 @@
                 </tr>
                 </tfoot>
             </table>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Задания -->
+    <!-- Задания -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Задания</h2>
@@ -137,9 +152,12 @@
                 </tr>
                 </tfoot>
             </table>
-            <hr>
+        </div>
+    </div>
 
-            <!-- Отчёты -->
+    <!-- Отчёты -->
+    <div class="card bg-light w-100">
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
                     <h2 class="lead">Отчёты</h2>
@@ -175,10 +193,6 @@
                 </tfoot>
             </table>
         </div>
-{{--        <hr>--}}
-{{--        <div class="card-footer">--}}
-{{--            adwda--}}
-{{--        </div>--}}
     </div>
 
     <!-- Edit User modal -->
