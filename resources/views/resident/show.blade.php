@@ -52,8 +52,8 @@
                         <td>{{ $doctorAppointment->drug }}</td>
                         <td>{{ $doctorAppointment->reception_schedule }}</td>
                         <td class="text-right">
-                            <button class="btn btn-primary btn-sm btn-doctor-appointment-edit" onclick="editDoctorAppointment({{ $doctorAppointment->id }})"><i class="fas fa-lg fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm btn-doctor-appointment-delete" onclick="deleteDoctorAppointment({{ $doctorAppointment->id }})"><i class="fas fa-lg fa-trash"></i></button>
+                            <button class="btn btn-primary btn-sm btn-doctor-appointment-edit" onclick="editDoctorAppointment({{ $doctorAppointment->id }}, {{ $resident->id }})"><i class="fas fa-lg fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm btn-doctor-appointment-delete" onclick="deleteDoctorAppointment({{ $doctorAppointment->id }}, {{ $resident->id }})"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -182,6 +182,7 @@
         </div>
     </div>
 
+    <!-- Родственики -->
     <div class="card bg-light w-100">
         <div class="card-body">
             <div class="row mb-3">
@@ -198,6 +199,7 @@
         </div>
     </div>
 
+    <!-- Заметки -->
     <div class="card bg-light w-100">
         <div class="card-body">
             <div class="row mb-3">
@@ -267,6 +269,71 @@
         </div>
         <!-- /.modal-dialog -->
     </form>
+
+    <!-- Edit Doctor Appointment modal -->
+    <form class="modal fade" id="modal-doctor-appointment-edit" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Редактирование назначения врача</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Доктор</label>
+                            <input name="doctor" type="text" class="form-control" placeholder="Иван Михалыч">
+                        </div>
+                        <div class="form-group">
+                            <label>Препарат</label>
+                            <input name="drug" type="text" class="form-control" placeholder="респалепт">
+                        </div>
+                        <div class="form-group">
+                            <label>Схема приёма</label>
+                            <textarea name="reception_schedule" class="form-control" placeholder="0.25"></textarea>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <input type="hidden" name="doctor_appointment_id" value="">
+                    <input type="hidden" name="resident_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Редактировать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+
+    <!-- Delete Task modal -->
+    <form class="modal fade" id="modal-doctor-appointment-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Подтвердите действие</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите удаление</p>
+                    <input type="hidden" name="resident_id" value="">
+                    <input type="hidden" name="doctor_appointment_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-danger btn-delete">Подтверждаю</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+    <!-- /.modal -->
 @stop
 
 @section('js')
@@ -283,11 +350,40 @@
             $modalDoctorAppointmentCreate.modal('show');
         }
 
+        function editDoctorAppointment(doctorAppointmentId, residentId) {
+            let $modalDoctorAppointmentEdit = $('#modal-doctor-appointment-edit');
+
+            $modalDoctorAppointmentEdit[0].reset();
+            $modalDoctorAppointmentEdit.find('[name=doctor_appointment_id]').val(doctorAppointmentId);
+            $modalDoctorAppointmentEdit.find('[name=resident_id]').val(residentId);
+
+            $.ajax({
+                url : `/residents/${residentId}/doctor_appointment/${doctorAppointmentId}`,
+                method : 'GET',
+                success : function (data) {
+                    populateForm($modalDoctorAppointmentEdit[0], data);
+
+                    $modalDoctorAppointmentEdit.modal('show');
+                }
+            });
+        }
+
+        function deleteDoctorAppointment(doctorAppointmentId, residentId) {
+            let $modalDoctorAppointmentDelete = $('#modal-doctor-appointment-delete');
+
+            $modalDoctorAppointmentDelete.find('[name=doctor_appointment_id]').val(doctorAppointmentId);
+            $modalDoctorAppointmentDelete.find('[name=resident_id]').val(residentId);
+
+            $modalDoctorAppointmentDelete.modal('show');
+        }
+
         $(function () {
             let $modalDoctorAppointmentCreate = $('#modal-doctor-appointment-create');
+            let $modalDoctorAppointmentEdit = $('#modal-doctor-appointment-edit');
+            let $modalDoctorAppointmentDelete = $('#modal-doctor-appointment-delete');
 
             $modalDoctorAppointmentCreate.validate({
-                submitHandler: function (form) {
+                submitHandler: function () {
                     let residentId = $modalDoctorAppointmentCreate.find('[name=resident_id]').val();
 
                     $.ajax({
@@ -323,15 +419,58 @@
                 },
             });
 
+            $modalDoctorAppointmentEdit.validate({
+                submitHandler: function () {
+                    let residentId = $modalDoctorAppointmentEdit.find('[name=resident_id]').val();
+                    let doctorAppointmentId = $modalDoctorAppointmentEdit.find('[name=doctor_appointment_id]').val();
 
-            // $(document).ready(function () {
-            //     $.validator.setDefaults({
-            //         submitHandler: function () {
-            //             alert( "Form successful submitted!" );
-            //         }
-            //     });
-            //
-            // });
+                    $.ajax({
+                        url : `/residents/${residentId}/doctor_appointment/${doctorAppointmentId}`,
+                        method : 'PUT',
+                        data : $modalDoctorAppointmentEdit.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    doctor: {
+                        required: true,
+                    },
+                    drug: {
+                        required: true,
+                    },
+                    reception_schedule: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    doctor: {
+                        required: "Пожалуйста введите доктора",
+                    },
+                    drug: {
+                        required: "Пожалуйста введите препорат",
+                    },
+                    reception_schedule: {
+                        required: "Пожалуйста введите схему приёма",
+                    }
+                },
+            });
+
+            $modalDoctorAppointmentDelete.submit(function () {
+                let doctorAppointmentId = $modalDoctorAppointmentDelete.find('[name=doctor_appointment_id]').val();
+                let residentId = $modalDoctorAppointmentDelete.find('[name=resident_id]').val();
+
+                $.ajax({
+                    url : `/residents/${residentId}/doctor_appointment/${doctorAppointmentId}`,
+                    method : 'DELETE',
+                    success : function () {
+                        location.reload();
+                    }
+                });
+
+                return false;
+            });
         });
 
 

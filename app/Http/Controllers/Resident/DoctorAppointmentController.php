@@ -56,12 +56,13 @@ class DoctorAppointmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\DoctorAppointment  $doctorAppointment
-     * @return \Illuminate\Http\Response
+     * @param Resident $resident
+     * @param \App\DoctorAppointment $doctorAppointment
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(DoctorAppointment $doctorAppointment)
+    public function show(Resident $resident, DoctorAppointment $doctorAppointment)
     {
-        //
+        return response()->json($doctorAppointment->toArray());
     }
 
     /**
@@ -78,23 +79,36 @@ class DoctorAppointmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\DoctorAppointment  $doctorAppointment
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Resident $resident
+     * @param \App\DoctorAppointment $doctorAppointment
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, DoctorAppointment $doctorAppointment)
+    public function update(Request $request, Resident $resident, DoctorAppointment $doctorAppointment)
     {
-        //
+        $request->validate([
+            'doctor' => 'required|max:255',
+            'drug' => 'required|max:255',
+            'reception_schedule' => 'required|max:1000',
+        ]);
+
+        $doctorAppointment->update($request->toArray());
+
+        return response()->json($doctorAppointment->refresh()->toArray());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\DoctorAppointment  $doctorAppointment
-     * @return \Illuminate\Http\Response
+     * @param Resident $resident
+     * @param \App\DoctorAppointment $doctorAppointment
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
-    public function destroy(DoctorAppointment $doctorAppointment)
+    public function destroy(Resident $resident, DoctorAppointment $doctorAppointment)
     {
-        //
+        $doctorAppointment->delete();
+
+        return response()->json();
     }
 }
