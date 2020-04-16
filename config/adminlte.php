@@ -397,5 +397,21 @@ return [
                 ],
             ],
         ],
+        [
+            'name' => 'jQuery Validation',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => 'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js'
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => 'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/additional-methods.min.js'
+                ],
+            ]
+        ]
     ],
 ];

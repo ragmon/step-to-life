@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Resident;
 
+use App\Http\Controllers\Controller;
 use App\Resident;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;

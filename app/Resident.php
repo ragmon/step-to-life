@@ -39,6 +39,14 @@ class Resident extends Model
     use SoftDeletes;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['firstname', 'lastname', 'patronymic', 'gender', 'phone', 'birthday', 'registered_at',
+        'about', 'source', 'balance', 'status'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function punishments()

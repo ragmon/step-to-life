@@ -33,7 +33,7 @@
                     <h2 class="lead">Назначения врачей</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createDoctorAppointment()"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createDoctorAppointment({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
             <table id="doctor-appointment" class="table table-bordered table-hover dataTable dtr-inline collapsed">
@@ -229,14 +229,115 @@
             <a href="#">Показать все</a>
         </div>
     </div>
+
+    <!-- Create Doctor Appointment modal -->
+    <form class="modal fade" id="modal-doctor-appointment-create" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Добавление назначения врача</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Доктор</label>
+                            <input name="doctor" type="text" class="form-control" placeholder="Иван Михалыч">
+                        </div>
+                        <div class="form-group">
+                            <label>Препарат</label>
+                            <input name="drug" type="text" class="form-control" placeholder="респалепт">
+                        </div>
+                        <div class="form-group">
+                            <label>Схема приёма</label>
+                            <textarea name="reception_schedule" class="form-control" placeholder="0.25"></textarea>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <input type="hidden" name="resident_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Добавить</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
 @stop
 
 @section('js')
     <script>
+
+        // Doctor appointments
+
+        function createDoctorAppointment(residentId) {
+            let $modalDoctorAppointmentCreate = $('#modal-doctor-appointment-create');
+
+            $modalDoctorAppointmentCreate[0].reset();
+            $modalDoctorAppointmentCreate.find('[name=resident_id]').val(residentId);
+
+            $modalDoctorAppointmentCreate.modal('show');
+        }
+
         $(function () {
+            let $modalDoctorAppointmentCreate = $('#modal-doctor-appointment-create');
 
-            // Datatables initializations
+            $modalDoctorAppointmentCreate.validate({
+                submitHandler: function (form) {
+                    let residentId = $modalDoctorAppointmentCreate.find('[name=resident_id]').val();
 
+                    $.ajax({
+                        url : `/residents/${residentId}/doctor_appointment`,
+                        method : 'POST',
+                        data : $modalDoctorAppointmentCreate.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    doctor: {
+                        required: true,
+                    },
+                    drug: {
+                        required: true,
+                    },
+                    reception_schedule: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    doctor: {
+                        required: "Пожалуйста введите доктора",
+                    },
+                    drug: {
+                        required: "Пожалуйста введите препорат",
+                    },
+                    reception_schedule: {
+                        required: "Пожалуйста введите схему приёма",
+                    }
+                },
+            });
+
+
+            // $(document).ready(function () {
+            //     $.validator.setDefaults({
+            //         submitHandler: function () {
+            //             alert( "Form successful submitted!" );
+            //         }
+            //     });
+            //
+            // });
+        });
+
+
+        // Datatables initializations
+
+        $(function () {
             $('#punishments').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -278,7 +379,6 @@
                     "url": "/datatable/Russian.json"
                 }
             });
-
         });
     </script>
 @stop

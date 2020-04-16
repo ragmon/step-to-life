@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Resident;
 
-use App\Task;
-use App\User;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use App\ResidentParent;
 use Illuminate\Http\Request;
 
-class UserTaskController extends Controller
+class ParentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -43,10 +42,10 @@ class UserTaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ResidentParent  $residentParent
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ResidentParent $residentParent)
     {
         //
     }
@@ -54,10 +53,10 @@ class UserTaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ResidentParent  $residentParent
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ResidentParent $residentParent)
     {
         //
     }
@@ -65,28 +64,23 @@ class UserTaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param User $user
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\ResidentParent  $residentParent
+     * @return \Illuminate\Http\Response
      */
-    public function update(User $user, $id)
+    public function update(Request $request, ResidentParent $residentParent)
     {
-        $user->tasks()->updateExistingPivot($id, ['finished_at' => Carbon::now()]);
-
-        return response()->json(['status' => 'success']);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $user
-     * @param $taskId
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\ResidentParent  $residentParent
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user, $taskId)
+    public function destroy(ResidentParent $residentParent)
     {
-        $user->tasks()->detach($taskId);
-
-        return response()->json();
+        //
     }
 }

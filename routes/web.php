@@ -27,11 +27,18 @@ Route::group(['middleware' => ['auth']], function () {
         return response()->redirectToRoute('users.show', [Auth::id()]);
     })->name('profile');
 
-    Route::resource('users', 'UserController');
-    Route::resource('users.tasks', 'UserTaskController');
+    Route::group(['namespace' => 'User'], function () {
+        Route::resource('users', 'UserController');
+        Route::resource('users.tasks', 'TaskController');
+    });
+
+    Route::group(['namespace' => 'Resident'], function () {
+        Route::resource('residents', 'ResidentController');
+        Route::resource('residents.doctor_appointment', 'DoctorAppointmentController');
+        Route::resource('residents.parents', 'ParentController');
+    });
+
     Route::resource('fines', 'FineController');
-    Route::resource('residents', 'ResidentController');
-    Route::resource('parents', 'ResidentParentController');
     Route::resource('tasks', 'TaskController');
     Route::resource('reports', 'ReportController');
     Route::resource('rules', 'RuleController');

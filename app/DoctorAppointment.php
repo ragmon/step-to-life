@@ -23,6 +23,13 @@ use Illuminate\Database\Eloquent\Model;
 class DoctorAppointment extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['resident_id', 'doctor', 'drug', 'reception_schedule'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function resident()
