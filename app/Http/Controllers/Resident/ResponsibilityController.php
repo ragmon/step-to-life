@@ -6,22 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Resident;
 use App\Responsibility;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
-class ResidentController extends Controller
+class ResponsibilityController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Resident $resident
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Resident $resident)
     {
-        /** @var LengthAwarePaginator $residents */
-        $residents = Resident::orderBy('registered_at', 'desc')->paginate(20);
-
-        return response()->view('resident.index', compact('residents'));
+        return response()->json($resident->responsibilities->toArray());
     }
 
     /**
@@ -38,34 +34,38 @@ class ResidentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, Resident $resident)
     {
-        //
+        $request->validate([
+            'responsibility' => 'array',
+            'responsibility.*' => 'integer'
+        ]);
+
+        $resident->responsibilities()->sync($request->input('responsibility', []));
+
+        return response()->json();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Resident  $resident
+     * @param  \App\Responsibility  $responsibility
      * @return \Illuminate\Http\Response
      */
-    public function show(Resident $resident)
+    public function show(Responsibility $responsibility)
     {
-        /** @var Collection $responsibilities */
-        $responsibilities = Responsibility::all();
-
-        return response()->view('resident.show', compact('resident', 'responsibilities'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Resident  $resident
+     * @param  \App\Responsibility  $responsibility
      * @return \Illuminate\Http\Response
      */
-    public function edit(Resident $resident)
+    public function edit(Responsibility $responsibility)
     {
         //
     }
@@ -74,10 +74,10 @@ class ResidentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Resident  $resident
+     * @param  \App\Responsibility  $responsibility
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Resident $resident)
+    public function update(Request $request, Responsibility $responsibility)
     {
         //
     }
@@ -85,10 +85,10 @@ class ResidentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Resident  $resident
+     * @param  \App\Responsibility  $responsibility
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Resident $resident)
+    public function destroy(Responsibility $responsibility)
     {
         //
     }

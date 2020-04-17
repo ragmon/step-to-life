@@ -120,7 +120,7 @@
                     <h2 class="lead">Обязанности</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-primary btn-sm" type="button" onclick="editResponsibilities()"><i class="fas fa-lg fa-edit"></i></button>
+                    <button class="btn btn-primary btn-sm" type="button" onclick="editResponsibilities({{ $resident->id }})"><i class="fas fa-lg fa-edit"></i></button>
                 </div>
             </div>
             <table id="responsibilities" class="table table-bordered table-striped">
@@ -443,6 +443,42 @@
         <!-- /.modal-dialog -->
     </form>
     <!-- /.modal -->
+
+    <!-- Edit Responsibilities modal -->
+    <form class="modal fade" id="modal-responsibilities-edit" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Редактирование взыскания</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+{{--                            <label></label>--}}
+                            <button type="button" class="btn btn-default btn-xs btn-responsibilities-select-all">Выбрать всех</button>
+                        </div>
+                        @foreach($responsibilities as $responsibility)
+                            <div class="form-check">
+                                <input type="checkbox" value="{{ $responsibility->id }}" id="responsibility-{{ $responsibility->id }}" name="responsibility[]" class="form-check-input">
+                                <label class="form-check-label" for="responsibility-{{ $responsibility->id }}">{{ $responsibility->name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- /.card-body -->
+                    <input type="hidden" name="resident_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Редактировать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
 @stop
 
 @section('js')
@@ -713,6 +749,49 @@
             });
         });
 
+        // Responsibilities
+
+        function editResponsibilities(residentId) {
+            let $modalResponsibilitiesEdit = $('#modal-responsibilities-edit');
+
+            $.ajax({
+                url : `/residents/${residentId}/responsibilities`,
+                method : 'GET',
+                success : function (data) {
+                    $modalResponsibilitiesEdit.find('[name=resident_id]').val(residentId);
+                    for (responsibility of data) {
+                        $modalResponsibilitiesEdit.find(`input[type=checkbox][value=${responsibility.id}]`).prop('checked', true);
+                    }
+
+                    $modalResponsibilitiesEdit.modal('show');
+                }
+            });
+        }
+
+        $(function () {
+            let $modalResponsibilitiesEdit = $('#modal-responsibilities-edit');
+
+            $modalResponsibilitiesEdit.find('.btn-responsibilities-select-all').click(function () {
+                let $checkboxes = $modalResponsibilitiesEdit.find('input[name=responsibility\\[\\]]');
+                $checkboxes.prop('checked', !$checkboxes.prop("checked"));
+            });
+
+            $modalResponsibilitiesEdit.submit(function () {
+                let residentId = $modalResponsibilitiesEdit.find('[name=resident_id]').val();
+
+                // sync resident responsibilities
+                $.ajax({
+                    url : `/residents/${residentId}/responsibilities`,
+                    method : 'POST',
+                    data : $modalResponsibilitiesEdit.serialize(),
+                    success : function () {
+                        location.reload();
+                    }
+                });
+
+                return false;
+            });
+        });
 
         // Datatables initializations
 
