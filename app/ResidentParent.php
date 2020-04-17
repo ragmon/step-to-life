@@ -32,6 +32,13 @@ class ResidentParent extends Model
     use SoftDeletes;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['firstname', 'lastname', 'patronimyc', 'gender', 'role', 'birthday', 'phone', 'about'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function resident()

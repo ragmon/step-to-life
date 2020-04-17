@@ -23,7 +23,7 @@ class CreateResidentParentsTable extends Migration
             $table->string('role');
             $table->date('birthday');
             $table->string('phone');
-            $table->text('about');
+            $table->text('about')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

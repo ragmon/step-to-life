@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Resident;
 
 use App\Http\Controllers\Controller;
+use App\Resident;
 use App\ResidentParent;
 use Illuminate\Http\Request;
 
@@ -31,12 +32,27 @@ class ParentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Resident $resident
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, Resident $resident)
     {
-        //
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'patronimyc' => 'required',
+            'gender' => 'required',
+            'role' => 'required',
+            'birthday' => 'required|date',
+            'phone' => 'required',
+            'about' => 'nullable|max:10000',
+        ]);
+
+        /** @var ResidentParent $parent */
+        $parent = $resident->parents()->create($request->all());
+
+        return response()->json($parent->toArray());
     }
 
     /**

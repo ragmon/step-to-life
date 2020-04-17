@@ -196,7 +196,7 @@
                     <h2 class="lead">Родственики</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createParent()"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createParent({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
             <div class="row d-flex align-items-stretch">
@@ -365,7 +365,7 @@
                             <label>Дата завершения</label>
                             <input name="end_at" type="date" class="form-control" placeholder="">
                         </div>
-                    </div
+                    </div>
                     <!-- /.card-body -->
                     <input type="hidden" name="resident_id" value="">
                 </div>
@@ -403,8 +403,8 @@
                             <label>Дата завершения</label>
                             <input name="end_at" type="date" class="form-control" placeholder="">
                         </div>
-                    </div
-                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card-body -->
                     <input type="hidden" name="resident_id" value="">
                     <input type="hidden" name="punishment_id" value="">
                 </div>
@@ -690,6 +690,71 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+
+    <!-- Edit Punishment modal -->
+    <form class="modal fade" id="modal-parent-create" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Создание родственика</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Имя</label>
+                            <input name="firstname" class="form-control" placeholder="Иван">
+                        </div>
+                        <div class="form-group">
+                            <label>Фамилия</label>
+                            <input name="lastname" class="form-control" placeholder="Иванов">
+                        </div>
+                        <div class="form-group">
+                            <label>Отчество</label>
+                            <input name="patronimyc" class="form-control" placeholder="Иваныч">
+                        </div>
+                        <div class="form-group">
+                            <label>Пол</label>
+                            <div class="form-check">
+                                <input value="1" class="form-check-input" type="radio" name="gender" id="modal-parent-create-gender-male">
+                                <label class="form-check-label" for="modal-parent-create-gender-male">мужской</label>
+                            </div>
+                            <div class="form-check">
+                                <input value="0" class="form-check-input" type="radio" name="gender" id="modal-parent-create-gender-female">
+                                <label class="form-check-label" for="modal-parent-create-gender-female">женский</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Кем приходится</label>
+                            <input name="role" class="form-control" placeholder="мать">
+                        </div>
+                        <div class="form-group">
+                            <label>День рождения</label>
+                            <input name="birthday" type="date" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input name="phone" class="form-control" placeholder="+3 (095) 765 34">
+                        </div>
+                        <div class="form-group">
+                            <label>Дополнительная информация</label>
+                            <textarea name="about" class="form-control" placeholder="мать"></textarea>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <input type="hidden" name="resident_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Редактировать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
 @stop
 
 @section('js')
@@ -1004,7 +1069,7 @@
             });
         });
 
-        /* Tasks */
+        // Tasks
 
         function createTask() {
             let $modalTaskCreate = $('#modal-task-create');
@@ -1123,6 +1188,88 @@
                 });
             });
         });
+
+        // Parents
+
+        function createParent(residentId) {
+            let $modalParentCreate = $('#modal-parent-create');
+
+            $modalParentCreate.find('[name=resident_id]').val(residentId);
+
+            $modalParentCreate.modal('show');
+        }
+
+        $(function () {
+            let $modalParentCreate = $('#modal-parent-create');
+
+            $modalParentCreate.validate({
+                submitHandler: function () {
+                    let residentId = $modalParentCreate.find('[name=resident_id]').val();
+
+                    $.ajax({
+                        url : `/residents/${residentId}/parents`,
+                        method : 'POST',
+                        data : $modalParentCreate.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    firstname: {
+                        required: true,
+                    },
+                    lastname: {
+                        required: true
+                    },
+                    patronimyc: {
+                        required: true
+                    },
+                    gender: {
+                        required: true
+                    },
+                    role: {
+                        required: true
+                    },
+                    birthday: {
+                        required: true
+                    },
+                    phone: {
+                        required: true
+                    },
+                    // about: {
+                    //     required: true
+                    // }
+                },
+                messages: {
+                    firstname: {
+                        required: "Пожалуйста введите описание",
+                    },
+                    lastname: {
+                        required: "Пожалуйста введите фамилию",
+                    },
+                    patronimyc: {
+                        required: "Пожалуйста введите отчество",
+                    },
+                    gender: {
+                        required: "Пожалуйста выберете пол",
+                    },
+                    role: {
+                        required: "Пожалуйста введите кем приходится",
+                    },
+                    birthday: {
+                        required: "Пожалуйста введите дату рождения",
+                    },
+                    phone: {
+                        required: "Пожалуйста введите номер телефона",
+                    },
+                    // about: {
+                    //     required: "Пожалуйста введите ",
+                    // },
+                },
+            });
+        });
+
 
         // Datatables initializations
 
