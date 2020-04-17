@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resident;
 use App\Http\Controllers\Controller;
 use App\Resident;
 use App\Responsibility;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -55,8 +56,12 @@ class ResidentController extends Controller
     {
         /** @var Collection $responsibilities */
         $responsibilities = Responsibility::all();
+        /** @var Collection $residents */
+        $residents = Resident::all();
+        /** @var Collection $users */
+        $users = User::all();
 
-        return response()->view('resident.show', compact('resident', 'responsibilities'));
+        return response()->view('resident.show', compact('resident', 'responsibilities', 'residents', 'users'));
     }
 
     /**
