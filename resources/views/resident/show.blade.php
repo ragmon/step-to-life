@@ -78,7 +78,7 @@
                     <h2 class="lead">Взыскания</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-danger btn-sm" type="button" onclick="createPunishments()"><i class="fas fa-lg fa-skull-crossbones"></i> Взыскать</button>
+                    <button class="btn btn-danger btn-sm" type="button" onclick="createPunishment({{ $resident->id }})"><i class="fas fa-lg fa-skull-crossbones"></i> Взыскать</button>
                 </div>
             </div>
             <table id="punishments" class="table table-bordered table-striped">
@@ -86,6 +86,7 @@
                 <tr>
                     <th>Описание</th>
                     <th>Дата выдачи</th>
+                    <th>Функция</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -93,6 +94,10 @@
                     <tr>
                         <td>{{ $punishment->description }}</td>
                         <td>{{ $punishment->start_at }}</td>
+                        <td class="text-right">
+                            <button class="btn btn-primary btn-sm btn-punishment-edit" onclick="editPunishment({{ $resident->id }}, {{ $punishment->id }})"><i class="fas fa-lg fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm btn-punishment-delete" onclick="deletePunishment({{ $resident->id }}, {{ $punishment->id }})"><i class="fas fa-lg fa-trash"></i></button>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -100,6 +105,7 @@
                 <tr>
                     <th>Описание</th>
                     <th>Дата выдачи</th>
+                    <th>Функция</th>
                 </tr>
                 </tfoot>
             </table>
@@ -309,7 +315,7 @@
         <!-- /.modal-dialog -->
     </form>
 
-    <!-- Delete Task modal -->
+    <!-- Delete Doctor Appointment modal -->
     <form class="modal fade" id="modal-doctor-appointment-delete">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -334,13 +340,115 @@
         <!-- /.modal-dialog -->
     </form>
     <!-- /.modal -->
+
+    <!-- Create Punishment modal -->
+    <form class="modal fade" id="modal-punishment-create" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Добавление взыскания</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <textarea name="description" class="form-control" placeholder="не выключил свет в туалете"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Дата начала</label>
+                            <input name="start_at" type="date" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Дата завершения</label>
+                            <input name="end_at" type="date" class="form-control" placeholder="">
+                        </div>
+                    </div
+                    <!-- /.card-body -->
+                    <input type="hidden" name="resident_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Добавить</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+
+    <!-- Edit Punishment modal -->
+    <form class="modal fade" id="modal-punishment-edit" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Редактирование взыскания</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <textarea name="description" class="form-control" placeholder="не выключил свет в туалете"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Дата начала</label>
+                            <input name="start_at" type="date" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Дата завершения</label>
+                            <input name="end_at" type="date" class="form-control" placeholder="">
+                        </div>
+                    </div
+                        <!-- /.card-body -->
+                    <input type="hidden" name="resident_id" value="">
+                    <input type="hidden" name="punishment_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Редактировать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+
+    <!-- Delete Punishment modal -->
+    <form class="modal fade" id="modal-punishment-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Подтвердите действие</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите удаление</p>
+                    <input type="hidden" name="resident_id" value="">
+                    <input type="hidden" name="punishment_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-danger btn-delete">Подтверждаю</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+    <!-- /.modal -->
 @stop
 
 @section('js')
     <script>
 
         // Doctor appointments
-
         function createDoctorAppointment(residentId) {
             let $modalDoctorAppointmentCreate = $('#modal-doctor-appointment-create');
 
@@ -463,6 +571,138 @@
 
                 $.ajax({
                     url : `/residents/${residentId}/doctor_appointment/${doctorAppointmentId}`,
+                    method : 'DELETE',
+                    success : function () {
+                        location.reload();
+                    }
+                });
+
+                return false;
+            });
+        });
+
+        // Punishments
+
+        function createPunishment(residentId) {
+            let $modalPunishmentCreate = $('#modal-punishment-create');
+
+            $modalPunishmentCreate.find('[name=resident_id]').val(residentId);
+
+            $modalPunishmentCreate.modal('show');
+        }
+
+        function editPunishment(residentId, punishmentId) {
+            let $modalPunishmentEdit = $('#modal-punishment-edit');
+
+            $modalPunishmentEdit.find('[name=resident_id]').val(residentId);
+            $modalPunishmentEdit.find('[name=punishment_id]').val(punishmentId);
+
+            $.ajax({
+                url : `/residents/${residentId}/punishments/${punishmentId}`,
+                method : 'GET',
+                success : function (data) {
+                    populateForm($modalPunishmentEdit[0], data);
+
+                    $modalPunishmentEdit.modal('show');
+                }
+            });
+        }
+
+        function deletePunishment(residentId, punishmentId) {
+            let $modalPunishmentDelete = $('#modal-punishment-delete');
+
+            $modalPunishmentDelete.find('[name=resident_id]').val(residentId);
+            $modalPunishmentDelete.find('[name=punishment_id]').val(punishmentId);
+
+            $modalPunishmentDelete.modal('show');
+        }
+
+        $(function () {
+            let $modalPunishmentCreate = $('#modal-punishment-create');
+            let $modalPunishmentEdit = $('#modal-punishment-edit');
+            let $modalPunishmentDelete = $('#modal-punishment-delete');
+
+            $modalPunishmentCreate.validate({
+                submitHandler: function () {
+                    let residentId = $modalPunishmentCreate.find('[name=resident_id]').val();
+
+                    $.ajax({
+                        url : `/residents/${residentId}/punishments`,
+                        method : 'POST',
+                        data : $modalPunishmentCreate.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    description: {
+                        required: true,
+                    },
+                    start_at: {
+                        required: true
+                    },
+                    end_at: {
+                        required: true
+                    }
+                },
+                messages: {
+                    description: {
+                        required: "Пожалуйста введите описание",
+                    },
+                    start_at: {
+                        required: "Пожалуйста введите дату начала",
+                    },
+                    end_at: {
+                        required: "Пожалуйста введите дату окончания",
+                    },
+                },
+            });
+
+            $modalPunishmentEdit.validate({
+                submitHandler: function () {
+                    let residentId = $modalPunishmentEdit.find('[name=resident_id]').val();
+                    let punishmentId = $modalPunishmentEdit.find('[name=punishment_id]').val();
+
+                    $.ajax({
+                        url : `/residents/${residentId}/punishments/${punishmentId}`,
+                        method : 'PUT',
+                        data : $modalPunishmentEdit.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    description: {
+                        required: true,
+                    },
+                    start_at: {
+                        required: true
+                    },
+                    end_at: {
+                        required: true
+                    }
+                },
+                messages: {
+                    description: {
+                        required: "Пожалуйста введите описание",
+                    },
+                    start_at: {
+                        required: "Пожалуйста введите дату начала",
+                    },
+                    end_at: {
+                        required: "Пожалуйста введите дату окончания",
+                    },
+                },
+            });
+
+            $modalPunishmentDelete.submit(function () {
+                let punishmentId = $modalPunishmentDelete.find('[name=punishment_id]').val();
+                let residentId = $modalPunishmentDelete.find('[name=resident_id]').val();
+
+                $.ajax({
+                    url : `/residents/${residentId}/punishments/${punishmentId}`,
                     method : 'DELETE',
                     success : function () {
                         location.reload();

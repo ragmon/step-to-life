@@ -29,6 +29,13 @@ class Punishment extends Model
     use SoftDeletes;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['description', 'user_id', 'to_resident_id', 'start_at', 'end_at'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

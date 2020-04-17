@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('residents', 'ResidentController');
         Route::resource('residents.doctor_appointment', 'DoctorAppointmentController');
         Route::resource('residents.parents', 'ParentController');
+        Route::resource('residents.punishments', 'PunishmentController');
     });
 
     Route::resource('fines', 'FineController');
