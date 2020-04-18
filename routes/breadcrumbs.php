@@ -100,3 +100,9 @@ Breadcrumbs::for('note.index', function ($trail) {
     $trail->parent('home');
     $trail->push('Заметки', route('notes.index'));
 });
+
+// Home > Tasks
+Breadcrumbs::for('task.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Задания', route('tasks.index'));
+});

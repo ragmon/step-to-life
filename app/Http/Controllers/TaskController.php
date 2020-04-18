@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Resident;
 use App\Task;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -15,7 +19,14 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        /** @var LengthAwarePaginator $tasks */
+        $tasks = Task::orderBy('created_at', 'desc')->paginate(20);
+        /** @var Collection $residents */
+        $residents = Resident::all();
+        /** @var Collection $users */
+        $users = User::all();
+
+        return response()->view('task.index', compact('tasks', 'users', 'residents'));
     }
 
     /**
@@ -143,11 +154,14 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
+     * @param \App\Task $task
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return response()->json();
     }
 }
