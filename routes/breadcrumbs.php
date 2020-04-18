@@ -88,3 +88,9 @@ Breadcrumbs::for('responsibility.index', function ($trail) {
     $trail->parent('home');
     $trail->push('Обязанности', route('responsibilities.index'));
 });
+
+// punishment.index
+Breadcrumbs::for('punishment.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Взыскания', route('punishments.index'));
+});

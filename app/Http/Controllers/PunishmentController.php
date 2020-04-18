@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Punishment;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PunishmentController extends Controller
 {
@@ -14,7 +15,10 @@ class PunishmentController extends Controller
      */
     public function index()
     {
-        //
+        /** @var LengthAwarePaginator $punishments */
+        $punishments = Punishment::orderBy('created_at', 'desc')->paginate(20);
+
+        return response()->view('punishment.index', compact('punishments'));
     }
 
     /**
