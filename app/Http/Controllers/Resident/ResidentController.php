@@ -32,18 +32,35 @@ class ResidentController extends Controller
      */
     public function create()
     {
-        //
+        return response()->view('resident.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'patronymic' => 'required',
+            'gender' => 'required',
+            'phone' => 'required',
+            'birthday' => 'required|date',
+            'registered_at' => 'required|date',
+            'about' => 'nullable',
+            'source' => 'required',
+            'balance' => 'required',
+            'status' => 'boolean',
+        ]);
+
+        /** @var Resident $resident */
+        $resident = Resident::create($request->all());
+
+        return response()->json($resident->toArray());
     }
 
     /**

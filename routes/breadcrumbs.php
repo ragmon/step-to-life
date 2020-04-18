@@ -71,6 +71,12 @@ Breadcrumbs::for('resident.index', function ($trail) {
     $trail->push('Резиденты', route('residents.index'));
 });
 
+// Home > Residents
+Breadcrumbs::for('resident.create', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Создание резидента', route('residents.create'));
+});
+
 // Home > Residents > [resident]
 Breadcrumbs::for('resident.show', function ($trail, $resident) {
     $trail->parent('resident.index');

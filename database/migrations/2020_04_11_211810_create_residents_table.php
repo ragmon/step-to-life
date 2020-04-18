@@ -19,14 +19,13 @@ class CreateResidentsTable extends Migration
             $table->string('lastname');
             $table->string('patronymic');
             $table->boolean('gender');
-//            $table->unsignedTinyInteger('age');
             $table->string('phone');
             $table->date('birthday');
             $table->date('registered_at');
-            $table->text('about');
+            $table->text('about')->nullable();
             $table->string('source');
             $table->unsignedBigInteger('balance');
-            $table->boolean('status');
+            $table->boolean('status')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
