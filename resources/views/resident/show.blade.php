@@ -778,7 +778,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-success">Редактировать</button>
+                    <button type="submit" class="btn btn-success">Создать</button>
                 </div>
             </div>
             <!-- /.modal-content -->
