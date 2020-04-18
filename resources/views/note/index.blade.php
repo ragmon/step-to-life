@@ -10,22 +10,25 @@
 
 @section('content')
     <div class="card card-solid">
-        <div class="card-footer">
+        <div class="card-body">
             @foreach ($notes as $note)
                 <div class="post">
                     <div class="user-block">
                         <span class="username ml-0">
-                            <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                            <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a> > {{ $note->notable->fullname }}</a>
                             <a class="float-right btn-tool" onclick="deleteNote({{ $note->id }})"><i class="fas fa-times"></i></a>
                         </span>
                         <span class="description ml-0">{{ $note->created_at }}</span>
                     </div>
                     <!-- /.user-block -->
-                    <p>
+                    <div class="note-content">
                         {{ $note->content }}
-                    </p>
+                    </div>
                 </div>
             @endforeach
+        </div>
+        <div class="card-footer">
+            {!! $notes->links() !!}
         </div>
         <!-- /.card-footer -->
     </div>

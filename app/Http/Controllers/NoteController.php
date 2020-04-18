@@ -16,7 +16,7 @@ class NoteController extends Controller
     public function index()
     {
         /** @var LengthAwarePaginator $notes */
-        $notes = Note::orderBy('created_at', 'desc')->paginate(20);
+        $notes = Note::orderBy('created_at', 'desc')->paginate(10);
 
         return response()->view('note.index', compact('notes'));
     }
