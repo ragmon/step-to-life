@@ -82,3 +82,9 @@ Breadcrumbs::for('resident.show', function ($trail, $resident) {
     $trail->parent('resident.index');
     $trail->push($resident->fullname, route('residents.show', [$resident->id]));
 });
+
+// Home > Responsibilities
+Breadcrumbs::for('responsibility.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Обязанности', route('responsibilities.index'));
+});

@@ -16,7 +16,7 @@ class CreateResponsibilitiesTable extends Migration
         Schema::create('responsibilities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('about');
+            $table->text('about')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
