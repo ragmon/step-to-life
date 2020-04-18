@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
             <div class="text-right">
-                <a href="{{ route('responsibilities.create') }}" class="btn btn-success">Создать</a>
+                <button class="btn btn-success" onclick="createResponsibility()">Создать</button>
             </div>
         </div>
     </div>
@@ -52,6 +52,39 @@
         </div>
         <!-- /.card-footer -->
     </div>
+
+    <!-- Create Responsibility modal -->
+    <form class="modal fade" id="modal-responsibility-create" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Создание обязанности</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Наименование</label>
+                            <input name="name" class="form-control" placeholder="Команата №2">
+                        </div>
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <textarea name="about" class="form-control summernote" placeholder="Мебель, пол, дверь"></textarea>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Создать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
 
     <!-- Edit Responsibility modal -->
     <form class="modal fade" id="modal-responsibility-edit" novalidate="novalidate">
@@ -116,6 +149,12 @@
 @section('js')
     <script>
 
+        function createResponsibility() {
+            let $modalResponsibilityCreate = $('#modal-responsibility-create');
+
+            $modalResponsibilityCreate.modal('show');
+        }
+
         function editResponsibility(responsibilityId) {
             let $modalResponsibilityEdit = $('#modal-responsibility-edit');
 
@@ -139,8 +178,20 @@
         }
 
         $(function () {
+            let $modalResponsibilityCreate = $('#modal-responsibility-create');
             let $modalResponsibilityEdit = $('#modal-responsibility-edit');
             let $modalResponsibilityDelete = $('#modal-responsibility-delete');
+
+            $modalResponsibilityCreate.submit(function () {
+                $.ajax({
+                    url : `/responsibilities`,
+                    method : 'POST',
+                    data : $modalResponsibilityCreate.serialize(),
+                    success : function () {
+                        location.reload();
+                    }
+                });
+            });
 
             $modalResponsibilityEdit.submit(function () {
                 let responsibilityId = $modalResponsibilityEdit.find('[name=id]').val();
