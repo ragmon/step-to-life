@@ -213,7 +213,7 @@
                     <h2 class="lead">Заметки</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createNote()"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createNote({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
 
@@ -221,9 +221,9 @@
                 <div class="post">
                     <div class="user-block">
                         <span class="username ml-0">
-                              <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
-                              <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                            </span>
+                            <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                            <a class="float-right btn-tool" onclick="deleteNote({{ $resident->id }}, {{ $note->id }})"><i class="fas fa-times"></i></a>
+                        </span>
                         <span class="description ml-0">{{ $note->created_at }}</span>
                     </div>
                     <!-- /.user-block -->
@@ -691,7 +691,7 @@
     </div>
     <!-- /.modal -->
 
-    <!-- Edit Punishment modal -->
+    <!-- Edit Parent modal -->
     <form class="modal fade" id="modal-parent-create" novalidate="novalidate">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -740,7 +740,7 @@
                         </div>
                         <div class="form-group">
                             <label>Дополнительная информация</label>
-                            <textarea name="about" class="form-control" placeholder="мать"></textarea>
+                            <textarea name="about" class="form-control" placeholder="созависимая"></textarea>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -755,6 +755,62 @@
         </div>
         <!-- /.modal-dialog -->
     </form>
+
+    <!-- Create Note modal -->
+    <form class="modal fade" id="modal-note-create" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Создание заметки</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Содержимое</label>
+                            <textarea name="content" class="form-control summernote" placeholder="решил бросить курить"></textarea>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <input type="hidden" name="resident_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Редактировать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+
+    <!-- Delete Note modal -->
+    <form class="modal fade" id="modal-note-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Подтвердите действие</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите удаление</p>
+                    <input type="hidden" name="resident_id" value="">
+                    <input type="hidden" name="note_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-danger btn-delete">Подтверждаю</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+    <!-- /.modal -->
 @stop
 
 @section('js')
@@ -1243,7 +1299,7 @@
                 },
                 messages: {
                     firstname: {
-                        required: "Пожалуйста введите описание",
+                        required: "Пожалуйста введите имя",
                     },
                     lastname: {
                         required: "Пожалуйста введите фамилию",
@@ -1267,6 +1323,73 @@
                     //     required: "Пожалуйста введите ",
                     // },
                 },
+            });
+        });
+
+
+        // Notes
+
+        function createNote(residentId) {
+            let $modalNoteCreate = $('#modal-note-create');
+
+            $modalNoteCreate.find('[name=resident_id]').val(residentId);
+
+            $modalNoteCreate.modal('show');
+        }
+
+        function deleteNote(residentId, noteId) {
+            let $modalNoteCreate = $('#modal-note-delete');
+
+            $modalNoteCreate.find('[name=note_id]').val(noteId);
+            $modalNoteCreate.find('[name=resident_id]').val(residentId);
+
+            $modalNoteCreate.modal('show');
+        }
+
+        $(function () {
+            let $modalNoteCreate = $('#modal-note-create');
+            let $modalNoteDelete = $('#modal-note-delete');
+
+            // $modalNoteCreate.find('.summernote').summernote();
+
+            $modalNoteCreate.validate({
+                submitHandler: function () {
+                    let residentId = $modalNoteCreate.find('[name=resident_id]').val();
+
+                    $.ajax({
+                        url : `/residents/${residentId}/notes`,
+                        method : 'POST',
+                        data : $modalNoteCreate.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    content: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    content: {
+                        required: "Пожалуйста введите содержимое",
+                    }
+                },
+            });
+
+            $modalNoteDelete.submit(function () {
+                let noteId = $modalNoteDelete.find('[name=note_id]').val();
+                let residentId = $modalNoteDelete.find('[name=resident_id]').val();
+
+                $.ajax({
+                    url : `/residents/${residentId}/notes/${noteId}`,
+                    method : 'DELETE',
+                    success : function () {
+                        location.reload();
+                    }
+                });
+
+                return false;
             });
         });
 
