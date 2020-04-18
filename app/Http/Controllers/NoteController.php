@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Note;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class NoteController extends Controller
 {
@@ -14,7 +15,10 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        /** @var LengthAwarePaginator $notes */
+        $notes = Note::orderBy('created_at', 'desc')->paginate(20);
+
+        return response()->view('note.index', compact('notes'));
     }
 
     /**
@@ -75,11 +79,14 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Note  $note
-     * @return \Illuminate\Http\Response
+     * @param \App\Note $note
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Note $note)
     {
-        //
+        $note->delete();
+
+        return response()->json();
     }
 }

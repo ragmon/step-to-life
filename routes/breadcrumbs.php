@@ -71,7 +71,7 @@ Breadcrumbs::for('resident.index', function ($trail) {
     $trail->push('Резиденты', route('residents.index'));
 });
 
-// Home > Residents
+// Home > Residents > Create
 Breadcrumbs::for('resident.create', function ($trail) {
     $trail->parent('home');
     $trail->push('Создание резидента', route('residents.create'));
@@ -89,8 +89,14 @@ Breadcrumbs::for('responsibility.index', function ($trail) {
     $trail->push('Обязанности', route('responsibilities.index'));
 });
 
-// punishment.index
+// Home > Punishments
 Breadcrumbs::for('punishment.index', function ($trail) {
     $trail->parent('home');
     $trail->push('Взыскания', route('punishments.index'));
+});
+
+// Home > Notes
+Breadcrumbs::for('note.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Заметки', route('notes.index'));
 });

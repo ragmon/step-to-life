@@ -48,4 +48,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('rules', 'RuleController');
     Route::resource('responsibilities', 'ResponsibilityController');
     Route::resource('punishments', 'PunishmentController');
+    Route::resource('notes', 'NoteController');
 });
