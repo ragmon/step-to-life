@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Collection responsibilities
  * @property Collection punishments
  * @property Collection parents
+ * @property string link
  */
 class Resident extends Model
 {
@@ -133,5 +134,15 @@ class Resident extends Model
     public function getStatusAttribute()
     {
         return $this->attributes['status'] ? 'закончил реабилитацию' : 'в реабилитации';
+    }
+
+    /**
+     * Get link attribute value.
+     *
+     * @return string
+     */
+    public function getLinkAttribute()
+    {
+        return route('residents.show', [$this->id]);
     }
 }

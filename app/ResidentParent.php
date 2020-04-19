@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string fullname
  * @property string gender_title
  * @property string role
+ * @property string link
  */
 class ResidentParent extends Model
 {
@@ -64,5 +65,15 @@ class ResidentParent extends Model
     public function getGenderTitleAttribute()
     {
         return $this->attributes['gender'] ? 'мужской' : 'женский';
+    }
+
+    /**
+     * Get link attribute value.
+     *
+     * @return string
+     */
+    public function getLinkAttribute()
+    {
+        return route('parents.show', [$this->id]);
     }
 }

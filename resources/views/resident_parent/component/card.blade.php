@@ -13,7 +13,7 @@
         </div>
         <div class="card-footer">
             <div class="text-right">
-                <a href="#" class="btn btn-sm btn-primary">
+                <a href="{{ $parent->link }}" class="btn btn-sm btn-primary">
                     <i class="fas fa-user"></i> Подробнее
                 </a>
             </div>

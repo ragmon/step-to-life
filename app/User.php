@@ -31,6 +31,7 @@ use Illuminate\Notifications\Notifiable;
  * @property Collection tasks
  * @property Collection reports
  * @property string fullname
+ * @property string link
  */
 class User extends Authenticatable
 {
@@ -105,5 +106,15 @@ class User extends Authenticatable
     public function getFullnameAttribute()
     {
         return "$this->firstname $this->lastname $this->patronymic";
+    }
+
+    /**
+     * Get link attribute value.
+     *
+     * @return string
+     */
+    public function getLinkAttribute()
+    {
+        return route('users.show', [$this->id]);
     }
 }

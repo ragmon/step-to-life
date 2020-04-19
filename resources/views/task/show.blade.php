@@ -11,27 +11,37 @@
 @section('content')
     <div class="card bg-light w-100">
         <div class="card-header text-muted border-bottom-0">
-            Автор: <a href="{{ route('users.show', [$task->user->id]) }}">{{ $task->user->fullname }}</a>
+            Автор:
+            @if ($task->user)
+                <a href="{{ route('users.show', [$task->user->id]) }}">{{ $task->user->fullname }}</a>
+            @else
+                <span>Пользователь удалён</span>
+            @endif
         </div>
         <div class="card-body pt-0">
             <h2 class="lead"><b>{{ $task->title }}</b></h2>
             <div class="row">
-                <div class="col-md-6">
-                    <b>Членам команды</b>
-                    <ul>
-                        @foreach ($task->users as $user)
-                            <li><a href="{{ route('users.show', $user->id) }}">{{ $user->fullname }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <b>Резидентам</b>
-                    <ul>
-                        @foreach ($task->residents as $resident)
-                            <li><a href="{{ route('residents.show', $resident->id) }}">{{ $resident->fullname }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
+                @if ($task->users->count() > 0)
+                    <div class="col-md-6">
+                        <b>Членам команды</b>
+                        <ul>
+                            @foreach ($task->users as $user)
+                                <li><a href="{{ route('users.show', $user->id) }}">{{ $user->fullname }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if ($task->residents->count() > 0)
+                    <div class="col-md-6">
+                        <b>Резидентам</b>
+                        <ul>
+                            @foreach ($task->residents as $resident)
+                                <li><a href="{{ route('residents.show', $resident->id) }}">{{ $resident->fullname }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <div class="task-description">
                 {!! $task->description !!}

@@ -225,7 +225,11 @@
                 <div class="post">
                     <div class="user-block">
                         <span class="username ml-0">
-                            <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                            @if ($note->user)
+                                <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                            @else
+                                <span>Пользователь удалён</span>
+                            @endif
                             <a class="float-right btn-tool" onclick="deleteNote({{ $resident->id }}, {{ $note->id }})"><i class="fas fa-times"></i></a>
                         </span>
                         <span class="description ml-0">{{ $note->created_at }}</span>

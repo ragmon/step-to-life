@@ -209,6 +209,16 @@ return [
 
     'menu' => [
         [
+            'text'        => 'Главная',
+            'url'         => 'home',
+            'icon'        => 'fas fa-fw fa-home',
+        ],
+        [
+            'text'        => 'Родственики',
+            'url'         => 'parents',
+            'icon'        => 'fas fa-fw fa-user-friends',
+        ],
+        [
             'text'        => 'Резиденты',
             'url'         => 'residents',
             'icon'        => 'fas fa-fw fa-users',

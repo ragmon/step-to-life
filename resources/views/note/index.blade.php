@@ -15,7 +15,17 @@
                 <div class="post">
                     <div class="user-block">
                         <span class="username ml-0">
-                            <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a> > {{ $note->notable->fullname }}</a>
+                            @if ($note->user)
+                                <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                            @else
+                                <span>Пользователь удалён</span>
+                            @endif
+                            >
+                            @if ($note->notable)
+                                <a href="{{ $note->notable->link }}">{{ $note->notable->fullname }}</a>
+                            @else
+                                <span>Удалён или в архиве</span>
+                            @endif
                             <a class="float-right btn-tool" onclick="deleteNote({{ $note->id }})"><i class="fas fa-times"></i></a>
                         </span>
                         <span class="description ml-0">{{ $note->created_at }}</span>
