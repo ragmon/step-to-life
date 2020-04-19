@@ -25,8 +25,20 @@
                 <tbody>
                 @foreach($punishments as $punishment)
                     <tr>
-                        <td><a href="{{ route('residents.show', [$punishment->id]) }}">{{ $punishment->resident->fullname }}</a></td>
-                        <td><a href="{{ route('users.show', [$punishment->user->id]) }}">{{ $punishment->user->fullname }}</a></td>
+                        <td>
+                            @if ($punishment->resident)
+                                <a href="{{ route('residents.show', [$punishment->resident->id]) }}">{{ $punishment->resident->fullname }}</a>
+                            @else
+                                В архиве
+                            @endif
+                        </td>
+                        <td>
+                            @if ($punishment->user)
+                                <a href="{{ route('users.show', [$punishment->user->id]) }}">{{ $punishment->user->fullname }}</a>
+                            @else
+                                Удалён
+                            @endif
+                        </td>
                         <td>
                             {{ $punishment->description }}
                         </td>

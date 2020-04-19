@@ -52,7 +52,13 @@
                 <tbody>
                 @foreach($user->punishments as $punishment)
                     <tr>
-                        <td><a href="{{ route('residents.show', [$punishment->resident->id]) }}">{{ $punishment->resident->fullname }}</a></td>
+                        <td>
+                            @if ($punishment->resident)
+                                <a href="{{ route('residents.show', [$punishment->resident->id]) }}">{{ $punishment->resident->fullname }}</a>
+                            @else
+                                В архиве
+                            @endif
+                        </td>
                         <td>{{ $punishment->description }}</td>
                         <td>{{ $punishment->start_at }}</td>
                     </tr>
@@ -857,6 +863,7 @@
             "lengthChange": false,
             "searching": false,
             "ordering": true,
+            "order": [[ 2, "desc" ]],
             "info": true,
             "autoWidth": false,
             "responsive": true,
