@@ -17,7 +17,7 @@ class ResponsibilityController extends Controller
     public function index()
     {
         /** @var Collection $responsibilities */
-        $responsibilities = Responsibility::paginate(20);
+        $responsibilities = Responsibility::orderBy('created_at', 'desc')->paginate(20);
 
         return response()->view('responsibility.index', compact('responsibilities'));
     }

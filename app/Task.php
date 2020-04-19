@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon deleted_at
  * @property Collection users
  * @property Collection residents
+ * @property User user
  */
 class Task extends Model
 {
@@ -41,6 +42,14 @@ class Task extends Model
     public function taskable()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     /**

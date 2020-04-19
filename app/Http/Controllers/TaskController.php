@@ -110,6 +110,8 @@ class TaskController extends Controller
             $task->load('users', 'residents');
 
             return response()->json($task->toArray());
+        } else {
+            return response()->view('task.show', compact('task'));
         }
     }
 

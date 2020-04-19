@@ -106,3 +106,9 @@ Breadcrumbs::for('task.index', function ($trail) {
     $trail->parent('home');
     $trail->push('Задания', route('tasks.index'));
 });
+
+// Home > Tasks > [task]
+Breadcrumbs::for('task.show', function ($trail, $task) {
+    $trail->parent('task.index');
+    $trail->push($task->title, route('tasks.show', [$task->id]));
+});
