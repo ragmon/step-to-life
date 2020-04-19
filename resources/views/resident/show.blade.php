@@ -3,6 +3,10 @@
 @section('title', $resident->fullname)
 
 @section('content_header')
+    <div class="text-right">
+        <button type="button" class="btn btn-warning" onclick="toArchive({{ $resident->id }})">В архив</button>
+    </div>
+
     {{ Breadcrumbs::render('resident.show', $resident) }}
 @stop
 
@@ -449,7 +453,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Редактирование взыскания</h4>
+                    <h4 class="modal-title">Редактирование обязанностей</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -457,7 +461,6 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="form-group">
-{{--                            <label></label>--}}
                             <button type="button" class="btn btn-default btn-xs btn-responsibilities-select-all">Выбрать всех</button>
                         </div>
                         @foreach($responsibilities as $responsibility)
@@ -800,6 +803,31 @@
                     <p>Подтвердите удаление</p>
                     <input type="hidden" name="resident_id" value="">
                     <input type="hidden" name="note_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-danger btn-delete">Подтверждаю</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+    <!-- /.modal -->
+
+    <!-- Resident To Archive confirmation modal -->
+    <form class="modal fade" id="modal-to-archive">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Подтвердите действие</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите перемещение в архив</p>
+                    <input type="hidden" name="resident_id" value="">
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
@@ -1386,6 +1414,34 @@
                     method : 'DELETE',
                     success : function () {
                         location.reload();
+                    }
+                });
+
+                return false;
+            });
+        });
+
+        // Archive
+
+        function toArchive(residentId) {
+            let $modalToArchive = $('#modal-to-archive');
+
+            $modalToArchive.find('[name=resident_id]').val(residentId);
+
+            $modalToArchive.modal('show');
+        }
+
+        $(function () {
+            let $modalToArchive = $('#modal-to-archive');
+
+            $modalToArchive.submit(function () {
+                let residentId = $modalToArchive.find('[name=resident_id]').val();
+
+                $.ajax({
+                    url : `/residents/${residentId}`,
+                    method : 'DELETE',
+                    success : function () {
+                        window.location = `/archive/${residentId}`;
                     }
                 });
 

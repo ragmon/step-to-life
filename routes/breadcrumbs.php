@@ -112,3 +112,15 @@ Breadcrumbs::for('task.show', function ($trail, $task) {
     $trail->parent('task.index');
     $trail->push($task->title, route('tasks.show', [$task->id]));
 });
+
+// Home > Archive
+Breadcrumbs::for('archive.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Архив', route('archive.index'));
+});
+
+// Home > Archive > [resident]
+Breadcrumbs::for('archive.show', function ($trail, $resident) {
+    $trail->parent('archive.index');
+    $trail->push($resident->fullname, route('archive.show', [$resident->id]));
+});

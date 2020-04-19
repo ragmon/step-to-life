@@ -107,11 +107,14 @@ class ResidentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Resident  $resident
-     * @return \Illuminate\Http\Response
+     * @param \App\Resident $resident
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Resident $resident)
     {
-        //
+        $resident->delete();
+
+        return response()->json();
     }
 }
