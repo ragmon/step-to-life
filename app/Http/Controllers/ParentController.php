@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\ResidentParent;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ParentController extends Controller
 {
@@ -13,7 +15,10 @@ class ParentController extends Controller
      */
     public function index()
     {
-        //
+        /** @var LengthAwarePaginator $parents */
+        $parents = ResidentParent::paginate(20);
+
+        return response()->view('resident_parent.index', compact('parents'));
     }
 
     /**
@@ -45,7 +50,10 @@ class ParentController extends Controller
      */
     public function show($id)
     {
-        //
+        /** @var ResidentParent $parent */
+        $parent = ResidentParent::find($id);
+
+        return response()->view('resident_parent.show', compact('parent'));
     }
 
     /**
