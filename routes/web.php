@@ -42,6 +42,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('residents.notes', 'NoteController');
     });
 
+    Route::group(['namespace' => 'Parent'], function () {
+        Route::resource('parents.notes', 'NoteController');
+    });
+
     Route::resource('fines', 'FineController');
     Route::resource('tasks', 'TaskController');
     Route::resource('reports', 'ReportController');

@@ -124,3 +124,15 @@ Breadcrumbs::for('archive.show', function ($trail, $resident) {
     $trail->parent('archive.index');
     $trail->push($resident->fullname, route('archive.show', [$resident->id]));
 });
+
+// Home > Parents
+Breadcrumbs::for('parent.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Родственики', route('parents.index'));
+});
+
+// Home > Parents > [parent]
+Breadcrumbs::for('parent.show', function ($trail, $parent) {
+    $trail->parent('parent.index');
+    $trail->push($parent->fullname, route('parents.show', [$parent->id]));
+});

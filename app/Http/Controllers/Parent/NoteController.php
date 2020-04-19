@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Parent;
 
+use App\Http\Controllers\Controller;
+use App\Note;
 use App\ResidentParent;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
-class ParentController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +17,7 @@ class ParentController extends Controller
      */
     public function index()
     {
-        /** @var LengthAwarePaginator $parents */
-        $parents = ResidentParent::paginate(20);
-
-        return response()->view('resident_parent.index', compact('parents'));
+        //
     }
 
     /**
@@ -34,12 +33,21 @@ class ParentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param ResidentParent $parent
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, ResidentParent $parent)
     {
-        //
+        $request->validate([
+            'content' => 'required|max:10000'
+        ]);
+
+        $note = $parent->notes()->create(array_merge($request->all(), [
+            'user_id' => Auth::id(),
+        ]));
+
+        return response()->json($note->toArray());
     }
 
     /**
@@ -50,10 +58,7 @@ class ParentController extends Controller
      */
     public function show($id)
     {
-        /** @var ResidentParent $parent */
-        $parent = ResidentParent::find($id);
-
-        return response()->view('resident_parent.show', compact('parent'));
+        //
     }
 
     /**
@@ -82,13 +87,14 @@ class ParentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ResidentParent $parent
+     * @param int $id
+     * @param Note $note
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(ResidentParent $parent)
+    public function destroy($id, Note $note)
     {
-        $parent->delete();
+        $note->delete();
 
         return response()->json();
     }

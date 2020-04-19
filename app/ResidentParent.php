@@ -48,6 +48,14 @@ class ResidentParent extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function notes()
+    {
+        return $this->morphMany('App\Note', 'notable');
+    }
+
+    /**
      * Get fullname attribute value.
      *
      * @return string

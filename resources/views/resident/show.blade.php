@@ -16,7 +16,7 @@
             Баланс: {{ $resident->balance }}
         </div>
         <div class="card-body pt-0">
-            <h2 class="lead"><b>{{ "$resident->fullname" }}</b></h2>
+            <h2 class="lead"><b>{{ $resident->fullname }}</b></h2>
             <ul class="ml-0 mb-0 fa-ul text-muted mb-2">
                 <li>Статус: {{ $resident->status }}</li>
                 <li>Пол: {{ $resident->gender_title }}</li>

@@ -5,7 +5,7 @@
 @section('content_header')
     <h1>Родственики</h1>
 
-    {{ Breadcrumbs::render('resident.index') }}
+    {{ Breadcrumbs::render('parent.index') }}
 @stop
 
 @section('content')
