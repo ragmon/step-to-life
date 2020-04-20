@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Parent;
 
+use App\Events\NewNote;
 use App\Http\Controllers\Controller;
 use App\Note;
 use App\ResidentParent;
@@ -43,9 +44,12 @@ class NoteController extends Controller
             'content' => 'required|max:10000'
         ]);
 
+        /** @var Note $note */
         $note = $parent->notes()->create(array_merge($request->all(), [
             'user_id' => Auth::id(),
         ]));
+
+        event(new NewNote($note));
 
         return response()->json($note->toArray());
     }

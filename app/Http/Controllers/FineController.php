@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserFined;
 use App\Fine;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -44,6 +45,8 @@ class FineController extends Controller
 
         /** @var Fine $fine */
         $fine = Fine::create($request->all());
+
+        event(new UserFined($fine));
 
         return response()->json($fine->toArray(), Response::HTTP_CREATED);
     }

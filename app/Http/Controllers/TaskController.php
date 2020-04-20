@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewTask;
 use App\Resident;
 use App\Task;
 use App\User;
@@ -77,6 +78,8 @@ class TaskController extends Controller
                 $request->input('finished_at')
             )
         );
+
+        event(new NewTask($task));
 
         return response()->json($task->toArray());
     }

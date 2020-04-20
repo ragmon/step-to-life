@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resident;
 
+use App\Events\NewNote;
 use App\Http\Controllers\Controller;
 use App\Note;
 use App\Resident;
@@ -47,6 +48,8 @@ class NoteController extends Controller
         $note = $resident->notes()->create(array_merge($request->all(), [
             'user_id' => Auth::id(),
         ]));
+
+        event(new NewNote($note));
 
         return response()->json($note->toArray());
     }

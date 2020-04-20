@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resident;
 
+use App\Events\ResidentCreated;
 use App\Http\Controllers\Controller;
 use App\Resident;
 use App\Responsibility;
@@ -59,6 +60,8 @@ class ResidentController extends Controller
 
         /** @var Resident $resident */
         $resident = Resident::create($request->all());
+
+        event(new ResidentCreated($resident));
 
         return response()->json($resident->toArray());
     }

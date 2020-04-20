@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Resident;
 
 use App\DoctorAppointment;
+use App\Events\NewDoctorAppointment;
 use App\Http\Controllers\Controller;
 use App\Resident;
 use Illuminate\Http\Request;
@@ -49,6 +50,8 @@ class DoctorAppointmentController extends Controller
         $doctorAppointment = DoctorAppointment::create(array_merge($request->toArray(), [
             'resident_id' => $resident->id,
         ]));
+        
+        event(new NewDoctorAppointment($doctorAppointment));
 
         return response()->json($doctorAppointment->toArray(), Response::HTTP_CREATED);
     }

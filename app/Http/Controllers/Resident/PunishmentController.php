@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resident;
 
+use App\Events\StoredPunishment;
 use App\Http\Controllers\Controller;
 use App\Punishment;
 use App\Resident;
@@ -51,6 +52,8 @@ class PunishmentController extends Controller
                 'user_id' => Auth::id(),
             ]
         ));
+
+        event(new StoredPunishment($punishment));
 
         return response()->json($punishment->toArray());
     }
