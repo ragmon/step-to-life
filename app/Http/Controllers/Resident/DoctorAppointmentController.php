@@ -50,7 +50,7 @@ class DoctorAppointmentController extends Controller
         $doctorAppointment = DoctorAppointment::create(array_merge($request->toArray(), [
             'resident_id' => $resident->id,
         ]));
-        
+
         event(new NewDoctorAppointment($doctorAppointment));
 
         return response()->json($doctorAppointment->toArray(), Response::HTTP_CREATED);
