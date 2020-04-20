@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06cf6c2c4eeb48db8ef02e909d04ccc9",
+    "content-hash": "26939526f95b2d5295eeff96a82fb5ee",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -242,6 +242,7 @@
             "keywords": [
                 "laravel"
             ],
+            "abandoned": true,
             "time": "2019-12-30T22:50:51+00:00"
         },
         {
@@ -926,6 +927,66 @@
                 "laravel"
             ],
             "time": "2020-03-27T11:13:55+00:00"
+        },
+        {
+            "name": "laravel-notification-channels/telegram",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/telegram.git",
+                "reference": "bd1d67ca83e16e634759c3bf8b807ee699636865"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-notification-channels/telegram/zipball/bd1d67ca83e16e634759c3bf8b807ee699636865",
+                "reference": "bd1d67ca83e16e634759c3bf8b807ee699636865",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "illuminate/notifications": "^5.5 || ^6.0 || ^7.0",
+                "illuminate/support": "^5.5 || ^6.0 || ^7.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3",
+                "phpunit/phpunit": "^7.0 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NotificationChannels\\Telegram\\TelegramServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\Telegram\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Irfaq Syed",
+                    "email": "syed@lukonet.com",
+                    "homepage": "https://lukonet.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Telegram Notifications Channel for Laravel",
+            "homepage": "https://github.com/laravel-notification-channels/telegram",
+            "keywords": [
+                "laravel",
+                "notification",
+                "telegram",
+                "telegram notification",
+                "telegram notifications channel"
+            ],
+            "time": "2020-03-26T13:16:39+00:00"
         },
         {
             "name": "laravel/framework",
