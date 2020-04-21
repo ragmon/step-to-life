@@ -136,3 +136,9 @@ Breadcrumbs::for('parent.show', function ($trail, $parent) {
     $trail->parent('parent.index');
     $trail->push($parent->fullname, route('parents.show', [$parent->id]));
 });
+
+// Home > History
+Breadcrumbs::for('history.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('История', route('history.index'));
+});

@@ -55,4 +55,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('notes', 'NoteController');
     Route::resource('archive', 'ArchiveController');
     Route::resource('parents', 'ParentController');
+    Route::resource('history', 'HistoryController');
 });
