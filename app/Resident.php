@@ -52,7 +52,8 @@ class Resident extends Model
      */
     public function punishments()
     {
-        return $this->hasMany('App\Punishment', 'to_resident_id');
+        return $this->hasMany('App\Punishment', 'to_resident_id')
+            ->orderByDesc('created_at');
     }
 
     /**
@@ -61,7 +62,8 @@ class Resident extends Model
     public function tasks()
     {
         return $this->morphToMany('App\Task', 'taskable')
-            ->withPivot('finished_at');
+            ->withPivot('finished_at')
+            ->orderByDesc('created_at');
     }
 
     /**
@@ -93,7 +95,8 @@ class Resident extends Model
      */
     public function notes()
     {
-        return $this->morphMany('App\Note', 'notable');
+        return $this->morphMany('App\Note', 'notable')
+            ->orderByDesc('created_at');
     }
 
     /**

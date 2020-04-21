@@ -3,11 +3,16 @@
 @section('title', $resident->fullname)
 
 @section('content_header')
-    <div class="text-right">
-        <button type="button" class="btn btn-success" onclick="fromArchive({{ $resident->id }})">Из архива</button>
+    <div class="row">
+        <div class="col-md-6">
+            {{ Breadcrumbs::render('archive.show', $resident) }}
+        </div>
+        <div class="col-md-6">
+            <div class="text-right">
+                <button type="button" class="btn btn-success" onclick="fromArchive({{ $resident->id }})">Из архива</button>
+            </div>
+        </div>
     </div>
-
-    {{ Breadcrumbs::render('archive.show', $resident) }}
 @stop
 
 @section('content')

@@ -18,7 +18,7 @@ class HistoryController extends Controller
     {
         /** @var Collection $events */
         $events = Event::orderBy('created_at', 'desc')
-            ->limit(100)
+            ->limit(1000)
             ->get()
             ->groupBy('publish_at');
 

@@ -1,6 +1,8 @@
 <div class="col-12 col-sm-6 col-md-4 d-flex">
     <div class="card bg-light w-100">
-        <div class="card-header text-muted border-bottom-0 pb-0">{{ $parent->role }}</div>
+        <div class="card-header text-muted border-bottom-0 pb-0">
+            {{ $parent->role }} - <a href="{{ $parent->resident->link }}">{{ $parent->resident->fullname }}</a>
+        </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-12">

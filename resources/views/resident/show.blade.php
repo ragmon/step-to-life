@@ -3,11 +3,16 @@
 @section('title', $resident->fullname)
 
 @section('content_header')
-    <div class="text-right">
-        <button type="button" class="btn btn-warning" onclick="toArchive({{ $resident->id }})">В архив</button>
+    <div class="row">
+        <div class="col-md-6">
+            {{ Breadcrumbs::render('resident.show', $resident) }}
+        </div>
+        <div class="col-md-6">
+            <div class="text-right">
+                <button type="button" class="btn btn-warning" onclick="toArchive({{ $resident->id }})">В архив</button>
+            </div>
+        </div>
     </div>
-
-    {{ Breadcrumbs::render('resident.show', $resident) }}
 @stop
 
 @section('content')

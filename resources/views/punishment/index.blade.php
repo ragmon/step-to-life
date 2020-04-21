@@ -76,6 +76,7 @@
                 "lengthChange": false,
                 "searching": false,
                 "ordering": true,
+                "order" : [[ 3, "desc"]],
                 "info": false,
                 "autoWidth": false,
                 "responsive": true,

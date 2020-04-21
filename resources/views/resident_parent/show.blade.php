@@ -3,17 +3,23 @@
 @section('title', $parent->fullname)
 
 @section('content_header')
-    <div class="text-right">
-        <button type="button" class="btn btn-danger" onclick="deleteParent({{ $parent->id }})">Удалить</button>
+    <div class="row">
+        <div class="col-md-6">
+            {{ Breadcrumbs::render('parent.show', $parent) }}
+        </div>
+        <div class="col-md-6">
+            <div class="text-right">
+                <button type="button" class="btn btn-success" onclick="editParent({{ $parent->id }})">Редактировать</button>
+                <button type="button" class="btn btn-danger" onclick="deleteParent({{ $parent->id }})">Удалить</button>
+            </div>
+        </div>
     </div>
-
-    {{ Breadcrumbs::render('parent.show', $parent) }}
 @stop
 
 @section('content')
     <div class="card bg-light w-100">
         <div class="card-header text-muted border-bottom-0">
-            {{ $parent->role }}
+            {{ $parent->role }} - <a href="{{ $parent->resident->link }}">{{ $parent->resident->fullname }}</a>
         </div>
         <div class="card-body pt-0">
             <h2 class="lead"><b>{{ $parent->fullname }}</b></h2>
@@ -144,6 +150,72 @@
         <!-- /.modal-dialog -->
     </form>
     <!-- /.modal -->
+
+    <!-- Edit Doctor Appointment modal -->
+    <form class="modal fade" id="modal-parent-edit" novalidate="novalidate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Редактирование родственика</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Имя</label>
+                            <input name="firstname" type="text" class="form-control" placeholder="Иван">
+                        </div>
+                        <div class="form-group">
+                            <label>Фамилия</label>
+                            <input name="lastname" type="text" class="form-control" placeholder="Иванов">
+                        </div>
+                        <div class="form-group">
+                            <label>Отчество</label>
+                            <input name="patronimyc" type="text" class="form-control" placeholder="Иваныч">
+                        </div>
+                        <div class="form-group">
+                            <label>Кем приходится</label>
+                            <input name="role" type="text" class="form-control" placeholder="мама">
+                        </div>
+                        <div class="form-group">
+                            <label>Дата рождения</label>
+                            <input name="birthday" type="date" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Пол</label>
+                            <div class="form-check">
+                                <input name="gender" class="form-check-input" id="parent-gender-1" type="radio" value="1">
+                                <label class="form-check-label" for="parent-gender-1">мужской</label>
+                            </div>
+                            <div class="form-check">
+                                <input name="gender" class="form-check-input" id="parent-gender-0" type="radio" value="0">
+                                <label class="form-check-label" for="parent-gender-0">женский</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input name="phone" type="tel" class="form-control" placeholder="+3 (965) 453 42">
+                        </div>
+                        <div class="form-group">
+                            <label>Дополнительная информация</label>
+                            <textarea class="form-control" name="about"></textarea>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <input type="hidden" name="parent_id" value="">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Редактировать</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+    <!-- /.modal -->
 @stop
 
 @section('js')
@@ -173,9 +245,26 @@
             $modalParentDelete.modal('show');
         }
 
+        function editParent(parentId) {
+            let $modalParentEdit = $('#modal-parent-edit');
+
+            $modalParentEdit.find('[name=parent_id]').val(parentId);
+
+            $.ajax({
+                url : `/parents/${parentId}`,
+                method : 'GET',
+                success : function (data) {
+                    populateForm($modalParentEdit[0], data);
+
+                    $modalParentEdit.modal('show');
+                }
+            });
+        }
+
         $(function () {
             let $modalNoteCreate = $('#modal-note-create');
             let $modalNoteDelete = $('#modal-note-delete');
+            let $modalParentEdit = $('#modal-parent-edit');
             let $modalParentDelete = $('#modal-parent-delete');
 
             $modalNoteCreate.validate({
@@ -200,6 +289,61 @@
                     content: {
                         required: "Пожалуйста введите содержимое",
                     }
+                },
+            });
+
+            $modalParentEdit.validate({
+                submitHandler: function () {
+                    let parentId = $modalParentEdit.find('[name=parent_id]').val();
+
+                    $.ajax({
+                        url : `/parents/${parentId}`,
+                        method : 'PUT',
+                        data : $modalParentEdit.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    firstname: {
+                        required: true,
+                    },
+                    lastname: {
+                        required: true,
+                    },
+                    patronimyc: {
+                        required: true,
+                    },
+                    gender: {
+                        required: true,
+                    },
+                    phone: {
+                        required: true,
+                    },
+                    // about: {
+                    //     required: true,
+                    // },
+                },
+                messages: {
+                    firstname: {
+                        required: "Пожалуйста введите имя",
+                    },
+                    lastname: {
+                        required: "Пожалуйста введите фамилию",
+                    },
+                    patronimyc: {
+                        required: "Пожалуйста введите отчество",
+                    },
+                    gender: {
+                        required: "Пожалуйста выберете пол",
+                    },
+                    phone: {
+                        required: "Пожалуйста введите телефон",
+                    },
+                    // about: {
+                    //     required: "",
+                    // },
                 },
             });
 

@@ -46,14 +46,18 @@ class ParentController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function show($id)
     {
         /** @var ResidentParent $parent */
         $parent = ResidentParent::find($id);
 
-        return response()->view('resident_parent.show', compact('parent'));
+        if (request()->expectsJson()) {
+            return response()->json($parent->toArray());
+        } else {
+            return response()->view('resident_parent.show', compact('parent'));
+        }
     }
 
     /**
@@ -72,11 +76,27 @@ class ParentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'patronimyc' => 'required',
+            'gender' => 'required',
+            'role' => 'required',
+            'birthday' => 'required|date',
+            'phone' => 'required',
+            'about' => 'nullable|max:10000',
+        ]);
+
+        /** @var ResidentParent $parent */
+        $parent = ResidentParent::find($id);
+
+        $parent->update($request->all());
+
+        return response()->json($parent->toArray());
     }
 
     /**

@@ -52,7 +52,8 @@ class ResidentParent extends Model
      */
     public function notes()
     {
-        return $this->morphMany('App\Note', 'notable');
+        return $this->morphMany('App\Note', 'notable')
+            ->orderByDesc('created_at');
     }
 
     /**
