@@ -19,7 +19,13 @@
 @section('content')
     <div class="card bg-light w-100">
         <div class="card-header text-muted border-bottom-0">
-            {{ $parent->role }} - <a href="{{ $parent->resident->link }}">{{ $parent->resident->fullname }}</a>
+            {{ $parent->role }}
+            -
+            @if ($parent->resident)
+                <a href="{{ $parent->resident->link }}">{{ $parent->resident->fullname }}</a>
+            @else
+                <span class="warning">В архиве или удалён</span>
+            @endif
         </div>
         <div class="card-body pt-0">
             <h2 class="lead"><b>{{ $parent->fullname }}</b></h2>

@@ -11,6 +11,14 @@ use App\Events\StoredPunishment;
 use App\Events\UserFined;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use NotificationChannels\Telegram\TelegramChannel;
+use App\Notifications\NewDoctorAppointment as NewDoctorAppointmentNotification;
+use App\Notifications\NewNote as NewNoteNotification;
+use App\Notifications\NewTask as NewTaskNotification;
+use App\Notifications\ResidentCreated as ResidentCreatedNotification;
+use App\Notifications\StoredPunishment as StoredPunishmentNotification;
+use App\Notifications\UserFined as UserFinedNotification;
 
 /**
  * Class HistorySubscriber
@@ -33,6 +41,8 @@ class HistorySubscriber
                 $event->doctorAppointment->resident->fullname
             )
         );
+
+        $this->sendNotify(new NewDoctorAppointmentNotification($event->doctorAppointment));
     }
 
     /**
@@ -45,6 +55,8 @@ class HistorySubscriber
         $this->createEvent(
             sprintf('Добавлена заметка для <a href="%s">%s</a>', $event->note->notable->link, $event->note->notable->fullname)
         );
+
+        $this->sendNotify(new NewNoteNotification($event->note));
     }
 
     /**
@@ -57,6 +69,8 @@ class HistorySubscriber
         $this->createEvent(
             sprintf('Создано задание <a href="%s">%s</a>', $event->task->link, $event->task->title)
         );
+
+        $this->sendNotify(new NewTaskNotification($event->task));
     }
 
     /**
@@ -69,6 +83,8 @@ class HistorySubscriber
         $this->createEvent(
             sprintf('Создан резидент <a href="%s">%s</a>', $event->resident->link, $event->resident->fullname)
         );
+
+        $this->sendNotify(new ResidentCreatedNotification($event->resident));
     }
 
     /**
@@ -85,6 +101,8 @@ class HistorySubscriber
                 $event->punishment->resident->fullname
             )
         );
+
+        $this->sendNotify(new StoredPunishmentNotification($event->punishment));
     }
 
     /**
@@ -101,6 +119,8 @@ class HistorySubscriber
                 $event->fine->user->fullname
             )
         );
+
+        $this->sendNotify(new UserFinedNotification($event->fine));
     }
 
     /**
@@ -114,13 +134,24 @@ class HistorySubscriber
     }
 
     /**
+     * Send notification.
+     *
+     * @param $notification
+     */
+    protected function sendNotify($notification)
+    {
+        Notification::route(TelegramChannel::class, '4534455')
+            ->notify($notification);
+    }
+
+    /**
      * Create history event entry.
      *
      * @param $description
      * @param $icon
      * @return Event|\Illuminate\Database\Eloquent\Model
      */
-    protected function createEvent($description = null, $icon = 'history')
+    protected function createEvent($description, $icon = 'history')
     {
         return $this->user()->events()->create([
             'title' => sprintf('<a href="%s">%s</a>', $this->user()->link, $this->user()->fullname),
