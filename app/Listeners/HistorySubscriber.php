@@ -140,7 +140,7 @@ class HistorySubscriber
      */
     protected function sendNotify($notification)
     {
-        Notification::route(TelegramChannel::class, '4534455')
+        Notification::route(TelegramChannel::class, config('notification.telegram.chat_id'))
             ->notify($notification);
     }
 
