@@ -165,7 +165,7 @@
         <div class="card-body">
             <h2 class="lead">Заметки</h2>
 
-            @foreach($resident->notes->take(5) as $note)
+            @foreach($resident->notes as $note)
                 <div class="post">
                     <div class="user-block">
                         <span class="username ml-0">
@@ -185,9 +185,9 @@
                 </div>
             @endforeach
         </div>
-        <div class="card-footer text-center">
-            <a href="#">Показать все</a>
-        </div>
+{{--        <div class="card-footer text-center">--}}
+{{--            <a href="#">Показать все</a>--}}
+{{--        </div>--}}
     </div>
 
 

@@ -19,7 +19,9 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function () {
+    return response()->redirectToRoute('history.index');
+})->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     // Redirect to the user page

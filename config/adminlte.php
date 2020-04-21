@@ -208,11 +208,11 @@ return [
     */
 
     'menu' => [
-        [
-            'text'        => 'Главная',
-            'url'         => 'home',
-            'icon'        => 'fas fa-fw fa-home',
-        ],
+//        [
+//            'text'        => 'Главная',
+//            'url'         => 'home',
+//            'icon'        => 'fas fa-fw fa-home',
+//        ],
         [
             'text'        => 'Родственики',
             'url'         => 'parents',

@@ -43,8 +43,7 @@ class HistorySubscriber
     public function handleNewNote(NewNote $event)
     {
         $this->createEvent(
-            sprintf('Добавлена заметка для <a href="%s">%s</a>', $event->note->notable->link, $event->note->notable->fullname),
-            $event->note->content
+            sprintf('Добавлена заметка для <a href="%s">%s</a>', $event->note->notable->link, $event->note->notable->fullname)
         );
     }
 
@@ -56,8 +55,7 @@ class HistorySubscriber
     public function handleNewTask(NewTask $event)
     {
         $this->createEvent(
-            sprintf('Создано задание <a href="%s">%s</a>', $event->task->link, $event->task->title),
-            $event->task->description
+            sprintf('Создано задание <a href="%s">%s</a>', $event->task->link, $event->task->title)
         );
     }
 
@@ -96,11 +94,13 @@ class HistorySubscriber
      */
     public function handleUserFined(UserFined $event)
     {
-        $this->createEvent(sprintf(
-            'Выдан штраф для <a href="%s">%s</a>',
-            $event->fine->user->link,
-            $event->fine->user->fullname
-        ));
+        $this->createEvent(
+            sprintf(
+                'Выдан штраф для <a href="%s">%s</a>',
+                $event->fine->user->link,
+                $event->fine->user->fullname
+            )
+        );
     }
 
     /**
@@ -116,15 +116,14 @@ class HistorySubscriber
     /**
      * Create history event entry.
      *
-     * @param $title
      * @param $description
      * @param $icon
      * @return Event|\Illuminate\Database\Eloquent\Model
      */
-    protected function createEvent($title, $description = null, $icon = 'history')
+    protected function createEvent($description = null, $icon = 'history')
     {
         return $this->user()->events()->create([
-            'title' => $title,
+            'title' => sprintf('<a href="%s">%s</a>', $this->user()->link, $this->user()->fullname),
             'description' => $description,
             'icon' => $icon,
         ]);

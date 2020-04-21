@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            @foreach($parent->notes->take(5) as $note)
+            @foreach($parent->notes as $note)
                 <div class="post">
                     <div class="user-block">
                         <span class="username ml-0">
@@ -64,9 +64,9 @@
                 </div>
             @endforeach
         </div>
-        <div class="card-footer text-center">
-            <a href="#">Показать все</a>
-        </div>
+{{--        <div class="card-footer text-center">--}}
+{{--            <a href="#">Показать все</a>--}}
+{{--        </div>--}}
     </div>
 
     <!-- Create Note modal -->
