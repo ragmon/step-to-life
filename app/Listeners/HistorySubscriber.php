@@ -2,12 +2,15 @@
 
 namespace App\Listeners;
 
+use App\Event;
 use App\Events\NewDoctorAppointment;
 use App\Events\NewNote;
 use App\Events\NewTask;
 use App\Events\ResidentCreated;
 use App\Events\StoredPunishment;
 use App\Events\UserFined;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class HistorySubscriber
@@ -23,7 +26,13 @@ class HistorySubscriber
      */
     public function handleNewDoctorAppointment(NewDoctorAppointment $event)
     {
-        //
+        $this->createEvent(
+            sprintf(
+                'Создано назначение врача для <a href="%s">%s</a>',
+                $event->doctorAppointment->resident->link,
+                $event->doctorAppointment->resident->fullname
+            )
+        );
     }
 
     /**
@@ -33,7 +42,10 @@ class HistorySubscriber
      */
     public function handleNewNote(NewNote $event)
     {
-        //
+        $this->createEvent(
+            sprintf('Добавлена заметка для <a href="%s">%s</a>', $event->note->notable->link, $event->note->notable->fullname),
+            $event->note->content
+        );
     }
 
     /**
@@ -43,7 +55,10 @@ class HistorySubscriber
      */
     public function handleNewTask(NewTask $event)
     {
-        //
+        $this->createEvent(
+            sprintf('Создано задание <a href="%s">%s</a>', $event->task->link, $event->task->title),
+            $event->task->description
+        );
     }
 
     /**
@@ -53,7 +68,9 @@ class HistorySubscriber
      */
     public function handleResidentCreated(ResidentCreated $event)
     {
-        //
+        $this->createEvent(
+            sprintf('Создан резидент <a href="%s">%s</a>', $event->resident->link, $event->resident->fullname)
+        );
     }
 
     /**
@@ -63,7 +80,13 @@ class HistorySubscriber
      */
     public function handleStoredPunishment(StoredPunishment $event)
     {
-        //
+        $this->createEvent(
+            sprintf(
+                'Выдано взыскание для <a href="%s">%s</a>',
+                $event->punishment->resident->link,
+                $event->punishment->resident->fullname
+            )
+        );
     }
 
     /**
@@ -73,7 +96,38 @@ class HistorySubscriber
      */
     public function handleUserFined(UserFined $event)
     {
-        //
+        $this->createEvent(sprintf(
+            'Выдан штраф для <a href="%s">%s</a>',
+            $event->fine->user->link,
+            $event->fine->user->fullname
+        ));
+    }
+
+    /**
+     * Get current authenticated user instance.
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null|User
+     */
+    private function user()
+    {
+        return Auth::user();
+    }
+
+    /**
+     * Create history event entry.
+     *
+     * @param $title
+     * @param $description
+     * @param $icon
+     * @return Event|\Illuminate\Database\Eloquent\Model
+     */
+    protected function createEvent($title, $description = null, $icon = 'history')
+    {
+        return $this->user()->events()->create([
+            'title' => $title,
+            'description' => $description,
+            'icon' => $icon,
+        ]);
     }
 
     /**

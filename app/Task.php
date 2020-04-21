@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Collection users
  * @property Collection residents
  * @property User user
+ * @property string link
  */
 class Task extends Model
 {
@@ -68,5 +69,15 @@ class Task extends Model
     {
         return $this->morphedByMany('App\Resident', 'taskable')
             ->withPivot('finished_at');
+    }
+
+    /**
+     * Get link attribute value.
+     *
+     * @return string
+     */
+    public function getLinkAttribute()
+    {
+        return route('tasks.show', [$this->id]);
     }
 }

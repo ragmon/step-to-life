@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int user_id
  * @property string content
  * @property User user
+ * @property Resident|ResidentParent|Model notable
  */
 class Note extends Model
 {

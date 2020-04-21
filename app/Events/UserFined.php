@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Fine;
+use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,13 +17,18 @@ class UserFined
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
+     * @var Fine
+     */
+    public $fine;
+
+    /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Fine $fine
      */
-    public function __construct()
+    public function __construct(Fine $fine)
     {
-        //
+        $this->fine = $fine;
     }
 
     /**

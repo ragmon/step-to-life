@@ -32,6 +32,7 @@ use Illuminate\Notifications\Notifiable;
  * @property Collection reports
  * @property string fullname
  * @property string link
+ * @property Collection events
  */
 class User extends Authenticatable
 {
@@ -96,6 +97,14 @@ class User extends Authenticatable
     public function reports()
     {
         return $this->hasMany('App\Report');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function events()
+    {
+        return $this->hasMany('App\Event');
     }
 
     /**
