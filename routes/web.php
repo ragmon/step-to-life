@@ -30,32 +30,32 @@ Route::group(['middleware' => ['auth']], function () {
     })->name('profile');
 
     Route::group(['namespace' => 'User'], function () {
-        Route::resource('users', 'UserController');
-        Route::resource('users.tasks', 'TaskController');
+        Route::resource('users', 'UserController')->except(['create', 'edit']);
+        Route::resource('users.tasks', 'TaskController')->only(['update', 'destroy']);
     });
 
     Route::group(['namespace' => 'Resident'], function () {
-        Route::resource('residents', 'ResidentController');
-        Route::resource('residents.doctor_appointment', 'DoctorAppointmentController');
-        Route::resource('residents.parents', 'ParentController');
-        Route::resource('residents.punishments', 'PunishmentController');
-        Route::resource('residents.responsibilities', 'ResponsibilityController');
-        Route::resource('residents.tasks', 'TaskController');
-        Route::resource('residents.notes', 'NoteController');
+        Route::resource('residents', 'ResidentController')->except(['edit', 'update']);
+        Route::resource('residents.doctor_appointment', 'DoctorAppointmentController')->except(['index', 'create', 'edit']);
+        Route::resource('residents.parents', 'ParentController')->only(['store']);
+        Route::resource('residents.punishments', 'PunishmentController')->except(['index', 'create', 'edit']);
+        Route::resource('residents.responsibilities', 'ResponsibilityController')->only(['index', 'store']);
+        Route::resource('residents.tasks', 'TaskController')->only(['update', 'destroy']);
+        Route::resource('residents.notes', 'NoteController')->only(['store', 'destroy']);
     });
 
     Route::group(['namespace' => 'Parent'], function () {
-        Route::resource('parents.notes', 'NoteController');
+        Route::resource('parents.notes', 'NoteController')->only(['store', 'destroy']);
     });
 
-    Route::resource('fines', 'FineController');
-    Route::resource('tasks', 'TaskController');
+    Route::resource('fines', 'FineController')->except(['index', 'create', 'edit']);
+    Route::resource('tasks', 'TaskController')->except(['create', 'edit']);
     Route::resource('reports', 'ReportController');
     Route::resource('rules', 'RuleController');
-    Route::resource('responsibilities', 'ResponsibilityController');
-    Route::resource('punishments', 'PunishmentController');
-    Route::resource('notes', 'NoteController');
-    Route::resource('archive', 'ArchiveController');
-    Route::resource('parents', 'ParentController');
-    Route::resource('history', 'HistoryController');
+    Route::resource('responsibilities', 'ResponsibilityController')->except(['create', 'edit']);
+    Route::resource('punishments', 'PunishmentController')->only(['index']);
+    Route::resource('notes', 'NoteController')->only(['index', 'destroy']);
+    Route::resource('archive', 'ArchiveController')->only(['index', 'show', 'update']);
+    Route::resource('parents', 'ParentController')->except(['create', 'store', 'edit']);
+    Route::resource('history', 'HistoryController')->only(['index']);
 });
