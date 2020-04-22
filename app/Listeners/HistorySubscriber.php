@@ -140,8 +140,10 @@ class HistorySubscriber
      */
     protected function sendNotify($notification)
     {
-        Notification::route(TelegramChannel::class, config('notification.telegram.chat_id'))
-            ->notify($notification);
+        if ($telegramChatId = config('notification.telegram.chat_id')) {
+            Notification::route(TelegramChannel::class, $telegramChatId)
+                ->notify($notification);
+        }
     }
 
     /**
