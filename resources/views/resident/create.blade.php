@@ -64,12 +64,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="form-group">
-                        <label>Телефон</label>
-                        <input class="form-control" name="phone" type="tel" value="{{ old('phone') }}" placeholder="+3 (756) 54 453">
-                    </div>
-                </div>
+{{--                <div class="col-md-6 col-xl-3">--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label>Телефон</label>--}}
+{{--                        <input class="form-control" name="phone" type="tel" value="{{ old('phone') }}" placeholder="+3 (756) 54 453">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="col-md-6 col-xl-3">
                     <div class="form-group">
                         <label>Дата рождения</label>
@@ -134,9 +134,9 @@
                     birthday: {
                         required: true
                     },
-                    phone: {
-                        required: true
-                    },
+                    // phone: {
+                    //     required: true
+                    // },
                     balance: {
                         required: true
                     },
@@ -172,9 +172,9 @@
                     birthday: {
                         required: "Пожалуйста введите дату рождения",
                     },
-                    phone: {
-                        required: "Пожалуйста введите номер телефона",
-                    },
+                    // phone: {
+                    //     required: "Пожалуйста введите номер телефона",
+                    // },
                     balance: {
                         required: "Пожалуйста введите баланс",
                     },

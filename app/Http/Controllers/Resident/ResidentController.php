@@ -49,7 +49,7 @@ class ResidentController extends Controller
             'lastname' => 'required',
             'patronymic' => 'required',
             'gender' => 'required',
-            'phone' => 'required',
+//            'phone' => 'required',
             'birthday' => 'required|date',
             'registered_at' => 'required|date',
             'about' => 'nullable',

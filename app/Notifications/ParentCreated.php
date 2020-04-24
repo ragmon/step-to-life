@@ -2,7 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Resident;
 use App\ResidentParent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -53,9 +52,10 @@ class ParentCreated extends Notification implements ShouldQueue
             ->content(<<<EOF
 *Добавлен новый родственик*
 
+*Для резидента:* {$this->parent->resident->fullname}
+*Кем приходится:* {$this->parent->role}
 *ФИО:* {$this->parent->fullname}
 *Пол:* {$this->parent->gender_title}
-*Кем приходится:* {$this->parent->role}
 *Дата рождения:* {$this->parent->birthday}
 *Телефон:* {$this->parent->phone}
 *Дополнительная информация:* {$this->parent->about}

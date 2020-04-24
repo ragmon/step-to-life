@@ -54,7 +54,6 @@ class ResidentCreated extends Notification implements ShouldQueue
 
 *ФИО:* {$this->resident->fullname}
 *Пол:* {$this->resident->gender_title}
-*Телефон:* {$this->resident->phone}
 *Дата рождения:* {$this->resident->birthday}
 *Дата регистрации:* {$this->resident->registered_at}
 *Источник поступления:* {$this->resident->source}
@@ -62,7 +61,7 @@ class ResidentCreated extends Notification implements ShouldQueue
 *Баланс:* {$this->resident->balance}
 *Дополнительная информация:* {$this->resident->about}
 
-*Подробнее:* {$this->resident->link}
+[Открыть в программе]({$this->resident->link})
 EOF
 );
     }

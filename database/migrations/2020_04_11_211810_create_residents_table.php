@@ -19,7 +19,6 @@ class CreateResidentsTable extends Migration
             $table->string('lastname');
             $table->string('patronymic');
             $table->boolean('gender');
-            $table->string('phone');
             $table->date('birthday');
             $table->date('registered_at');
             $table->text('about')->nullable();

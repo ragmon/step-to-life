@@ -50,7 +50,7 @@ class StoredPunishment extends Notification implements ShouldQueue
         return TelegramMessage::create()
             ->to($notifiable->routeNotificationFor(TelegramChannel::class))
             ->content(<<<EOF
-*Выдано взыскание резеденту*
+*Выдано взыскание резиденту*
 
 *Выдал:* {$this->punishment->user->fullname}
 *Резиденту:* {$this->punishment->resident->fullname}
