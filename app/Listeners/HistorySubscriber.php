@@ -6,6 +6,7 @@ use App\Event;
 use App\Events\NewDoctorAppointment;
 use App\Events\NewNote;
 use App\Events\NewTask;
+use App\Events\ParentCreated;
 use App\Events\ResidentCreated;
 use App\Events\StoredPunishment;
 use App\Events\UserFined;
@@ -19,6 +20,7 @@ use App\Notifications\NewTask as NewTaskNotification;
 use App\Notifications\ResidentCreated as ResidentCreatedNotification;
 use App\Notifications\StoredPunishment as StoredPunishmentNotification;
 use App\Notifications\UserFined as UserFinedNotification;
+use App\Notifications\ParentCreated as ParentCreatedNotification;
 
 /**
  * Class HistorySubscriber
@@ -124,6 +126,26 @@ class HistorySubscriber
     }
 
     /**
+     * Handle stored punishment events.
+     *
+     * @param ParentCreated $event
+     */
+    public function handleParentCreated(ParentCreated $event)
+    {
+        $this->createEvent(
+            sprintf(
+                'Создан родственик <a href="%s">%s</a> для резидента <a href="%s">%s</a>',
+                $event->parent->link,
+                $event->parent->fullname,
+                $event->parent->resident->link,
+                $event->parent->resident->fullname
+            )
+        );
+
+        $this->sendNotify(new ParentCreatedNotification($event->parent));
+    }
+
+    /**
      * Get current authenticated user instance.
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|null|User
@@ -140,7 +162,7 @@ class HistorySubscriber
      */
     protected function sendNotify($notification)
     {
-        if ($telegramChatId = config('notification.telegram.chat_id')) {
+        if ($telegramChatId = config('notifications.telegram.chat_id')) {
             Notification::route(TelegramChannel::class, $telegramChatId)
                 ->notify($notification);
         }
@@ -197,6 +219,11 @@ class HistorySubscriber
         $events->listen(
             'App\Events\UserFined',
             'App\Listeners\HistorySubscriber@handleUserFined'
+        );
+
+        $events->listen(
+            'App\Events\ParentCreated',
+            'App\Listeners\HistorySubscriber@handleParentCreated'
         );
     }
 }

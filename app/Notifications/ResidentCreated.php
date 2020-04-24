@@ -48,8 +48,23 @@ class ResidentCreated extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Создан резидент *{$this->resident->fullname}*")
-            ->button('Просмотреть', route('residents.show', [$this->resident->id]));
+            ->to($notifiable->routeNotificationFor(TelegramChannel::class))
+            ->content(<<<EOF
+*Создан резидент*
+
+*ФИО:* {$this->resident->fullname}
+*Пол:* {$this->resident->gender_title}
+*Телефон:* {$this->resident->phone}
+*Дата рождения:* {$this->resident->birthday}
+*Дата регистрации:* {$this->resident->registered_at}
+*Источник поступления:* {$this->resident->source}
+*Статус:* {$this->resident->status}
+*Баланс:* {$this->resident->balance}
+*Дополнительная информация:* {$this->resident->about}
+
+*Подробнее:* {$this->resident->link}
+EOF
+);
     }
 
     /**

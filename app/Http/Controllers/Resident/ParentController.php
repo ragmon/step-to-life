@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resident;
 
+use App\Events\ParentCreated;
 use App\Http\Controllers\Controller;
 use App\Resident;
 use App\ResidentParent;
@@ -51,6 +52,8 @@ class ParentController extends Controller
 
         /** @var ResidentParent $parent */
         $parent = $resident->parents()->create($request->all());
+
+        event(new ParentCreated($parent));
 
         return response()->json($parent->toArray());
     }

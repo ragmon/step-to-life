@@ -42,14 +42,25 @@ class NewNote extends Notification implements ShouldQueue
     /**
      * Get the Telegram representation of notification.
      *
-     * @param $notifiable
+     * @param \Illuminate\Notifications\AnonymousNotifiable $notifiable
      * @return TelegramMessage
      */
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Добавлена заметка для *{$this->note->notable->fullname}*")
-            ->button('Просмотреть', route('notes.index'));
+            ->to($notifiable->routeNotificationFor(TelegramChannel::class))
+            ->content(<<<EOF
+*Добавлена новая заметка*
+
+*От сотрудника:* {$this->note->user->fullname}
+
+*Для:* {$this->note->notable->fullname}
+
+*Текст заметки:* {$this->note->content}
+
+*Подробнее:* {$this->note->notable->link}
+EOF
+            );
     }
 
     /**

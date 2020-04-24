@@ -47,9 +47,26 @@ class NewTask extends Notification implements ShouldQueue
      */
     public function toTelegram($notifiable)
     {
+        $toResidents = $this->task->residents->implode('fullname', ', ');
+        $toUsers = $this->task->users->implode('fullname', ', ');
+
         return TelegramMessage::create()
-            ->content("Создана задача *{$this->task->title}*")
-            ->button('Просмотреть', route('tasks.show', [$this->task->id]));
+            ->to($notifiable->routeNotificationFor(TelegramChannel::class))
+            ->content(<<<EOF
+*Добавлено задание*
+
+*Резидентам:* $toResidents.
+*Сотрудникам:* $toUsers.
+*Дата начала:* {$this->task->start_at}
+*Дата окончания:* {$this->task->end_at}
+
+*{$this->task->title}*
+
+{$this->task->description}
+
+*Подробнее:* {$this->task->link}
+EOF
+                );
     }
 
     /**

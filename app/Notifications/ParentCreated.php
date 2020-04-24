@@ -2,30 +2,31 @@
 
 namespace App\Notifications;
 
-use App\Fine;
+use App\Resident;
+use App\ResidentParent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class UserFined extends Notification implements ShouldQueue
+class ParentCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
-     * @var Fine
+     * @var ResidentParent
      */
-    private $fine;
+    private $parent;
 
     /**
      * Create a new notification instance.
      *
-     * @param Fine $fine
+     * @param ResidentParent $parent
      */
-    public function __construct(Fine $fine)
+    public function __construct(ResidentParent $parent)
     {
-        $this->fine = $fine;
+        $this->parent = $parent;
     }
 
     /**
@@ -50,13 +51,16 @@ class UserFined extends Notification implements ShouldQueue
         return TelegramMessage::create()
             ->to($notifiable->routeNotificationFor(TelegramChannel::class))
             ->content(<<<EOF
-*Сотрудник оштрафован*
+*Добавлен новый родственик*
 
-*Сотрудник:* {$this->fine->user->fullname}
-*Описание:* {$this->fine->description}
-*Сумма:* {$this->fine->sum}
+*ФИО:* {$this->parent->fullname}
+*Пол:* {$this->parent->gender_title}
+*Кем приходится:* {$this->parent->role}
+*Дата рождения:* {$this->parent->birthday}
+*Телефон:* {$this->parent->phone}
+*Дополнительная информация:* {$this->parent->about}
 
-*Подробнее* {$this->fine->user->link}
+*Подробнее:* {$this->parent->link}
 EOF
 );
     }

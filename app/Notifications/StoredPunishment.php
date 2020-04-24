@@ -48,8 +48,19 @@ class StoredPunishment extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Выдано взыскание резеденту *{$this->punishment->resident->fullname}*")
-            ->button('Просмотреть', route('resident.show', [$this->punishment->resident->id]));
+            ->to($notifiable->routeNotificationFor(TelegramChannel::class))
+            ->content(<<<EOF
+*Выдано взыскание резеденту*
+
+*Выдал:* {$this->punishment->user->fullname}
+*Резиденту:* {$this->punishment->resident->fullname}
+*Дата начала:* {$this->punishment->start_at}
+*Дата завершения:* {$this->punishment->finished_at}
+*Описание:* {$this->punishment->description}
+
+*Подробнее:* {$this->punishment->resident->link}
+EOF
+);
     }
 
     /**

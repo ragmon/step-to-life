@@ -48,8 +48,19 @@ class NewDoctorAppointment extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Добавлено назначение врача для резидента *{$this->doctorAppointment->resident->fullname}*")
-            ->button('Просмотреть', route('residents.show', [$this->doctorAppointment->resident_id]));
+            ->to($notifiable->routeNotificationFor(TelegramChannel::class))
+            ->content(<<<EOF
+*Добавлено назначение врача*
+
+*Кому:* {$this->doctorAppointment->resident->fullname}
+
+*Врач:* {$this->doctorAppointment->doctor}
+*Препарат:* {$this->doctorAppointment->drug}
+*Схема приёма:* {$this->doctorAppointment->reception_schedule}
+
+*Подробнее:* {$this->doctorAppointment->resident->link}
+EOF
+            );
     }
 
     /**
