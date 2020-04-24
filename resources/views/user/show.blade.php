@@ -280,7 +280,7 @@
     <!-- /.modal -->
 
     <!-- Edit Fine modal -->
-    <div class="modal fade" id="modal-fine-edit">
+    <form class="modal fade" id="modal-fine-edit">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -290,30 +290,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="user-edit-description">За что</label>
-                                <input name="description" type="email" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
-                            </div>
-                            <div class="form-group">
-                                <label for="user-edit-sum">Сумма (грн)</label>
-                                <input name="sum" type="text" class="form-control" id="user-edit-sum" placeholder="500">
-                            </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="user-edit-description">За что</label>
+                            <input name="description" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
                         </div>
-                        <!-- /.card-body -->
-                        <input name="id" type="hidden" value="">
-                    </form>
+                        <div class="form-group">
+                            <label for="user-edit-sum">Сумма (грн)</label>
+                            <input name="sum" type="text" class="form-control" id="user-edit-sum" placeholder="500">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <input name="id" type="hidden" value="">
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-success btn-edit">Сохранить</button>
+                    <button type="submit" class="btn btn-success btn-edit">Сохранить</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </form>
 
     <!-- Delete Fine modal -->
     <div class="modal fade" id="modal-fine-delete">
@@ -644,13 +642,12 @@
 
         function editFine(fineId) {
             let $modalFineEdit = $('#modal-fine-edit');
-            let $editForm = $modalFineEdit.find('form');
 
             $.ajax({
                 url : `/fines/${fineId}`,
                 method : 'GET',
                 success : function (data) {
-                    populateForm($editForm[0], data);
+                    populateForm($modalFineEdit[0], data);
 
                     $modalFineEdit.modal('show');
                 }
@@ -659,19 +656,38 @@
 
         $(function () {
             let $modalFineEdit = $('#modal-fine-edit');
-            let $form = $modalFineEdit.find('form');
 
-            $modalFineEdit.find('.btn-edit').click(function () {
-                let fineId = $form.find('[name=id]').val();
+            $modalFineEdit.validate({
+                submitHandler: function () {
+                    let fineId = $modalFineEdit.find('[name=id]').val();
 
-                $.ajax({
-                    url : `/fines/${fineId}`,
-                    method : 'PUT',
-                    data : $modalFineEdit.find('form').serialize(),
-                    success : function (data) {
-                        location.reload();
+                    $.ajax({
+                        url : `/fines/${fineId}`,
+                        method : 'PUT',
+                        data : $modalFineEdit.serialize(),
+                        success : function (data) {
+                            location.reload();
+                        }
+                    })
+                },
+                rules: {
+                    description: {
+                        required: true
+                    },
+                    sum: {
+                        required: true,
+                        digits: true
                     }
-                })
+                },
+                messages: {
+                    description: {
+                        required: "Пожалуйста, введите за что"
+                    },
+                    sum: {
+                        required: "Пожалуйста, введите сумму",
+                        digits: "Пожалуйста, введите целое число от 0 до 999999"
+                    }
+                }
             });
         });
 
@@ -724,7 +740,8 @@
                         required: true
                     },
                     sum: {
-                        required: true
+                        required: true,
+                        digits: true
                     }
                 },
                 messages: {
@@ -732,7 +749,8 @@
                         required: "Пожалуйста, введите за что"
                     },
                     sum: {
-                        required: "Пожалуйста, введите сумму"
+                        required: "Пожалуйста, введите сумму",
+                        digits: "Пожалуйста, введите целое число от 0 до 999999"
                     }
                 }
             });
