@@ -407,6 +407,7 @@ return [
                 ],
             ],
         ],
+        // https://jqueryvalidation.org/
         [
             'name' => 'jQuery Validation',
             'active' => true,

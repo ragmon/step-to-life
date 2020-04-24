@@ -373,7 +373,7 @@
     </form>
 
     <!-- Create Task modal -->
-    <div class="modal fade" id="modal-task-create">
+    <form class="modal fade" id="modal-task-create">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -383,86 +383,84 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form">
-                        <div class="card-body">
-                            <div class="form-group residents">
-                                <label>Резиденты</label>
-                                <button type="button" class="btn btn-default btn-xs btn-residents-select-all">Выбрать всех</button>
-                                @foreach($residents as $resident)
-                                    <div class="form-check">
-                                        <input name="resident[]" id="task-create-resident-{{ $resident->id }}" type="checkbox" class="form-check-input" value="{{ $resident->id }}">
-                                        <label class="form-check-label" for="task-create-resident-{{ $resident->id }}">{{ $resident->fullname }}</label>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <div class="form-group users">
-                                <label>Команда</label>
-                                <button type="button" class="btn btn-default btn-xs btn-users-select-all">Выбрать всех</button>
-                                @foreach($users as $_user)
-                                    <div class="form-check">
-                                        <input name="user[]" id="task-create-user-{{ $_user->id }}" type="checkbox" class="form-check-input" value="{{ $_user->id }}">
-                                        <label class="form-check-label" for="task-create-user-{{ $_user->id }}">{{ $_user->fullname }}</label>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="Что меня сюда привело?">
-                            </div>
-                            <div class="form-group">
-                                <label for="user-edit-sum">Описание</label>
-                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Описать причины, факторы, мотивы которые заставили меня приехать в РЦ."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Дата начала:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </span>
-                                    </div>
-                                    <input name="start_at" type="date" class="form-control float-right">
+                    <div class="card-body">
+                        <div class="form-group residents">
+                            <label>Резиденты</label>
+                            <button type="button" class="btn btn-default btn-xs btn-residents-select-all">Выбрать всех</button>
+                            @foreach($residents as $resident)
+                                <div class="form-check">
+                                    <input name="resident[]" id="task-create-resident-{{ $resident->id }}" type="checkbox" class="form-check-input" value="{{ $resident->id }}">
+                                    <label class="form-check-label" for="task-create-resident-{{ $resident->id }}">{{ $resident->fullname }}</label>
                                 </div>
-                                <!-- /.input group -->
-                            </div>
-                            <div class="form-group">
-                                <label>Дата завершения:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </span>
-                                    </div>
-                                    <input name="end_at" type="date" class="form-control float-right">
-                                </div>
-                                <!-- /.input group -->
-                            </div>
-                            <div class="form-group">
-                                <label>Дата сдачи:</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </span>
-                                    </div>
-                                    <input name="finished_at" type="date" class="form-control float-right">
-                                </div>
-                                <!-- /.input group -->
-                            </div>
+                            @endforeach
                         </div>
-                        <!-- /.card-body -->
-                    </form>
+                        <div class="form-group users">
+                            <label>Команда</label>
+                            <button type="button" class="btn btn-default btn-xs btn-users-select-all">Выбрать всех</button>
+                            @foreach($users as $_user)
+                                <div class="form-check">
+                                    <input name="user[]" id="task-create-user-{{ $_user->id }}" type="checkbox" class="form-check-input" value="{{ $_user->id }}">
+                                    <label class="form-check-label" for="task-create-user-{{ $_user->id }}">{{ $_user->fullname }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="user-edit-description">Заголовок</label>
+                            <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="Что меня сюда привело?">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-edit-sum">Описание</label>
+                            <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Описать причины, факторы, мотивы которые заставили меня приехать в РЦ."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Дата начала:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input name="start_at" type="date" class="form-control float-right">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <div class="form-group">
+                            <label>Дата завершения:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input name="end_at" type="date" class="form-control float-right">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <div class="form-group">
+                            <label>Дата сдачи:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input name="finished_at" type="date" class="form-control float-right">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-success btn-create">Создать</button>
+                    <button type="submit" class="btn btn-success btn-create">Создать</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </form>
 
     <!-- Edit task modal -->
     <div class="modal fade" id="modal-task-edit">
@@ -762,15 +760,12 @@
         function createTask() {
             let $modalTaskCreate = $('#modal-task-create');
 
-            $modalTaskCreate.find('form')[0].reset();
-
             $modalTaskCreate.modal('show');
         }
 
         function editTask(taskId) {
             let $modalTaskEdit = $('#modal-task-edit');
 
-            $modalTaskEdit.find('form')[0].reset();
             $modalTaskEdit.find('[name=id]').val(taskId);
 
             $.ajax({
@@ -784,7 +779,7 @@
                         $modalTaskEdit.find(`.users input[type=checkbox][value=${user.id}]`).prop('checked', true);
                     }
 
-                    populateForm($modalTaskEdit.find('form')[0], data);
+                    populateForm($modalTaskEdit[0], data);
 
                     $modalTaskEdit.modal('show');
                 }
@@ -817,15 +812,45 @@
 
             // Create
 
-            $modalCreateTask.find('.btn-create').click(function () {
-                $.ajax({
-                    url : `/tasks`,
-                    method : 'POST',
-                    data : $modalCreateTask.find('form').serialize(),
-                    success : function () {
-                        location.reload();
-                    }
-                });
+            $modalCreateTask.validate({
+                submitHandler: function () {
+                    $.ajax({
+                        url : `/tasks`,
+                        method : 'POST',
+                        data : $modalCreateTask.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    title: {
+                        required: true
+                    },
+                    description: {
+                        required: true
+                    },
+                    start_at: {
+                        required: true
+                    },
+                    end_at: {
+                        required: true
+                    },
+                },
+                messages: {
+                    title: {
+                        required: "Пожалуйста, введите заголовок"
+                    },
+                    description: {
+                        required: "Пожалуйста, введите описание"
+                    },
+                    start_at: {
+                        required: "Пожалуйста, выберете дату начала"
+                    },
+                    end_at: {
+                        required: "Пожалуйста, выберете дату окончания"
+                    },
+                }
             });
 
             $modalCreateTask.find('.btn-residents-select-all').click(function () {
