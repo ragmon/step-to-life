@@ -758,12 +758,15 @@
         function createTask() {
             let $modalTaskCreate = $('#modal-task-create');
 
+            $modalTaskCreate[0].reset();
+
             $modalTaskCreate.modal('show');
         }
 
         function editTask(taskId) {
             let $modalTaskEdit = $('#modal-task-edit');
 
+            $modalTaskEdit[0].reset();
             $modalTaskEdit.find('[name=id]').val(taskId);
 
             $.ajax({

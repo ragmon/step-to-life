@@ -120,13 +120,14 @@ class PunishmentController extends Controller
     /**
      * Update punishment finished at date.
      *
-     * @param int $id
+     * @param $residentId
+     * @param $punishmentId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateFinishedAt($id)
+    public function updateFinishedAt($residentId, $punishmentId)
     {
         /** @var Punishment $punishment */
-        $punishment = Punishment::find($id);
+        $punishment = Punishment::find($punishmentId);
 
         $punishment->update([ 'finished_at' => Carbon::now() ]);
 
