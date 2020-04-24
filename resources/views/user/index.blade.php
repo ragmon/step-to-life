@@ -101,6 +101,7 @@
                 rules: {
                     email: {
                         required: true,
+                        email: true
                     },
                     firstname: {
                         required: true,
@@ -120,7 +121,8 @@
                 },
                 messages: {
                     email: {
-                        required: "Пожалуйста, введите E-mail"
+                        required: "Пожалуйста, введите E-mail",
+                        email: "E-mail адрес должен быть корректным"
                     },
                     firstname: {
                         required: "Пожалуйста, введите имя"
