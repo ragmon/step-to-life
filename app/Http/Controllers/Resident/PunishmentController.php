@@ -6,6 +6,7 @@ use App\Events\StoredPunishment;
 use App\Http\Controllers\Controller;
 use App\Punishment;
 use App\Resident;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -93,8 +94,8 @@ class PunishmentController extends Controller
     {
         $request->validate([
             'description' => 'required',
-            'start_at' => 'required',
-            'end_at' => 'required',
+            'start_at' => 'required|date',
+            'end_at' => 'required|date',
         ]);
 
         $punishment->update($request->all());
@@ -114,5 +115,21 @@ class PunishmentController extends Controller
         $punishment->delete();
 
         return response()->json();
+    }
+
+    /**
+     * Update punishment finished at date.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateFinishedAt($id)
+    {
+        /** @var Punishment $punishment */
+        $punishment = Punishment::find($id);
+
+        $punishment->update([ 'finished_at' => Carbon::now() ]);
+
+        return response()->json($punishment->toArray());
     }
 }

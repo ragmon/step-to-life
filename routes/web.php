@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('residents.doctor_appointment', 'DoctorAppointmentController')->except(['index', 'create', 'edit']);
         Route::resource('residents.parents', 'ParentController')->only(['store']);
         Route::resource('residents.punishments', 'PunishmentController')->except(['index', 'create', 'edit']);
+        Route::put('residents/{resident}/punishments/{punishment}/update_finished_at', 'PunishmentController@updateFinishedAt')->name('residents.punishments.update_finished_at');
         Route::resource('residents.responsibilities', 'ResponsibilityController')->only(['index', 'store']);
         Route::resource('residents.tasks', 'TaskController')->only(['update', 'destroy']);
         Route::resource('residents.notes', 'NoteController')->only(['store', 'destroy']);

@@ -33,7 +33,7 @@ class Punishment extends Model
      *
      * @var array
      */
-    protected $fillable = ['description', 'user_id', 'to_resident_id', 'start_at', 'end_at'];
+    protected $fillable = ['description', 'user_id', 'to_resident_id', 'start_at', 'end_at', 'finished_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

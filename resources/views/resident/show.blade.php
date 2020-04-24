@@ -94,6 +94,8 @@
                 <tr>
                     <th>Описание</th>
                     <th>Дата выдачи</th>
+                    <th>Дата окончания</th>
+                    <th>Дата сдачи</th>
                     <th>Функция</th>
                 </tr>
                 </thead>
@@ -102,7 +104,10 @@
                     <tr>
                         <td>{{ $punishment->description }}</td>
                         <td>{{ $punishment->start_at }}</td>
+                        <td>{{ $punishment->end_at }}</td>
+                        <td>{{ $punishment->finished_at }}</td>
                         <td class="text-right">
+                            <button class="btn btn-success btn-sm btn-punishment-finished" onclick="finishPunishment({{ $resident->id }}, {{ $punishment->id }})"><i class="fas fa-lg fa-check-circle"></i></button>
                             <button class="btn btn-primary btn-sm btn-punishment-edit" onclick="editPunishment({{ $resident->id }}, {{ $punishment->id }})"><i class="fas fa-lg fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm btn-punishment-delete" onclick="deletePunishment({{ $resident->id }}, {{ $punishment->id }})"><i class="fas fa-lg fa-trash"></i></button>
                         </td>
@@ -113,6 +118,8 @@
                 <tr>
                     <th>Описание</th>
                     <th>Дата выдачи</th>
+                    <th>Дата окончания</th>
+                    <th>Дата сдачи</th>
                     <th>Функция</th>
                 </tr>
                 </tfoot>
@@ -1019,6 +1026,16 @@
             $modalPunishmentDelete.find('[name=punishment_id]').val(punishmentId);
 
             $modalPunishmentDelete.modal('show');
+        }
+
+        function finishPunishment(residentId, punishmentId) {
+            $.ajax({
+                url : `/residents/${residentId}/punishments/${punishmentId}/update_finished_at`,
+                method : 'PUT',
+                success: function () {
+                    location.reload();
+                }
+            });
         }
 
         $(function () {
