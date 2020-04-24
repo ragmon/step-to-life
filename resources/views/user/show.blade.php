@@ -341,7 +341,7 @@
     <!-- /.modal -->
 
     <!-- Create Fine modal -->
-    <div class="modal fade" id="modal-fine-create">
+    <form class="modal fade" id="modal-fine-create">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -351,30 +351,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="user-edit-description">За что</label>
-                                <input name="description" type="email" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
-                            </div>
-                            <div class="form-group">
-                                <label for="user-edit-sum">Сумма (грн)</label>
-                                <input name="sum" type="text" class="form-control" id="user-edit-sum" placeholder="500">
-                            </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="user-edit-description">За что</label>
+                            <input name="description" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
                         </div>
-                        <!-- /.card-body -->
-                        <input type="hidden" name="user_id" value="">
-                    </form>
+                        <div class="form-group">
+                            <label for="user-edit-sum">Сумма (грн)</label>
+                            <input name="sum" type="text" class="form-control" id="user-edit-sum" placeholder="500">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <input type="hidden" name="user_id" value="">
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-success btn-create">Выдать</button>
+                    <button type="submit" class="btn btn-success btn-create">Выдать</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </form>
 
     <!-- Create Task modal -->
     <div class="modal fade" id="modal-task-create">
@@ -534,18 +532,6 @@
                                 </div>
                                 <!-- /.input group -->
                             </div>
-{{--                            <div class="form-group">--}}
-{{--                                <label>Дата сдачи:</label>--}}
-{{--                                <div class="input-group">--}}
-{{--                                    <div class="input-group-prepend">--}}
-{{--                                        <span class="input-group-text">--}}
-{{--                                            <i class="far fa-calendar-alt"></i>--}}
-{{--                                        </span>--}}
-{{--                                    </div>--}}
-{{--                                    <input name="finished_at" type="date" class="form-control float-right">--}}
-{{--                                </div>--}}
-{{--                                <!-- /.input group -->--}}
-{{--                            </div>--}}
                         </div>
                         <!-- /.card-body -->
                         <input type="hidden" name="id" value="">
@@ -701,7 +687,6 @@
         function createFine(userId) {
             let $modalFineCreate = $('#modal-fine-create');
 
-            $modalFineCreate.find('form')[0].reset();
             $modalFineCreate.find('[name=user_id]').val(userId);
 
             $modalFineCreate.modal('show');
@@ -723,16 +708,35 @@
                 });
             });
 
-            $modalFineCreate.find('.btn-create').click(function () {
-                $.ajax({
-                    url : `/fines`,
-                    method : 'POST',
-                    data : $modalFineCreate.find('form').serialize(),
-                    success : function () {
-                        location.reload();
+            $modalFineCreate.validate({
+                submitHandler: function () {
+                    $.ajax({
+                        url : `/fines`,
+                        method : 'POST',
+                        data : $modalFineCreate.serialize(),
+                        success : function () {
+                            location.reload();
+                        }
+                    });
+                },
+                rules: {
+                    description: {
+                        required: true
+                    },
+                    sum: {
+                        required: true
                     }
-                });
+                },
+                messages: {
+                    description: {
+                        required: "Пожалуйста, введите за что"
+                    },
+                    sum: {
+                        required: "Пожалуйста, введите сумму"
+                    }
+                }
             });
+
         });
 
         /* Tasks */
