@@ -214,14 +214,24 @@ return [
 //            'icon'        => 'fas fa-fw fa-home',
 //        ],
         [
+            'text'        => 'Резиденты',
+            'url'         => 'residents',
+            'icon'        => 'fas fa-fw fa-users',
+        ],
+        [
             'text'        => 'Родственики',
             'url'         => 'parents',
             'icon'        => 'fas fa-fw fa-user-friends',
         ],
         [
-            'text'        => 'Резиденты',
-            'url'         => 'residents',
-            'icon'        => 'fas fa-fw fa-users',
+            'text'        => 'Задания',
+            'url'         => 'tasks',
+            'icon'        => 'fas fa-fw fa-tasks',
+        ],
+        [
+            'text'        => 'Взыскания',
+            'url'         => 'punishments',
+            'icon'        => 'fas fa-fw fa-burn',
         ],
         [
             'text'        => 'Обязанности',
@@ -229,9 +239,9 @@ return [
             'icon'        => 'fas fa-fw fa-list',
         ],
         [
-            'text'        => 'Взыскания',
-            'url'         => 'punishments',
-            'icon'        => 'fas fa-fw fa-burn',
+            'text'        => 'Команда',
+            'url'         => 'users',
+            'icon'        => 'fas fa-fw fa-people-carry',
         ],
         [
             'text'        => 'Архив',
@@ -244,29 +254,19 @@ return [
             'icon'        => 'fas fa-fw fa-history',
         ],
         [
-            'text'        => 'Команда',
-            'url'         => 'users',
-            'icon'        => 'fas fa-fw fa-people-carry',
-        ],
-        [
-            'text'        => 'Задания',
-            'url'         => 'tasks',
-            'icon'        => 'fas fa-fw fa-tasks',
-        ],
-        [
             'text'        => 'Заметки',
             'url'         => 'notes',
             'icon'        => 'fas fa-fw fa-sticky-note',
         ],
         [
-            'text'        => 'Правила РЦ',
-            'url'         => 'rules',
-            'icon'        => 'fas fa-fw fa-file',
-        ],
-        [
             'text'        => 'Отчёты',
             'url'         => 'reports',
             'icon'        => 'fas fa-fw fa-file-alt',
+        ],
+        [
+            'text'        => 'Правила РЦ',
+            'url'         => 'rules',
+            'icon'        => 'fas fa-fw fa-file',
         ],
         ['header' => 'account_settings'],
         [

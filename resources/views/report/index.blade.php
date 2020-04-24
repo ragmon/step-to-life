@@ -20,28 +20,32 @@
 @section('content')
     <div class="card card-solid">
         <div class="card-body pb-3">
-            <table id="punishments" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>Заголовок</th>
-                    <th>Дата создания</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($reports as $report)
+            @if ($reports->count() > 0)
+                <table id="punishments" class="table table-bordered table-striped">
+                    <thead>
                     <tr>
-                        <td><a href="{{ route('reports.show', [$report->id]) }}">{{ $report->title }}</a></td>
-                        <td>{{ $report->created_at }}</td>
+                        <th>Заголовок</th>
+                        <th>Дата создания</th>
                     </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Заголовок</th>
-                    <th>Дата создания</th>
-                </tr>
-                </tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($reports as $report)
+                        <tr>
+                            <td><a href="{{ route('reports.show', [$report->id]) }}">{{ $report->title }}</a></td>
+                            <td>{{ $report->created_at }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Заголовок</th>
+                        <th>Дата создания</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            @else
+                <p class="text-center">Данные отсутствуют</p>
+            @endif
         </div>
         <!-- /.card-body -->
         <div class="card-footer">

@@ -11,31 +11,35 @@
 @section('content')
     <div class="card card-solid">
         <div class="card-body">
-            @foreach ($notes as $note)
-                <div class="post">
-                    <div class="user-block">
-                        <span class="username ml-0">
-                            @if ($note->user)
-                                <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
-                            @else
-                                <span>Пользователь удалён</span>
-                            @endif
-                            >
-                            @if ($note->notable)
-                                <a href="{{ $note->notable->link }}">{{ $note->notable->fullname }}</a>
-                            @else
-                                <span>Удалён или в архиве</span>
-                            @endif
-                            <a class="float-right btn-tool" onclick="deleteNote({{ $note->id }})"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description ml-0">{{ $note->created_at }}</span>
+            @if ($notes->count() > 0)
+                @foreach ($notes as $note)
+                    <div class="post">
+                        <div class="user-block">
+                            <span class="username ml-0">
+                                @if ($note->user)
+                                    <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                                @else
+                                    <span>Пользователь удалён</span>
+                                @endif
+                                >
+                                @if ($note->notable)
+                                    <a href="{{ $note->notable->link }}">{{ $note->notable->fullname }}</a>
+                                @else
+                                    <span>Удалён или в архиве</span>
+                                @endif
+                                <a class="float-right btn-tool" onclick="deleteNote({{ $note->id }})"><i class="fas fa-times"></i></a>
+                            </span>
+                            <span class="description ml-0">{{ $note->created_at }}</span>
+                        </div>
+                        <!-- /.user-block -->
+                        <div class="note-content">
+                            {{ $note->content }}
+                        </div>
                     </div>
-                    <!-- /.user-block -->
-                    <div class="note-content">
-                        {{ $note->content }}
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
+            @else
+                <p class="text-center">Данные отсутствуют</p>
+            @endif
         </div>
         <div class="card-footer">
             {!! $notes->links() !!}

@@ -20,9 +20,13 @@
 @section('content')
     <div class="card card-solid">
         <div class="card-body pb-0">
-            <div class="row d-flex align-items-stretch">
-                @each('resident.component.card', $residents, 'resident')
-            </div>
+            @if ($residents->count() > 0)
+                <div class="row d-flex align-items-stretch">
+                    @each('resident.component.card', $residents, 'resident')
+                </div>
+            @else
+                <p class="text-center">Данные отсутствуют</p>
+            @endif
         </div>
         <!-- /.card-body -->
         <div class="card-footer">

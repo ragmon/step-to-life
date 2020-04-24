@@ -174,35 +174,39 @@
                     <button class="btn btn-success btn-sm" type="button" onclick="createTask()"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
-            <table id="tasks" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>Заголовок</th>
-                    <th>Дата сдачи</th>
-                    <th>Функция</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($resident->tasks as $task)
+            @if ($resident->tasks->count() > 0)
+                <table id="tasks" class="table table-bordered table-striped">
+                    <thead>
                     <tr>
-                        <td><a href="{{ route('tasks.show', [$task->id]) }}">{{ $task->title }}</a></td>
-                        <td>{{ $task->pivot->finished_at ?? '-' }}</td>
-                        <td class="text-right">
-                            <button class="btn btn-success btn-sm btn-task-finish" onclick="finishTask({{ $task->id }}, {{ $resident->id }})"><i class="fas fa-lg fa-check-circle"></i></button>
-                            <button class="btn btn-primary btn-sm btn-task-edit" onclick="editTask({{ $task->id }})"><i class="fas fa-lg fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteTask({{ $task->id }}, {{ $resident->id }})"><i class="fas fa-lg fa-trash"></i></button>
-                        </td>
+                        <th>Заголовок</th>
+                        <th>Дата сдачи</th>
+                        <th>Функция</th>
                     </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Заголовок</th>
-                    <th>Дата сдачи</th>
-                    <th>Функция</th>
-                </tr>
-                </tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($resident->tasks as $task)
+                        <tr>
+                            <td><a href="{{ route('tasks.show', [$task->id]) }}">{{ $task->title }}</a></td>
+                            <td>{{ $task->pivot->finished_at ?? '-' }}</td>
+                            <td class="text-right">
+                                <button class="btn btn-success btn-sm btn-task-finish" onclick="finishTask({{ $task->id }}, {{ $resident->id }})"><i class="fas fa-lg fa-check-circle"></i></button>
+                                <button class="btn btn-primary btn-sm btn-task-edit" onclick="editTask({{ $task->id }})"><i class="fas fa-lg fa-edit"></i></button>
+                                <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteTask({{ $task->id }}, {{ $resident->id }})"><i class="fas fa-lg fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Заголовок</th>
+                        <th>Дата сдачи</th>
+                        <th>Функция</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            @else
+                <p class="text-center">Задания отсутствуют</p>
+            @endif
         </div>
     </div>
 
@@ -217,9 +221,13 @@
                     <button class="btn btn-success btn-sm" type="button" onclick="createParent({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
-            <div class="row d-flex align-items-stretch">
-                @each('resident_parent.component.card', $resident->parents, 'parent')
-            </div>
+            @if ($resident->parents->count() > 0)
+                <div class="row d-flex align-items-stretch">
+                    @each('resident_parent.component.card', $resident->parents, 'parent')
+                </div>
+            @else
+                <p class="text-center">Информация о родственниках отсутствует</p>
+            @endif
         </div>
     </div>
 
@@ -235,29 +243,30 @@
                 </div>
             </div>
 
-            @foreach($resident->notes as $note)
-                <div class="post">
-                    <div class="user-block">
-                        <span class="username ml-0">
-                            @if ($note->user)
-                                <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
-                            @else
-                                <span>Пользователь удалён</span>
-                            @endif
-                            <a class="float-right btn-tool" onclick="deleteNote({{ $resident->id }}, {{ $note->id }})"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description ml-0">{{ $note->created_at }}</span>
+            @if ($resident->notes->count() > 0)
+                @foreach($resident->notes as $note)
+                    <div class="post">
+                        <div class="user-block">
+                            <span class="username ml-0">
+                                @if ($note->user)
+                                    <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                                @else
+                                    <span>Пользователь удалён</span>
+                                @endif
+                                <a class="float-right btn-tool" onclick="deleteNote({{ $resident->id }}, {{ $note->id }})"><i class="fas fa-times"></i></a>
+                            </span>
+                            <span class="description ml-0">{{ $note->created_at }}</span>
+                        </div>
+                        <!-- /.user-block -->
+                        <p>
+                            {{ $note->content }}
+                        </p>
                     </div>
-                    <!-- /.user-block -->
-                    <p>
-                        {{ $note->content }}
-                    </p>
-                </div>
-            @endforeach
+                @endforeach
+            @else
+                <p class="text-center">Заметки отсутствуют</p>
+            @endif
         </div>
-{{--        <div class="card-footer text-center">--}}
-{{--            <a href="#">Показать все</a>--}}
-{{--        </div>--}}
     </div>
 
     <!-- Create Doctor Appointment modal -->
