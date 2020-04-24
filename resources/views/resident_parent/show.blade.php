@@ -157,7 +157,7 @@
     </form>
     <!-- /.modal -->
 
-    <!-- Edit Doctor Appointment modal -->
+    <!-- Edit Parent modal -->
     <form class="modal fade" id="modal-parent-edit" novalidate="novalidate">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -179,7 +179,7 @@
                         </div>
                         <div class="form-group">
                             <label>Отчество</label>
-                            <input name="patronimyc" type="text" class="form-control" placeholder="Иваныч">
+                            <input name="patronimyc" type="text" class="form-control" placeholder="Иванович">
                         </div>
                         <div class="form-group">
                             <label>Кем приходится</label>
@@ -202,7 +202,7 @@
                         </div>
                         <div class="form-group">
                             <label>Телефон</label>
-                            <input name="phone" type="tel" class="form-control" placeholder="+3 (965) 453 42">
+                            <input name="phone" type="tel" class="form-control" placeholder="+380123456789">
                         </div>
                         <div class="form-group">
                             <label>Дополнительная информация</label>
@@ -293,7 +293,7 @@
                 },
                 messages: {
                     content: {
-                        required: "Пожалуйста введите содержимое",
+                        required: "Пожалуйста, введите содержимое",
                     }
                 },
             });
@@ -333,19 +333,19 @@
                 },
                 messages: {
                     firstname: {
-                        required: "Пожалуйста введите имя",
+                        required: "Пожалуйста, введите имя",
                     },
                     lastname: {
-                        required: "Пожалуйста введите фамилию",
+                        required: "Пожалуйста, введите фамилию",
                     },
                     patronimyc: {
-                        required: "Пожалуйста введите отчество",
+                        required: "Пожалуйста, введите отчество",
                     },
                     gender: {
-                        required: "Пожалуйста выберете пол",
+                        required: "Пожалуйста, выберете пол",
                     },
                     phone: {
-                        required: "Пожалуйста введите телефон",
+                        required: "Пожалуйста, введите телефон",
                     },
                     // about: {
                     //     required: "",

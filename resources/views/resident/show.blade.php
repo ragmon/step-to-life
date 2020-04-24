@@ -25,7 +25,6 @@
             <ul class="ml-0 mb-0 fa-ul text-muted mb-2">
                 <li>Статус: {{ $resident->status }}</li>
                 <li>Пол: {{ $resident->gender_title }}</li>
-                <li>Телефон: <a href="tel:{{ $resident->phone }}">{{ $resident->phone }}</a></li>
                 <li>День рождения: {{ $resident->birthday }}</li>
                 <li>Дата регистрации: {{ $resident->registered_at }}</li>
                 <li>Источник поступления: {{ $resident->source }}</li>
@@ -528,11 +527,11 @@
                             <hr>
                             <div class="form-group">
                                 <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="Что меня сюда привело?">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-sum">Описание</label>
-                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Убрать дом"></textarea>
+                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Описать причины, факторы, мотивы которые заставили меня приехать в РЦ."></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Дата начала:</label>
@@ -620,11 +619,11 @@
                             <hr>
                             <div class="form-group">
                                 <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="Что меня сюда привело?">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-sum">Описание</label>
-                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Убрать дом"></textarea>
+                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Описать причины, факторы, мотивы которые заставили меня приехать в РЦ."></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Дата начала:</label>
@@ -703,7 +702,7 @@
     </div>
     <!-- /.modal -->
 
-    <!-- Edit Parent modal -->
+    <!-- Create Parent modal -->
     <form class="modal fade" id="modal-parent-create" novalidate="novalidate">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -725,7 +724,7 @@
                         </div>
                         <div class="form-group">
                             <label>Отчество</label>
-                            <input name="patronimyc" class="form-control" placeholder="Иваныч">
+                            <input name="patronimyc" class="form-control" placeholder="Иванович">
                         </div>
                         <div class="form-group">
                             <label>Пол</label>
@@ -748,7 +747,7 @@
                         </div>
                         <div class="form-group">
                             <label>Телефон</label>
-                            <input name="phone" class="form-control" placeholder="+3 (095) 765 34">
+                            <input name="phone" class="form-control" placeholder="+380123456789">
                         </div>
                         <div class="form-group">
                             <label>Дополнительная информация</label>
@@ -921,13 +920,13 @@
                 },
                 messages: {
                     doctor: {
-                        required: "Пожалуйста введите доктора",
+                        required: "Пожалуйста, введите доктора",
                     },
                     drug: {
-                        required: "Пожалуйста введите препорат",
+                        required: "Пожалуйста, введите препорат",
                     },
                     reception_schedule: {
-                        required: "Пожалуйста введите схему приёма",
+                        required: "Пожалуйста, введите схему приёма",
                     }
                 },
             });
@@ -959,13 +958,13 @@
                 },
                 messages: {
                     doctor: {
-                        required: "Пожалуйста введите доктора",
+                        required: "Пожалуйста, введите доктора",
                     },
                     drug: {
-                        required: "Пожалуйста введите препорат",
+                        required: "Пожалуйста, введите препорат",
                     },
                     reception_schedule: {
-                        required: "Пожалуйста введите схему приёма",
+                        required: "Пожалуйста, введите схему приёма",
                     }
                 },
             });
@@ -1048,19 +1047,19 @@
                         required: true
                     },
                     end_at: {
-                        required: true
+                        required: false
                     }
                 },
                 messages: {
                     description: {
-                        required: "Пожалуйста введите описание",
+                        required: "Пожалуйста, введите описание",
                     },
                     start_at: {
-                        required: "Пожалуйста введите дату начала",
+                        required: "Пожалуйста, введите дату начала",
                     },
-                    end_at: {
-                        required: "Пожалуйста введите дату окончания",
-                    },
+                    // end_at: {
+                    //     required: "Пожалуйста, введите дату окончания",
+                    // },
                 },
             });
 
@@ -1091,13 +1090,13 @@
                 },
                 messages: {
                     description: {
-                        required: "Пожалуйста введите описание",
+                        required: "Пожалуйста, введите описание",
                     },
                     start_at: {
-                        required: "Пожалуйста введите дату начала",
+                        required: "Пожалуйста, введите дату начала",
                     },
                     end_at: {
-                        required: "Пожалуйста введите дату окончания",
+                        required: "Пожалуйста, введите дату окончания",
                     },
                 },
             });
@@ -1336,28 +1335,28 @@
                 },
                 messages: {
                     firstname: {
-                        required: "Пожалуйста введите имя",
+                        required: "Пожалуйста, введите имя",
                     },
                     lastname: {
-                        required: "Пожалуйста введите фамилию",
+                        required: "Пожалуйста, введите фамилию",
                     },
                     patronimyc: {
-                        required: "Пожалуйста введите отчество",
+                        required: "Пожалуйста, введите отчество",
                     },
                     gender: {
-                        required: "Пожалуйста выберете пол",
+                        required: "Пожалуйста, выберете пол",
                     },
                     role: {
-                        required: "Пожалуйста введите кем приходится",
+                        required: "Пожалуйста, введите кем приходится",
                     },
                     birthday: {
-                        required: "Пожалуйста введите дату рождения",
+                        required: "Пожалуйста, введите дату рождения",
                     },
                     phone: {
-                        required: "Пожалуйста введите номер телефона",
+                        required: "Пожалуйста, введите номер телефона",
                     },
                     // about: {
-                    //     required: "Пожалуйста введите ",
+                    //     required: "Пожалуйста, введите ",
                     // },
                 },
             });
@@ -1409,7 +1408,7 @@
                 },
                 messages: {
                     content: {
-                        required: "Пожалуйста введите содержимое",
+                        required: "Пожалуйста, введите содержимое",
                     }
                 },
             });

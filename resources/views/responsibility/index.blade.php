@@ -66,12 +66,12 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="form-group">
-                            <label>Наименование</label>
+                            <label>Название</label>
                             <input name="name" class="form-control" placeholder="Команата №2">
                         </div>
                         <div class="form-group">
                             <label>Описание</label>
-                            <textarea name="about" class="form-control summernote" placeholder="Мебель, пол, дверь"></textarea>
+                            <textarea name="about" rows="6" class="form-control summernote" placeholder="В обязанности входит поддержание порядка в комнате - порядок в шкафчиках резидентов, натертые зеркала, политы цветы"></textarea>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -99,12 +99,12 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="form-group">
-                            <label>Наименование</label>
+                            <label>Название</label>
                             <input name="name" class="form-control" placeholder="Команата №2">
                         </div>
                         <div class="form-group">
                             <label>Описание</label>
-                            <textarea name="about" class="form-control summernote" placeholder="Мебель, пол, дверь"></textarea>
+                            <textarea name="about" rows="6" class="form-control summernote" placeholder="В обязанности входит поддержание порядка в комнате - порядок в шкафчиках резидентов, натертые зеркала, политы цветы"></textarea>
                         </div>
                     </div>
                     <!-- /.card-body -->

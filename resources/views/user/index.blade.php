@@ -50,23 +50,23 @@
                             </div>
                             <div class="form-group">
                                 <label for="user-create-firstname">Имя</label>
-                                <input name="firstname" type="text" class="form-control" id="user-create-firstname" placeholder="Имя">
+                                <input name="firstname" type="text" class="form-control" id="user-create-firstname" placeholder="Иван">
                             </div>
                             <div class="form-group">
                                 <label for="user-create-lastname">Фамилия</label>
-                                <input name="lastname" type="text" class="form-control" id="user-create-lastname" placeholder="Фамилия">
+                                <input name="lastname" type="text" class="form-control" id="user-create-lastname" placeholder="Иванов">
                             </div>
                             <div class="form-group">
                                 <label for="user-create-patronymic">Отчество</label>
-                                <input name="patronymic" type="text" class="form-control" id="user-create-patronymic" placeholder="Отчество">
+                                <input name="patronymic" type="text" class="form-control" id="user-create-patronymic" placeholder="Иванович">
                             </div>
                             <div class="form-group">
-                                <label for="user-create-role">Роль</label>
+                                <label for="user-create-role">Должность</label>
                                 <input name="role" type="text" class="form-control" id="user-create-role" placeholder="консультант">
                             </div>
                             <div class="form-group">
                                 <label for="user-create-phone">Телефон</label>
-                                <input name="phone" type="text" class="form-control" id="user-create-phone" placeholder="+3546734454">
+                                <input name="phone" type="text" class="form-control" id="user-create-phone" placeholder="+380123456789">
                             </div>
                         </div>
                         <!-- /.card-body -->

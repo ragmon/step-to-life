@@ -92,11 +92,11 @@
                             <hr>
                             <div class="form-group">
                                 <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="Что меня сюда привело?">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-sum">Описание</label>
-                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Убрать дом"></textarea>
+                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Описать причины, факторы, мотивы которые заставили меня приехать в РЦ."></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Дата начала:</label>
@@ -184,11 +184,11 @@
                             <hr>
                             <div class="form-group">
                                 <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="Что меня сюда привело?">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-sum">Описание</label>
-                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Убрать дом"></textarea>
+                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Описать причины, факторы, мотивы которые заставили меня приехать в РЦ."></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Дата начала:</label>

@@ -231,12 +231,12 @@
                                 <input name="patronymic" type="text" class="form-control" id="user-edit-patronymic" placeholder="Отчество">
                             </div>
                             <div class="form-group">
-                                <label for="user-edit-role">Роль</label>
+                                <label for="user-edit-role">Должность</label>
                                 <input name="role" type="text" class="form-control" id="user-edit-role" placeholder="консультант">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-phone">Телефон</label>
-                                <input name="phone" type="text" class="form-control" id="user-edit-phone" placeholder="+3546734454">
+                                <input name="phone" type="text" class="form-control" id="user-edit-phone" placeholder="+380123456789">
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -412,11 +412,11 @@
                             <hr>
                             <div class="form-group">
                                 <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="Что меня сюда привело?">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-sum">Описание</label>
-                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Убрать дом"></textarea>
+                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Описать причины, факторы, мотивы которые заставили меня приехать в РЦ."></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Дата начала:</label>
@@ -504,11 +504,11 @@
                             <hr>
                             <div class="form-group">
                                 <label for="user-edit-description">Заголовок</label>
-                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="курение в кабинете">
+                                <input name="title" type="text" class="form-control" id="user-edit-description" placeholder="Что меня сюда привело?">
                             </div>
                             <div class="form-group">
                                 <label for="user-edit-sum">Описание</label>
-                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Убрать дом"></textarea>
+                                <textarea name="description" class="form-control" id="user-edit-sum" placeholder="Описать причины, факторы, мотивы которые заставили меня приехать в РЦ."></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Дата начала:</label>
