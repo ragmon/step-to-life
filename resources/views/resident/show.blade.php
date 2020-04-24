@@ -142,18 +142,21 @@
                 <thead>
                 <tr>
                     <th>Название</th>
+                    <td>Описание</td>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($resident->responsibilities as $responsibility)
                     <tr>
                         <td>{{ $responsibility->name }}</td>
+                        <td>{{ $responsibility->about }}</td>
                     </tr>
                 @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
                     <th>Название</th>
+                    <td>Описание</td>
                 </tr>
                 </tfoot>
             </table>
