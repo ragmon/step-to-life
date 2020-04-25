@@ -6,6 +6,7 @@ use App\Task;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Collection;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
@@ -47,16 +48,15 @@ class NewTask extends Notification implements ShouldQueue
      */
     public function toTelegram($notifiable)
     {
-        $toResidents = $this->task->residents->implode('fullname', ', ');
-        $toUsers = $this->task->users->implode('fullname', ', ');
+        $toResidents = $this->implodeRecipients($this->task->residents, '*Резидентам:* ', 'fullname');
+        $toUsers = $this->implodeRecipients($this->task->users, '*Сотрудникам:* ', 'fullname');
 
         return TelegramMessage::create()
             ->to($notifiable->routeNotificationFor(TelegramChannel::class))
             ->content(<<<EOF
 *Добавлено задание*
 
-*Резидентам:* $toResidents.
-*Сотрудникам:* $toUsers.
+{$toResidents}{$toUsers}
 *Дата начала:* {$this->task->start_at->format('d.m.Y')}
 *Дата окончания:* {$this->task->end_at->format('d.m.Y')}
 
@@ -66,6 +66,23 @@ class NewTask extends Notification implements ShouldQueue
 EOF
                 )
             ->button('Подробнее', $this->task->link);
+    }
+
+    /**
+     * Implode recipients with prefix.
+     *
+     * @param Collection $collection
+     * @param string $prefix
+     * @param string $key
+     * @param string $glue
+     * @return string
+     */
+    private function implodeRecipients($collection, $prefix, $key, $glue = ', ')
+    {
+        if ($collection && $collection->count() > 0) {
+            return $prefix . $collection->implode($key, $glue) . "\n";
+        } else
+            return '';
     }
 
     /**
