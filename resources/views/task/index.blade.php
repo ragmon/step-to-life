@@ -32,8 +32,8 @@
                 @foreach($tasks as $task)
                     <tr>
                         <td><a href="{{ route('tasks.show', [$task->id]) }}">{{ $task->title }}</a></td>
-                        <td>{{ $task->start_at ?? '-' }}</td>
-                        <td>{{ $task->end_at ?? '-' }}</td>
+                        <td>{{ $task->start_at ? $task->start_at->format('d.m.Y') : '-' }}</td>
+                        <td>{{ $task->end_at ? $task->end_at->format('d.m.Y') : '-' }}</td>
                         <td class="text-right">
                             <button class="btn btn-primary btn-sm btn-task-edit" onclick="editTask({{ $task->id }})"><i class="fas fa-lg fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm btn-task-delete" onclick="deleteTask({{ $task->id }})"><i class="fas fa-lg fa-trash"></i></button>

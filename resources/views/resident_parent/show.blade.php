@@ -32,7 +32,7 @@
             <ul class="ml-0 mb-0 fa-ul text-muted mb-2">
                 <li>Пол: {{ $parent->gender_title }}</li>
                 <li>Телефон: <a href="tel:{{ $parent->phone }}">{{ $parent->phone }}</a></li>
-                <li>Дата рождения: {{ $parent->birthday }}</li>
+                <li>Дата рождения: {{ $parent->birthday ? $parent->birthday->format('d.m.Y') : '-' }}</li>
                 <li>О родственике: {{ $parent->about }}</li>
             </ul>
         </div>

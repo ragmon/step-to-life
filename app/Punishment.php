@@ -36,6 +36,13 @@ class Punishment extends Model
     protected $fillable = ['description', 'user_id', 'to_resident_id', 'start_at', 'end_at', 'finished_at'];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['start_at', 'end_at', 'finished_at'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

@@ -32,7 +32,7 @@
                     @foreach($rules as $rule)
                         <tr>
                             <td><a href="{{ route('rules.show', [$rule->id]) }}">{{ $rule->title }}</a></td>
-                            <td>{{ $rule->created_at }}</td>
+                            <td>{{ $rule->created_at->format('d.m.Y H:i:s') }}</td>
                         </tr>
                     @endforeach
                     </tbody>

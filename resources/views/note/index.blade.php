@@ -29,7 +29,7 @@
                                 @endif
                                 <a class="float-right btn-tool" onclick="deleteNote({{ $note->id }})"><i class="fas fa-times"></i></a>
                             </span>
-                            <span class="description ml-0">{{ $note->created_at }}</span>
+                            <span class="description ml-0">{{ $note->created_at->format('d.m.Y H:i:s') }}</span>
                         </div>
                         <!-- /.user-block -->
                         <div class="note-content">

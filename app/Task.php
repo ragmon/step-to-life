@@ -38,6 +38,13 @@ class Task extends Model
     protected $fillable = ['user_id', 'title', 'description', 'start_at', 'end_at'];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['start_at', 'end_at'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function taskable()

@@ -25,8 +25,8 @@
             <ul class="ml-0 mb-0 fa-ul text-muted mb-2">
                 <li>Статус: {{ $resident->status }}</li>
                 <li>Пол: {{ $resident->gender_title }}</li>
-                <li>День рождения: {{ $resident->birthday }}</li>
-                <li>Дата регистрации: {{ $resident->registered_at }}</li>
+                <li>День рождения: {{ $resident->birthday->format('d.m.Y') }}</li>
+                <li>Дата регистрации: {{ $resident->registered_at->format('d.m.Y') }}</li>
                 <li>Источник поступления: {{ $resident->source }}</li>
                 <li>О резиденте: {{ $resident->about }}</li>
             </ul>
@@ -103,9 +103,9 @@
                 @foreach($resident->punishments as $punishment)
                     <tr>
                         <td>{{ $punishment->description }}</td>
-                        <td>{{ $punishment->start_at }}</td>
-                        <td>{{ $punishment->end_at }}</td>
-                        <td>{{ $punishment->finished_at }}</td>
+                        <td>{{ $punishment->start_at ? $punishment->start_at->format('d.m.Y') : '-' }}</td>
+                        <td>{{ $punishment->end_at ? $punishment->end_at->format('d.m.Y') : '-' }}</td>
+                        <td>{{ $punishment->finished_at ? $punishment->finished_at->format('d.m.Y') : '-' }}</td>
                         <td class="text-right">
                             <button class="btn btn-success btn-sm btn-punishment-finished" onclick="finishPunishment({{ $resident->id }}, {{ $punishment->id }})"><i class="fas fa-lg fa-check-circle"></i></button>
                             <button class="btn btn-primary btn-sm btn-punishment-edit" onclick="editPunishment({{ $resident->id }}, {{ $punishment->id }})"><i class="fas fa-lg fa-edit"></i></button>
@@ -255,7 +255,7 @@
                                 @endif
                                 <a class="float-right btn-tool" onclick="deleteNote({{ $resident->id }}, {{ $note->id }})"><i class="fas fa-times"></i></a>
                             </span>
-                            <span class="description ml-0">{{ $note->created_at }}</span>
+                            <span class="description ml-0">{{ $note->created_at->format('d.m.Y H:i:s') }}</span>
                         </div>
                         <!-- /.user-block -->
                         <p>

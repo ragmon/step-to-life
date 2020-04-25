@@ -42,9 +42,9 @@
                         <td>
                             {{ $punishment->description }}
                         </td>
-                        <td>{{ $punishment->start_at }}</td>
-                        <td>{{ $punishment->end_at }}</td>
-                        <td>{{ $punishment->finished_at }}</td>
+                        <td>{{ $punishment->start_at ? $punishment->start_at->format('d.m.Y') : '-' }}</td>
+                        <td>{{ $punishment->end_at ? $punishment->end_at->format('d.m.Y') : '-' }}</td>
+                        <td>{{ $punishment->finished_at ? $punishment->finished_at->format('d.m.Y') : '-' }}</td>
                     </tr>
                 @endforeach
                 </tbody>

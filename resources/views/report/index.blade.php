@@ -32,7 +32,7 @@
                     @foreach($reports as $report)
                         <tr>
                             <td><a href="{{ route('reports.show', [$report->id]) }}">{{ $report->title }}</a></td>
-                            <td>{{ $report->created_at }}</td>
+                            <td>{{ $report->created_at->format('d.m.Y H:i:s') }}</td>
                         </tr>
                     @endforeach
                     </tbody>

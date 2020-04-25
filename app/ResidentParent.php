@@ -40,6 +40,13 @@ class ResidentParent extends Model
     protected $fillable = ['firstname', 'lastname', 'patronimyc', 'gender', 'role', 'birthday', 'phone', 'about'];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['birthday'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function resident()

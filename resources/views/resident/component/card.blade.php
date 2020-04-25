@@ -9,7 +9,7 @@
                     <h2 class="lead"><b>{{ $resident->fullname }}</b></h2>
                     <ul class="ml-0 mb-0 fa-ul text-muted">
                         <li class="small"> Пол: {{ $resident->gender_title }}</li>
-                        <li class="small"> День рождения: {{ $resident->birthday }}</li>
+                        <li class="small"> День рождения: {{ $resident->birthday->format('d.m.Y') }}</li>
                     </ul>
                 </div>
             </div>
