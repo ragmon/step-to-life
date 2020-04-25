@@ -3,7 +3,7 @@
 return [
 
     'telegram' => [
-        'on' => false,
+        'on' => true,
         'chat_id' => env('TELEGRAM_CHAT_ID'),
     ]
 

@@ -57,10 +57,9 @@ class NewDoctorAppointment extends Notification implements ShouldQueue
 *Врач:* {$this->doctorAppointment->doctor}
 *Препарат:* {$this->doctorAppointment->drug}
 *Схема приёма:* {$this->doctorAppointment->reception_schedule}
-
-*Подробнее:* {$this->doctorAppointment->resident->link}
 EOF
-            );
+            )
+            ->button('Подробнее', $this->doctorAppointment->resident->link);
     }
 
     /**

@@ -54,13 +54,12 @@ class StoredPunishment extends Notification implements ShouldQueue
 
 *Выдал:* {$this->punishment->user->fullname}
 *Резиденту:* {$this->punishment->resident->fullname}
-*Дата начала:* {$this->punishment->start_at}
-*Дата завершения:* {$this->punishment->finished_at}
+*Дата начала:* {$this->punishment->start_at->format('d.m.Y')}
+*Дата завершения:* {$this->punishment->end_at->format('d.m.Y')}
 *Описание:* {$this->punishment->description}
-
-*Подробнее:* {$this->punishment->resident->link}
 EOF
-);
+)
+            ->button('Подробнее', $this->punishment->resident->link);
     }
 
     /**

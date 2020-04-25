@@ -55,10 +55,9 @@ class UserFined extends Notification implements ShouldQueue
 *Сотрудник:* {$this->fine->user->fullname}
 *Описание:* {$this->fine->description}
 *Сумма:* {$this->fine->sum}
-
-*Подробнее* {$this->fine->user->link}
 EOF
-);
+)
+            ->button('Подробнее', $this->fine->user->link);
     }
 
     /**

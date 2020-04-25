@@ -59,10 +59,9 @@ class ParentCreated extends Notification implements ShouldQueue
 *Дата рождения:* {$this->parent->birthday}
 *Телефон:* {$this->parent->phone}
 *Дополнительная информация:* {$this->parent->about}
-
-*Подробнее:* {$this->parent->link}
 EOF
-);
+                )
+            ->button('Подробнее', $this->parent->link);
     }
 
     /**

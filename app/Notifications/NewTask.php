@@ -57,16 +57,15 @@ class NewTask extends Notification implements ShouldQueue
 
 *Резидентам:* $toResidents.
 *Сотрудникам:* $toUsers.
-*Дата начала:* {$this->task->start_at}
-*Дата окончания:* {$this->task->end_at}
+*Дата начала:* {$this->task->start_at->format('d.m.Y')}
+*Дата окончания:* {$this->task->end_at->format('d.m.Y')}
 
 *{$this->task->title}*
 
 {$this->task->description}
-
-*Подробнее:* {$this->task->link}
 EOF
-                );
+                )
+            ->button('Подробнее', $this->task->link);
     }
 
     /**
