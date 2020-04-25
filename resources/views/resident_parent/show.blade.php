@@ -50,25 +50,29 @@
                 </div>
             </div>
 
-            @foreach($parent->notes as $note)
-                <div class="post">
-                    <div class="user-block">
-                        <span class="username ml-0">
-                            @if ($note->user)
-                                <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
-                            @else
-                                <span>Пользователь удалён</span>
-                            @endif
-                            <a class="float-right btn-tool" onclick="deleteNote({{ $parent->id }}, {{ $note->id }})"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description ml-0">{{ $note->created_at }}</span>
+            @if ($parent->notes->count() > 0)
+                @foreach($parent->notes as $note)
+                    <div class="post">
+                        <div class="user-block">
+                            <span class="username ml-0">
+                                @if ($note->user)
+                                    <a href="{{ route('users.show', [$note->user->id]) }}">{{ $note->user->fullname }}</a>
+                                @else
+                                    <span>Пользователь удалён</span>
+                                @endif
+                                <a class="float-right btn-tool" onclick="deleteNote({{ $parent->id }}, {{ $note->id }})"><i class="fas fa-times"></i></a>
+                            </span>
+                            <span class="description ml-0">{{ $note->created_at }}</span>
+                        </div>
+                        <!-- /.user-block -->
+                        <p>
+                            {{ $note->content }}
+                        </p>
                     </div>
-                    <!-- /.user-block -->
-                    <p>
-                        {{ $note->content }}
-                    </p>
-                </div>
-            @endforeach
+                @endforeach
+            @else
+                <p class="text-center">Информация отсутствует</p>
+            @endif
         </div>
 {{--        <div class="card-footer text-center">--}}
 {{--            <a href="#">Показать все</a>--}}
