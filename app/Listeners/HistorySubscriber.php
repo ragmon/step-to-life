@@ -41,7 +41,9 @@ class HistorySubscriber
                 'Создано назначение врача для <a href="%s">%s</a>',
                 $event->doctorAppointment->resident->link,
                 $event->doctorAppointment->resident->fullname
-            )
+            ),
+            'fas fa-user-md',
+            'info'
         );
 
         $this->sendNotify(new NewDoctorAppointmentNotification($event->doctorAppointment));
@@ -55,7 +57,13 @@ class HistorySubscriber
     public function handleNewNote(NewNote $event)
     {
         $this->createEvent(
-            sprintf('Добавлена заметка для <a href="%s">%s</a>', $event->note->notable->link, $event->note->notable->fullname)
+            sprintf(
+                'Добавлена заметка для <a href="%s">%s</a>',
+                $event->note->notable->link,
+                $event->note->notable->fullname
+            ),
+            'far fa-sticky-note',
+            'yellow'
         );
 
         $this->sendNotify(new NewNoteNotification($event->note));
@@ -69,7 +77,13 @@ class HistorySubscriber
     public function handleNewTask(NewTask $event)
     {
         $this->createEvent(
-            sprintf('Создано задание <a href="%s">%s</a>', $event->task->link, $event->task->title)
+            sprintf(
+                'Создано задание <a href="%s">%s</a>',
+                $event->task->link,
+                $event->task->title
+            ),
+            'fas fa-fw fa-tasks',
+            'indigo'
         );
 
         $this->sendNotify(new NewTaskNotification($event->task));
@@ -83,7 +97,13 @@ class HistorySubscriber
     public function handleResidentCreated(ResidentCreated $event)
     {
         $this->createEvent(
-            sprintf('Создан резидент <a href="%s">%s</a>', $event->resident->link, $event->resident->fullname)
+            sprintf(
+                'Создан резидент <a href="%s">%s</a>',
+                $event->resident->link,
+                $event->resident->fullname
+            ),
+            'fas fa-fw fa-users',
+            'olive'
         );
 
         $this->sendNotify(new ResidentCreatedNotification($event->resident));
@@ -101,7 +121,9 @@ class HistorySubscriber
                 'Выдано взыскание для <a href="%s">%s</a>',
                 $event->punishment->resident->link,
                 $event->punishment->resident->fullname
-            )
+            ),
+            'fas fa-fw fa-burn',
+            'red'
         );
 
         $this->sendNotify(new StoredPunishmentNotification($event->punishment));
@@ -119,7 +141,9 @@ class HistorySubscriber
                 'Выдан штраф для <a href="%s">%s</a>',
                 $event->fine->user->link,
                 $event->fine->user->fullname
-            )
+            ),
+            'fas fa-hand-holding-usd',
+            'red'
         );
 
         $this->sendNotify(new UserFinedNotification($event->fine));
@@ -139,7 +163,9 @@ class HistorySubscriber
                 $event->parent->fullname,
                 $event->parent->resident->link,
                 $event->parent->resident->fullname
-            )
+            ),
+            'fas fa-fw fa-user-friends',
+            'success disabled'
         );
 
         $this->sendNotify(new ParentCreatedNotification($event->parent));
@@ -162,7 +188,7 @@ class HistorySubscriber
      */
     protected function sendNotify($notification)
     {
-        if ($telegramChatId = config('notifications.telegram.chat_id')) {
+        if (config('notifications.telegram.on') && $telegramChatId = config('notifications.telegram.chat_id')) {
             Notification::route(TelegramChannel::class, $telegramChatId)
                 ->notify($notification);
         }
@@ -172,15 +198,17 @@ class HistorySubscriber
      * Create history event entry.
      *
      * @param $description
-     * @param $icon
+     * @param string $icon
+     * @param string $color
      * @return Event|\Illuminate\Database\Eloquent\Model
      */
-    protected function createEvent($description, $icon = 'history')
+    protected function createEvent($description, $icon = 'history', $color = 'blue')
     {
         return $this->user()->events()->create([
             'title' => sprintf('<a href="%s">%s</a>', $this->user()->link, $this->user()->fullname),
             'description' => $description,
             'icon' => $icon,
+            'color' => $color,
         ]);
     }
 

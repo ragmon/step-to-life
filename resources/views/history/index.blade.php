@@ -20,7 +20,7 @@
             @foreach($_events as $event)
                 <!-- timeline item -->
                 <div>
-                    <i class="fas fa-{{ $event->icon }} bg-blue"></i>
+                    <i class="{{ $event->icon }} bg-{{ $event->color }}"></i>
                     <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> {{ $event->created_at }}</span>
                         <h3 class="timeline-header">{!! $event->title !!}</h3>

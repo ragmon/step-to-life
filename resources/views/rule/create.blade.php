@@ -47,7 +47,10 @@
                 return false;
             });
 
-            $('.summernote').summernote();
+            $('.summernote').summernote({
+                height: 300,
+                lang: 'ru-RU'
+            });
         });
     </script>
 @stop

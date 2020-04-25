@@ -26,7 +26,7 @@ class Event extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'icon'];
+    protected $fillable = ['title', 'description', 'icon', 'color'];
 
     /**
      * Get publish at attribute value.

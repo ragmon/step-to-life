@@ -405,6 +405,11 @@ return [
                     'asset' => false,
                     'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js',
                 ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/summernote/summernote-ru-RU.js'
+                ],
             ],
         ],
         // https://jqueryvalidation.org/

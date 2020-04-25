@@ -113,7 +113,7 @@ class User extends Authenticatable
      */
     public function getFullnameAttribute()
     {
-        return "$this->firstname $this->lastname $this->patronymic";
+        return "$this->lastname $this->firstname $this->patronymic";
     }
 
     /**

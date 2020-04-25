@@ -63,7 +63,7 @@ class ResidentParent extends Model
      */
     public function getFullnameAttribute()
     {
-        return "{$this->attributes['firstname']} {$this->attributes['lastname']} {$this->attributes['patronimyc']}";
+        return "$this->lastname $this->firstname $this->patronimyc";
     }
 
     /**

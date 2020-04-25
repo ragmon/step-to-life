@@ -47,6 +47,7 @@ class NewNote extends Notification implements ShouldQueue
      */
     public function toTelegram($notifiable)
     {
+//        dd($this->note->notable->link);
         return TelegramMessage::create()
             ->to($notifiable->routeNotificationFor(TelegramChannel::class))
             ->content(<<<EOF
@@ -60,7 +61,8 @@ class NewNote extends Notification implements ShouldQueue
 
 *Подробнее:* {$this->note->notable->link}
 EOF
-            );
+            )
+            ->button('Подробнее', 'http://192.168.0.105/residents/1');
     }
 
     /**

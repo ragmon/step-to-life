@@ -44,7 +44,7 @@
                     <button class="btn btn-success btn-sm" type="button" onclick="createDoctorAppointment({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i></button>
                 </div>
             </div>
-            <table id="doctor-appointment" class="table table-bordered table-hover dataTable dtr-inline collapsed">
+            <table id="doctor-appointment" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>Врач</th>
@@ -282,7 +282,7 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="form-group">
-                            <label>Доктор</label>
+                            <label>Врач</label>
                             <input name="doctor" type="text" class="form-control" placeholder="Иван Михалыч">
                         </div>
                         <div class="form-group">
@@ -320,7 +320,7 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="form-group">
-                            <label>Доктор</label>
+                            <label>Врач</label>
                             <input name="doctor" type="text" class="form-control" placeholder="Иван Михалыч">
                         </div>
                         <div class="form-group">
@@ -389,11 +389,11 @@
                             <textarea name="description" class="form-control" placeholder="не выключил свет в туалете"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Дата начала</label>
+                            <label>Дата выдачи</label>
                             <input name="start_at" type="date" class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label>Дата завершения</label>
+                            <label>Дата окончания</label>
                             <input name="end_at" type="date" class="form-control" placeholder="">
                         </div>
                     </div>
@@ -427,11 +427,11 @@
                             <textarea name="description" class="form-control" placeholder="не выключил свет в туалете"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Дата начала</label>
+                            <label>Дата выдачи</label>
                             <input name="start_at" type="date" class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label>Дата завершения</label>
+                            <label>Дата окончания</label>
                             <input name="end_at" type="date" class="form-control" placeholder="">
                         </div>
                     </div>
@@ -1044,9 +1044,9 @@
                     start_at: {
                         required: "Пожалуйста, введите дату начала",
                     },
-                    // end_at: {
-                    //     required: "Пожалуйста, введите дату окончания",
-                    // },
+                    end_at: {
+                        required: "Пожалуйста, введите дату окончания",
+                    },
                 },
             });
 
@@ -1514,6 +1514,7 @@
                 "lengthChange": false,
                 "searching": false,
                 "ordering": true,
+                "order": [[1, "desc"]],
                 "info": false,
                 "autoWidth": false,
                 "responsive": true,

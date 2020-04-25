@@ -24,6 +24,7 @@
                 <thead>
                 <tr>
                     <th>Название</th>
+                    <th>Описание</th>
                     <td>Функция</td>
                 </tr>
                 </thead>
@@ -31,6 +32,7 @@
                 @foreach($responsibilities as $responsibility)
                     <tr>
                         <td>{{ $responsibility->name }}</td>
+                        <td>{{ $responsibility->about }}</td>
                         <td class="text-right">
                             <button class="btn btn-primary btn-sm btn-responsibility-edit" onclick="editResponsibility({{ $responsibility->id }})"><i class="fas fa-lg fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm btn-responsibility-delete" onclick="deleteResponsibility({{ $responsibility->id }})"><i class="fas fa-lg fa-trash"></i></button>
@@ -41,6 +43,7 @@
                 <tfoot>
                 <tr>
                     <th>Название</th>
+                    <th>Описание</th>
                     <td>Функция</td>
                 </tr>
                 </tfoot>
@@ -223,19 +226,19 @@
             });
 
             // Datatables initializations
-            // $('#responsibilities').DataTable({
-            //     "paging": true,
-            //     "lengthChange": false,
-            //     "searching": false,
-            //     "ordering": true,
-            //     "info": false,
-            //     "autoWidth": false,
-            //     "responsive": true,
-            //     "scrollX" : true,
-            //     "language": {
-            //         "url": "/datatable/Russian.json"
-            //     }
-            // });
+            $('#responsibilities').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": false,
+                "autoWidth": false,
+                "responsive": true,
+                "scrollX" : true,
+                "language": {
+                    "url": "/datatable/Russian.json"
+                }
+            });
         });
     </script>
 @stop
