@@ -46,7 +46,7 @@
                     <h2 class="lead">Заметки</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createNote({{ $parent->id }})"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createNote({{ $parent->id }})"><i class="fas fa-lg fa-plus"></i> Создать</button>
                 </div>
             </div>
 

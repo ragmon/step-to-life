@@ -83,7 +83,7 @@
                     <h2 class="lead">Штрафы</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" onclick="createFine({{ $user->id }})"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="createFine({{ $user->id }})"><i class="fas fa-lg fa-plus"></i> Выдать</button>
                 </div>
             </div>
 
@@ -126,7 +126,7 @@
                     <h2 class="lead">Задания</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createTask()"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createTask()"><i class="fas fa-lg fa-plus"></i> Создать</button>
                 </div>
             </div>
             <table id="tasks" class="table table-bordered table-striped">
@@ -170,7 +170,7 @@
                 </div>
                 <div class="col-6 text-right">
                     @if (Auth::id() == $user->id)
-                        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i></a>
+                        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm"><i class="fas fa-lg fa-plus"></i> Создать</a>
                     @endif
                 </div>
             </div>

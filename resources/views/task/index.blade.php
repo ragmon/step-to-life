@@ -9,7 +9,7 @@
             <h1>Задания</h1>
         </div>
         <div class="col-6 text-right">
-            <button class="btn btn-success btn-sm" type="button" onclick="createTask()"><i class="fas fa-lg fa-plus"></i></button>
+            <button class="btn btn-success btn-sm" type="button" onclick="createTask()"><i class="fas fa-lg fa-plus"></i> Создать</button>
         </div>
     </div>
 

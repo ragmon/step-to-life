@@ -46,15 +46,11 @@
             <div class="task-description">
                 {!! $task->description !!}
             </div>
-            <ul class="ml-0 mb-0 fa-ul text-muted text-right">
-                <li class="small"> Дата создания: {{ $task->created_at }}</li>
-                <li class="small"> Дата начала: {{ $task->start_at }}</li>
-                <li class="small"> Дата завершения: {{ $task->end_at }}</li>
+            <ul class="ml-0 mb-0 mt-2 fa-ul text-muted">
+                <li class="small"> Дата создания: {{ $task->created_at->format('d.m.Y') }}</li>
+                <li class="small"> Дата начала: {{ $task->start_at->format('d.m.Y') }}</li>
+                <li class="small"> Дата завершения: {{ $task->end_at->format('d.m.Y') }}</li>
             </ul>
         </div>
-{{--        <div class="card-footer text-right">--}}
-{{--            <a class="btn btn-primary" href="{{ route('reports.edit', [$report->id]) }}">Редактировать</a>--}}
-{{--            <button class="btn btn-danger" type="button" onclick="deleteReport({{ $report->id }})">Удалить</button>--}}
-{{--        </div>--}}
     </div>
 @stop
