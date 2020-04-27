@@ -208,11 +208,6 @@ return [
     */
 
     'menu' => [
-//        [
-//            'text'        => 'Главная',
-//            'url'         => 'home',
-//            'icon'        => 'fas fa-fw fa-home',
-//        ],
         [
             'text'        => 'Резиденты',
             'url'         => 'residents',
@@ -244,16 +239,6 @@ return [
             'icon'        => 'fas fa-fw fa-people-carry',
         ],
         [
-            'text'        => 'Архив',
-            'url'         => 'archive',
-            'icon'        => 'fas fa-fw fa-archive',
-        ],
-        [
-            'text'        => 'История',
-            'url'         => 'history',
-            'icon'        => 'fas fa-fw fa-history',
-        ],
-        [
             'text'        => 'Заметки',
             'url'         => 'notes',
             'icon'        => 'fas fa-fw fa-sticky-note',
@@ -264,9 +249,24 @@ return [
             'icon'        => 'fas fa-fw fa-file-alt',
         ],
         [
+            'text'        => 'Рабочие моменты',
+            'url'         => 'working_moments',
+            'icon'        => 'fas fa-fw fa-briefcase',
+        ],
+        [
             'text'        => 'Правила РЦ',
             'url'         => 'rules',
             'icon'        => 'fas fa-fw fa-file',
+        ],
+        [
+            'text'        => 'Архив',
+            'url'         => 'archive',
+            'icon'        => 'fas fa-fw fa-archive',
+        ],
+        [
+            'text'        => 'История',
+            'url'         => 'history',
+            'icon'        => 'fas fa-fw fa-history',
         ],
         ['header' => 'account_settings'],
         [
