@@ -50,6 +50,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // Fix for 419 Page Expired
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+            return redirect('/login');
+        }
+
         return parent::render($request, $exception);
     }
 }
