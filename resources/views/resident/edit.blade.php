@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 text-right">
-                    <button class="btn btn-success" type="submit">Создать</button>
+                    <button class="btn btn-success" type="submit">Редактировать</button>
                 </div>
             </div>
         </div>
