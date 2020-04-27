@@ -66,7 +66,9 @@
         dataType : 'json',
         error : function (jqXHR, textStatus) {
             console.log(jqXHR);
-            alert(`Ошибка #${jqXHR.status}`);
+            if (status) {
+                alert(`Ошибка #${jqXHR.status}`);
+            }
         }
     });
 

@@ -194,6 +194,8 @@
                         location.reload();
                     }
                 });
+
+                return false;
             });
 
             $modalResponsibilityEdit.submit(function () {
