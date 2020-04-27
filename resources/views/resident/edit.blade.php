@@ -14,14 +14,14 @@
             <div class="row">
                 <div class="col-md-6 col-xl-3">
                     <div class="form-group">
-                        <label>Имя</label>
-                        <input class="form-control" name="firstname" type="text" value="{{ $resident->firstname }}" placeholder="Иван">
+                        <label>Фамилия</label>
+                        <input class="form-control" name="lastname" type="text" value="{{ $resident->lastname }}" placeholder="Иванов">
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-3">
                     <div class="form-group">
-                        <label>Фамилия</label>
-                        <input class="form-control" name="lastname" type="text" value="{{ $resident->lastname }}" placeholder="Иванов">
+                        <label>Имя</label>
+                        <input class="form-control" name="firstname" type="text" value="{{ $resident->firstname }}" placeholder="Иван">
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-3">
