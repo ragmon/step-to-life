@@ -9,6 +9,7 @@
         </div>
         <div class="col-md-6">
             <div class="text-right">
+                <a href="{{ route('residents.edit', [$resident->id]) }}" class="btn btn-primary">Редактировать</a>
                 <button type="button" class="btn btn-warning" onclick="toArchive({{ $resident->id }})">В архив</button>
             </div>
         </div>
@@ -41,7 +42,7 @@
                     <h2 class="lead">Назначения врачей</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createDoctorAppointment({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createDoctorAppointment({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i> Создать</button>
                 </div>
             </div>
             <table id="doctor-appointment" class="table table-bordered table-striped">
@@ -135,7 +136,7 @@
                     <h2 class="lead">Обязанности</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-primary btn-sm" type="button" onclick="editResponsibilities({{ $resident->id }})"><i class="fas fa-lg fa-edit"></i></button>
+                    <button class="btn btn-primary btn-sm" type="button" onclick="editResponsibilities({{ $resident->id }})"><i class="fas fa-lg fa-edit"></i> Редактировать</button>
                 </div>
             </div>
             <table id="responsibilities" class="table table-bordered table-striped">
@@ -171,7 +172,7 @@
                     <h2 class="lead">Задания</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createTask()"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createTask()"><i class="fas fa-lg fa-plus"></i> Создать</button>
                 </div>
             </div>
             @if ($resident->tasks->count() > 0)
@@ -218,7 +219,7 @@
                     <h2 class="lead">Родственики</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createParent({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createParent({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i> Создать</button>
                 </div>
             </div>
             @if ($resident->parents->count() > 0)
@@ -239,7 +240,7 @@
                     <h2 class="lead">Заметки</h2>
                 </div>
                 <div class="col-6 text-right">
-                    <button class="btn btn-success btn-sm" type="button" onclick="createNote({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i></button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="createNote({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i> Создать</button>
                 </div>
             </div>
 
@@ -762,7 +763,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-success">Редактировать</button>
+                    <button type="submit" class="btn btn-success">Создать</button>
                 </div>
             </div>
             <!-- /.modal-content -->

@@ -126,15 +126,15 @@ class Resident extends Model
         return $this->attributes['gender'] ? 'мужской' : 'женский';
     }
 
-    /**
-     * Get balance attribute value.
-     *
-     * @return string
-     */
-    public function getBalanceAttribute()
-    {
-        return "{$this->attributes['balance']} грн";
-    }
+//    /**
+//     * Get balance attribute value.
+//     *
+//     * @return string
+//     */
+//    public function getBalanceAttribute()
+//    {
+//        return "{$this->attributes['balance']} грн";
+//    }
 
     /**
      * Get status attribute value.

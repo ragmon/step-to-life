@@ -83,6 +83,12 @@ Breadcrumbs::for('resident.show', function ($trail, $resident) {
     $trail->push($resident->fullname, route('residents.show', [$resident->id]));
 });
 
+// Home > Resident > [resident] > Edit
+Breadcrumbs::for('resident.edit', function ($trail, $resident) {
+    $trail->parent('resident.show', $resident);
+    $trail->push('Редактирование резидента', route('residents.edit', [$resident->id]));
+});
+
 // Home > Responsibilities
 Breadcrumbs::for('responsibility.index', function ($trail) {
     $trail->parent('home');

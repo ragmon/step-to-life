@@ -49,7 +49,6 @@ class ResidentController extends Controller
             'lastname' => 'required',
             'patronymic' => 'required',
             'gender' => 'required',
-//            'phone' => 'required',
             'birthday' => 'required|date',
             'registered_at' => 'required|date',
             'about' => 'nullable',
@@ -92,7 +91,7 @@ class ResidentController extends Controller
      */
     public function edit(Resident $resident)
     {
-        //
+        return response()->view('resident.edit', compact('resident'));
     }
 
     /**
@@ -100,11 +99,26 @@ class ResidentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Resident  $resident
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Resident $resident)
     {
-        //
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'patronymic' => 'required',
+            'gender' => 'required',
+            'birthday' => 'required|date',
+            'registered_at' => 'required|date',
+            'about' => 'nullable',
+            'source' => 'required',
+            'balance' => 'required',
+            'status' => 'boolean',
+        ]);
+
+        $resident->update($request->all());
+
+        return response()->json($resident->toArray());
     }
 
     /**

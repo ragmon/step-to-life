@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['namespace' => 'Resident'], function () {
-        Route::resource('residents', 'ResidentController')->except(['edit', 'update']);
+        Route::resource('residents', 'ResidentController');
         Route::resource('residents.doctor_appointment', 'DoctorAppointmentController')->except(['index', 'create', 'edit']);
         Route::resource('residents.parents', 'ParentController')->only(['store']);
         Route::resource('residents.punishments', 'PunishmentController')->except(['index', 'create', 'edit']);
