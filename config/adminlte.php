@@ -259,14 +259,14 @@ return [
             'icon'        => 'fas fa-fw fa-file',
         ],
         [
-            'text'        => 'Архив',
-            'url'         => 'archive',
-            'icon'        => 'fas fa-fw fa-archive',
-        ],
-        [
             'text'        => 'История',
             'url'         => 'history',
             'icon'        => 'fas fa-fw fa-history',
+        ],
+        [
+            'text'        => 'Архив',
+            'url'         => 'archive',
+            'icon'        => 'fas fa-fw fa-archive',
         ],
         ['header' => 'account_settings'],
         [
