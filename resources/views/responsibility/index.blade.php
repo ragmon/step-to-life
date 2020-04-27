@@ -70,7 +70,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Название</label>
-                            <input name="name" class="form-control" placeholder="Команата №2">
+                            <input name="name" class="form-control" placeholder="Комната №2">
                         </div>
                         <div class="form-group">
                             <label>Описание</label>
