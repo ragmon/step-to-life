@@ -214,7 +214,7 @@ return [
             'icon'        => 'fas fa-fw fa-users',
         ],
         [
-            'text'        => 'Родственики',
+            'text'        => 'Родственники',
             'url'         => 'parents',
             'icon'        => 'fas fa-fw fa-user-friends',
         ],
