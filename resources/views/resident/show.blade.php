@@ -51,6 +51,7 @@
                     <th>Врач</th>
                     <th>Препарат</th>
                     <th>Схема приёма</th>
+                    <th>Дата создания</th>
                     <th>Функция</th>
                 </tr>
                 </thead>
@@ -60,6 +61,7 @@
                         <td>{{ $doctorAppointment->doctor }}</td>
                         <td>{{ $doctorAppointment->drug }}</td>
                         <td>{{ $doctorAppointment->reception_schedule }}</td>
+                        <td>{{ $doctorAppointment->created_at->format('d.m.Y') }}</td>
                         <td class="text-right">
                             <button class="btn btn-primary btn-sm btn-doctor-appointment-edit" onclick="editDoctorAppointment({{ $doctorAppointment->id }}, {{ $resident->id }})"><i class="fas fa-lg fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm btn-doctor-appointment-delete" onclick="deleteDoctorAppointment({{ $doctorAppointment->id }}, {{ $resident->id }})"><i class="fas fa-lg fa-trash"></i></button>
@@ -72,6 +74,7 @@
                     <th>Врач</th>
                     <th>Препарат</th>
                     <th>Схема приёма</th>
+                    <th>Дата создания</th>
                     <th>Функция</th>
                 </tr>
                 </tfoot>
@@ -284,11 +287,11 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Врач</label>
-                            <input name="doctor" type="text" class="form-control" placeholder="Иван Михалыч">
+                            <input name="doctor" type="text" class="form-control" placeholder="ФИО">
                         </div>
                         <div class="form-group">
                             <label>Препарат</label>
-                            <input name="drug" type="text" class="form-control" placeholder="респалепт">
+                            <input name="drug" type="text" class="form-control" placeholder="рисполепт">
                         </div>
                         <div class="form-group">
                             <label>Схема приёма</label>
@@ -1570,6 +1573,7 @@
                 "lengthChange": false,
                 "searching": false,
                 "ordering": true,
+                "order" : [[3, "desc"]],
                 "info": false,
                 "autoWidth": false,
                 "responsive": true,
