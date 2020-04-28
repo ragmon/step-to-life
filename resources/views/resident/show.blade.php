@@ -214,12 +214,12 @@
         </div>
     </div>
 
-    <!-- Родственики -->
+    <!-- Родственники -->
     <div class="card bg-light w-100">
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-6">
-                    <h2 class="lead">Родственики</h2>
+                    <h2 class="lead">Родственники</h2>
                 </div>
                 <div class="col-6 text-right">
                     <button class="btn btn-success btn-sm" type="button" onclick="createParent({{ $resident->id }})"><i class="fas fa-lg fa-plus"></i> Создать</button>
@@ -714,7 +714,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Создание родственика</h4>
+                    <h4 class="modal-title">Создание родственника</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
