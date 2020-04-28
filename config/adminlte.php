@@ -249,8 +249,8 @@ return [
             'icon'        => 'fas fa-fw fa-file-alt',
         ],
         [
-            'text'        => 'Рабочие моменты',
-            'url'         => 'working_moments',
+            'text'        => 'Должностные инструкции',
+            'url'         => 'job_descriptions',
             'icon'        => 'fas fa-fw fa-briefcase',
         ],
         [
