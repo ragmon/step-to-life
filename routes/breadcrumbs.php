@@ -148,3 +148,27 @@ Breadcrumbs::for('history.index', function ($trail) {
     $trail->parent('home');
     $trail->push('История', route('history.index'));
 });
+
+// Home > Job descriptions
+Breadcrumbs::for('job_description.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Должностные инструкции', route('job_descriptions.index'));
+});
+
+// Home > Job descriptions > Create
+Breadcrumbs::for('job_description.create', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Создание должностной инструкции', route('job_descriptions.create'));
+});
+
+// Home > Job description > [jobDescription]
+Breadcrumbs::for('job_description.show', function ($trail, $jobDescription) {
+    $trail->parent('job_description.index');
+    $trail->push($jobDescription->title, route('job_descriptions.show', [$jobDescription->id]));
+});
+
+// Home > Job description > [jobDescription] > Edit
+Breadcrumbs::for('job_description.edit', function ($trail, $jobDescription) {
+    $trail->parent('job_description.index');
+    $trail->push($jobDescription->title, route('job_descriptions.show', [$jobDescription->id]));
+});

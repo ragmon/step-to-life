@@ -59,4 +59,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('archive', 'ArchiveController')->only(['index', 'show', 'update']);
     Route::resource('parents', 'ParentController')->except(['create', 'store', 'edit']);
     Route::resource('history', 'HistoryController')->only(['index']);
+    Route::resource('job_descriptions', 'JobDescriptionController');
 });
